@@ -5,9 +5,10 @@ BASELIB := ./lib/ft-baselib
 CFLAGS	:= -Wextra -Wall -Werror -g
 HEADERS := -I ./include -I ${BASELIB}/include
 
+SRC_DEMO := map_mocks.c
 SRC_PARSER := parser/validator.c parser/map_init.c
 SRC_MAIN := main.c
-SRCS := $(SRC_MAIN) $(SRC_PARSER)
+SRCS := $(SRC_MAIN) $(SRC_PARSER) $(SRC_DEMO)
 
 OBJS := ${addprefix src/, ${SRCS:.c=.o}}
 LIBS := ${BASELIB}/baselib.a

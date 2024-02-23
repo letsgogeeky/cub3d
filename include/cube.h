@@ -1,6 +1,9 @@
 #ifndef CUBE_H
 # define CUBE_H
 
+# include "baselib.h"
+# include <stdbool.h>
+
 typedef struct s_texture
 {
 	char	*path;
@@ -24,4 +27,7 @@ typedef struct s_map
 	char 				**map;
 }		t_map;
 
+int		validate(t_map *map);
+t_map	*mock_map_with_spaces_invalid();
+t_map	*mock_base_map_valid();
 #endif
