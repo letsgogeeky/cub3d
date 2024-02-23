@@ -52,24 +52,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-### C++ ###
-# Prerequisites
-
-# Compiled Object files
-*.slo
-
-# Precompiled Headers
-
-# Compiled Dynamic libraries
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-
-# Executables
 
 ### macOS ###
 # General
@@ -107,7 +89,7 @@ Temporary Items
 ## misc
 .vscode/
 build/
-fractol
+./cub3d
 lib/MLX42/
 test.c
 lib
