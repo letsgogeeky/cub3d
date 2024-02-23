@@ -1,6 +1,8 @@
 #ifndef CUBE_H
 # define CUBE_H
 
+# include "baselib.h"
+
 typedef struct s_texture
 {
 	char	*path;
@@ -8,12 +10,13 @@ typedef struct s_texture
 
 typedef struct s_color
 {
+	char	*str_color;
 	int		red;
 	int		green;
 	int		blue;
 }		t_color;
 
-typedef struct s_map
+typedef struct s_map // every element is allocated and has to be freed if failure occures
 {
 	struct t_texture	*north_texture;
 	struct t_texture	*south_texture;
