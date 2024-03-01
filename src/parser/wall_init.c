@@ -1,4 +1,4 @@
-
+#include "../../include/cube.h"
 
 void	fill_var_map(int flag, char *ptr, t_map *m) // do the following spaces (if existing) need to be trimmed?
 {
@@ -21,6 +21,7 @@ void	set_var_map(t_map *m, char *ptr)
 	int	i;
 	int	flag;
 
+	flag = 0;
 	if (ft_strncmp(ptr, "NO ", 3) == 0)
 		flag = 1;
 	else if (ft_strncmp(ptr, "SO ", 3) == 0)
@@ -33,6 +34,8 @@ void	set_var_map(t_map *m, char *ptr)
 		flag = 5;
 	else if (ft_strncmp(ptr, "C ", 2) == 0)
 		flag = 6;
+	if (flag == 0)
+		return ;
 	if (flag == 5 || flag == 6)
 		i = 1;
 	else
@@ -40,7 +43,7 @@ void	set_var_map(t_map *m, char *ptr)
 	while (ptr[i] == ' ')
 		i++;
 	ptr = &ptr[i];
-	fill_var_map(flag, ptr);
+	fill_var_map(flag, ptr, m);
 }
 
 void	free_walls(t_map *m) // eine Ebene fehlt ->path und ->alle Farben

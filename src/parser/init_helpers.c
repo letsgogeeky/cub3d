@@ -1,11 +1,12 @@
+#include "../../include/cube.h"
 
-void	ft_prerr(char *srt, char *argv)
+void	ft_prerr(char *str, char *argv)
 {
 	int	i;
 
 	i = 0;
 	if (str == NULL)
-		return (0);
+		return ;
 	while (str[i] != '\0')
 		write(2, &str[i++], 1);
 	if (argv != NULL)
@@ -17,33 +18,34 @@ void	ft_prerr(char *srt, char *argv)
 	write(2, "\n", 1);
 }
 
-void	zero_map_struct(t_map *m)
+int	zero_map_struct(t_map *m)
 {
-	m->north_texture = ft_calloc(sizeof(t_texture));
+	m->north_texture = ft_calloc(1, sizeof(t_texture));
 	if (m->north_texture == NULL)
 		return (1);
 	m->north_texture->path = NULL;
-	m->south_texture = ft_calloc(sizeof(t_texture));
+	m->south_texture = ft_calloc(1, sizeof(t_texture));
 	if (m->south_texture == NULL)
 		return (1);
 	m->south_texture->path = NULL;
-	m->west_texture = ft_calloc(sizeof(t_texture));
+	m->west_texture = ft_calloc(1, sizeof(t_texture));
 	if (m->west_texture == NULL)
 		return (1);
 	m->west_texture->path = NULL;
-	m->east_texture = ft_calloc(sizeof(t_texture));
+	m->east_texture = ft_calloc(1, sizeof(t_texture));
 	if (m->east_texture == NULL)
 		return (1);
 	m->east_texture->path = NULL;
-	m->floor_color = ft_calloc(sizeof(t_color));
+	m->floor_color = ft_calloc(1, sizeof(t_color));
 	if (m->floor_color == NULL)
 		return (1);
 	m->floor_color->str_color = NULL;
-	m->ceiling_color = ft_calloc(sizeof(t_color));
+	m->ceiling_color = ft_calloc(1, sizeof(t_color));
 	if (m->ceiling_color == NULL)
 		return (1);
 	m->ceiling_color->str_color = NULL;
 	m->map = NULL;
+	return (0);
 }
 
 void	free_map_struct(t_map *m)

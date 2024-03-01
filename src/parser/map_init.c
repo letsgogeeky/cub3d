@@ -29,7 +29,8 @@ int	fill_map(t_map *m, int fd, int rows, int max_length)
 	m->map = ft_calloc((rows + 1), sizeof(char));
 	if (m->map == NULL)
 		return (1);
-	while (find_start_map(tmp) != 0)
+	tmp = get_next_line(fd);
+	while (tmp != NULL && find_start_map(tmp) != 0)
 		tmp = get_next_line(fd);
 	while (i < rows && tmp != NULL)
 	{
@@ -49,7 +50,7 @@ int	fill_map(t_map *m, int fd, int rows, int max_length)
 	return (0);
 }
 
-int	parse_map(int fd, t_map *m, char *tmp, char argv)
+int	parse_map(int fd, t_map *m, char *tmp, char *argv)
 {
 	int		rows;
 	int		max_length;
@@ -65,9 +66,10 @@ int	parse_map(int fd, t_map *m, char *tmp, char argv)
 	}
 	close(fd);
 	fd = open(argv, O_RDONLY);
-	if (fill_map(m->map, fd, rows, max_length) != 0)
+	if (fill_map(m, fd, rows, max_length) != 0)
 		return (1);
 	close(fd);
+	test_parsing(m, rows);
 	return (0);
 }
 
@@ -75,15 +77,15 @@ t_map	*parse(int fd, char *argv)
 {
 	t_map	*m;
 	char	*tmp;
-
-	ret = 0;
+	m = ft_calloc(1, sizeof(t_map *));
+	tmp = NULL;
 	if (zero_map_struct(m) != 0)
-		return (ft_prerr("struct init didnt work", NULL) 1);
+		return (ft_prerr("struct init didnt work", NULL), NULL);
 	tmp = parse_walls(fd, m); //map starts at tmp if everything worked right
 	if (check_all_arg(m) != 0)
-		return(free_map_struct(m), ft_prerr("invalid map", NULL), 1);
+		return(free_map_struct(m), ft_prerr("invalid map", NULL), NULL);
 	if (parse_map(fd, m, tmp, argv) != 0)
-		return(free_map_struct(m), ft_prerr("pasing of map failed", NULL), 1);
+		return(free_map_struct(m), ft_prerr("pasing of map failed", NULL), NULL);
 	return (m);
 }
 
