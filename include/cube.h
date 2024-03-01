@@ -28,9 +28,6 @@ typedef struct s_map
 }		t_map;
 
 int		validate(t_map *map);
-t_map	*mock_map_with_spaces_invalid();
-t_map	*mock_base_map_valid();
-t_map	*mock_map_shifted_section_valid();
-t_map	*mock_map_shifted_section_invalid();
+void	test_with_mocks();
 
 #endif

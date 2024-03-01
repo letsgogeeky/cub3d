@@ -121,27 +121,26 @@ bool	valid_with_surrounding(char *line, char *prev, char *next, char ignore)
 
 int	validate(t_map *map)
 {
-	int	rows_count;
-	int	cols_count;
+	int		rows;
+	int		cols;
+	char	**grid;
 
-	rows_count = str_arr_len(map->map);
-	cols_count = ft_strlen(map->map[0]);
-	ft_printf("rows: %d, cols: %d\n", rows_count, cols_count);
-	if (rows_count < 3 || cols_count < 3)
+	grid = map->map;
+	rows = str_arr_len(grid);
+	cols = ft_strlen(grid[0]);
+	ft_printf("rows: %d, cols: %d\n", rows, cols);
+	if (rows < 3 || cols < 3)
 		return (0);
-	if (!all_ones(map->map[0], ' ') || !all_ones(map->map[rows_count - 1], ' '))
+	if (!all_ones(grid[0], ' ') || !all_ones(grid[rows - 1], ' '))
 		return (0);
-	rows_count -= 2;
-	while (rows_count > 0)
+	rows -= 2;
+	while (rows > 0)
 	{
-		if (!surrounded_by_wall(map->map[rows_count] , ' '))
+		if (!surrounded_by_wall(grid[rows] , ' '))
 			return (0);
-		if (!valid_with_surrounding(map->map[rows_count], map->map[rows_count - 1], map->map[rows_count + 1], ' '))
-		{
-			ft_printf("invalid with surrounding\n");
+		if (!valid_with_surrounding(grid[rows], grid[rows - 1], grid[rows + 1], ' '))
 			return (0);
-		}
-		rows_count--;
+		rows--;
 	}
 	return (1);
 }
