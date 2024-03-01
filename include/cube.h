@@ -54,5 +54,6 @@ void	free_map_struct(t_map *m);
 int		set_max_len(char *str, int max);
 int		find_start_map(char *str);
 int		check_all_arg(t_map *m);
+void	free_map_struct2(t_map *m);
 
 #endif

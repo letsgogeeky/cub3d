@@ -85,8 +85,10 @@ int	parse_map(int fd, t_map *m, char *tmp, char *argv)
 	}
 	close(fd);
 	fd = open(argv, O_RDONLY);
-	if (fill_map(m, fd, rows, max_length) != 0)
+	if (fd < 0)
 		return (1);
+	if (fill_map(m, fd, rows, max_length) != 0)
+		return (close(fd), 1);
 	close(fd);
 	test_parsing(m, rows);
 	return (0);
@@ -101,11 +103,20 @@ t_map	*parse(t_map *m, int fd, char *argv)
 		return (free_map_struct(m), ft_prerr("struct init didnt work", NULL), NULL);
 	tmp = parse_walls(fd, m); //map starts at tmp if everything worked right
 	if (check_all_arg(m) != 0)
-		return(free_map_struct(m), free (tmp), ft_prerr("invalid map", NULL), NULL);
+	{
+		//printf("next%s\n", tmp);
+		if (tmp != NULL)
+			free(tmp);
+		tmp = NULL;
+		//printf("next%s\n", tmp);
+		return(close(fd), free_map_struct2(m), ft_prerr("invalid map", NULL), NULL);
+
+	}
 	if (parse_map(fd, m, tmp, argv) != 0)
 		return(free_map_struct(m), ft_prerr("parsing of map failed", NULL), NULL);
 	return (m);
 }
+
 
 int main(int ac, char **argv)
 {
@@ -124,5 +135,6 @@ int main(int ac, char **argv)
 	else
 		return (ft_prerr("wrong amount of arguments", NULL), 1);
 	free_map_struct(m);
+	
 	return (0);
 }

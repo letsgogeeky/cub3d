@@ -69,5 +69,6 @@ char *parse_walls(int fd, t_map *m)
 		free(tmp);
 		tmp = get_next_line(fd);
 	}
+	//printf("tmp:%s\n", tmp);
 	return (tmp);
 }

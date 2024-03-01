@@ -94,6 +94,25 @@ void	free_map_struct(t_map *m)
 	free(m);
 }
 
+void	free_map_struct2(t_map *m)
+{
+
+	free_walls(m);
+	if (m->north_texture != NULL)
+		free(m->north_texture);
+	if (m->south_texture != NULL)
+		free(m->south_texture);
+	if (m->west_texture != NULL)
+		free(m->west_texture);
+	if (m->east_texture != NULL)
+		free(m->east_texture);
+	if (m->ceiling_color != NULL)
+		free(m->ceiling_color);
+	if (m->floor_color != NULL)
+		free(m->floor_color);
+	free(m);
+}
+
 int	set_max_len(char *str, int max)
 {
 	int	i;
