@@ -50,25 +50,24 @@ int	zero_map_struct(t_map *m)
 
 void	free_walls(t_map *m)
 {
-	if (m->north_texture != NULL)
+	if (m->north_texture->path != NULL)
 		free(m->north_texture->path);
-	m->north_texture = NULL;
-	if (m->south_texture != NULL)
+	m->north_texture->path = NULL;
+	if (m->south_texture->path != NULL)
 		free(m->south_texture->path);
-	m->south_texture = NULL;
-	if (m->west_texture != NULL)
+	m->south_texture->path = NULL;
+	if (m->west_texture->path != NULL)
 		free(m->west_texture->path);
-	m->west_texture = NULL;
-	if (m->east_texture != NULL)
+	m->west_texture->path = NULL;
+	if (m->east_texture->path != NULL)
 		free(m->east_texture->path);
-	m->east_texture = NULL;
-	if (m->floor_color != NULL)
+	m->east_texture->path = NULL;
+	if (m->floor_color->str_color != NULL)
 		free(m->floor_color->str_color);
 	m->floor_color->str_color = NULL;
-	if (m->ceiling_color != NULL)
+	if (m->ceiling_color->str_color != NULL)
 		free(m->ceiling_color->str_color);
 	m->ceiling_color->str_color = NULL;
-	//zero_map_struct(m);
 }
 
 void	free_map_struct(t_map *m)
@@ -90,7 +89,7 @@ void	free_map_struct(t_map *m)
 	if (m->floor_color != NULL)
 		free(m->floor_color);
 	while (m->map[i] != NULL)
-		free(m->map[i]);
+		free(m->map[i++]);
 	free(m->map);
 	free(m);
 }
