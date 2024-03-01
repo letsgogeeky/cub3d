@@ -2,6 +2,7 @@
 
 void	fill_var_map(int flag, char *ptr, t_map *m) // do the following spaces (if existing) need to be trimmed?
 {
+	// printf("PTR2: %s \n", ptr);
 	if (flag == 1)
 	{
 		m->north_texture->path = ft_strdup(ptr);
@@ -32,6 +33,7 @@ void	fill_var_map(int flag, char *ptr, t_map *m) // do the following spaces (if 
 		m->ceiling_color->str_color = ft_strdup(ptr);
 		// printf("fillvarmap ceiling %s\n", m->ceiling_color->str_color);
 	}
+	// printf("PTR3: %s \n", ptr);
 }
 
 void	set_var_map(t_map *m, char *ptr)
@@ -58,11 +60,11 @@ void	set_var_map(t_map *m, char *ptr)
 		i = 1;
 	else
 		i = 2;
-	// printf("Flag:%i i:%i\n", flag, i);
 	while (ptr[i] == ' ')
 		i++;
-	//printf("Flag:%i i:%i\n", flag, i);
+	// printf("PTR: %s \n", ptr);
 	ptr = &ptr[i];
+	//printf("PTR: %s \n", ptr);
 	fill_var_map(flag, ptr, m);
 }
 
@@ -100,7 +102,7 @@ char *parse_walls(int fd, t_map *m)
 		if (find_start_map(ptr) == 0)
 			break;
 		set_var_map(m, ptr);
-		free(tmp);
+		//free(tmp);
 		tmp = get_next_line(fd);
 		//printf("%s\n", tmp);
 		// if (m->north_texture->path != NULL)
@@ -117,6 +119,6 @@ char *parse_walls(int fd, t_map *m)
 		// 	printf("Ceiling: %s\n", m->ceiling_color->str_color);
 			//do i need to count here in any way?
 	}
-	test_wall(m);
+	//test_wall(m);
 	return (tmp);
 }
