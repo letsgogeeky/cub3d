@@ -2,38 +2,19 @@
 
 void	fill_var_map(int flag, char *ptr, t_map *m) // do the following spaces (if existing) need to be trimmed?
 {
-	// printf("PTR2: %s \n", ptr);
 	if (flag == 1)
-	{
 		m->north_texture->path = ft_strdup(ptr);
-		// printf("fillvarmap north %s\n", m->north_texture->path);
-	}
 	else if (flag == 2)
-	{
 		m->south_texture->path = ft_strdup(ptr);
-		// printf("fillvarmap south %s\n", m->south_texture->path);
-	}
 	else if (flag == 3)
-	{
 		m->west_texture->path = ft_strdup(ptr);
-		// printf("fillvarmap west %s\n", m->west_texture->path);
-	}
 	else if (flag == 4)
-	{
 		m->east_texture->path = ft_strdup(ptr);
-		// printf("fillvarmap east %s\n", m->east_texture->path);
-	}
 	else if (flag == 5)
-	{
 		m->floor_color->str_color = ft_strdup(ptr);
-		// printf("fillvarmap floor %s\n", m->floor_color->str_color);
-	}
 	else if (flag == 6)
-	{
 		m->ceiling_color->str_color = ft_strdup(ptr);
-		// printf("fillvarmap ceiling %s\n", m->ceiling_color->str_color);
-	}
-	// printf("PTR3: %s \n", ptr);
+
 }
 
 void	set_var_map(t_map *m, char *ptr)
@@ -62,9 +43,7 @@ void	set_var_map(t_map *m, char *ptr)
 		i = 2;
 	while (ptr[i] == ' ')
 		i++;
-	// printf("PTR: %s \n", ptr);
 	ptr = &ptr[i];
-	//printf("PTR: %s \n", ptr);
 	fill_var_map(flag, ptr, m);
 }
 
@@ -102,23 +81,7 @@ char *parse_walls(int fd, t_map *m)
 		if (find_start_map(ptr) == 0)
 			break;
 		set_var_map(m, ptr);
-		//free(tmp);
 		tmp = get_next_line(fd);
-		//printf("%s\n", tmp);
-		// if (m->north_texture->path != NULL)
-		// 	printf("North: %s\n", m->north_texture->path);
-		// if (m->south_texture->path != NULL)
-		// 	printf("South: %s\n", m->south_texture->path);
-		// if (m->west_texture->path != NULL)
-		// 	printf("West: %s\n", m->west_texture->path);
-		// if (m->east_texture->path != NULL)
-		// 	printf("East: %s\n", m->east_texture->path);
-		// if (m->floor_color->str_color != NULL)
-		// 	printf("Floor: %s\n", m->floor_color->str_color);
-		// if (m->ceiling_color->str_color != NULL)
-		// 	printf("Ceiling: %s\n", m->ceiling_color->str_color);
-			//do i need to count here in any way?
 	}
-	//test_wall(m);
 	return (tmp);
 }

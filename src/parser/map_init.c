@@ -10,18 +10,13 @@ void	set_char(int i, char *tmp, int max_length, t_map *m)
 	while (j < len)
 	{
 		m->map[i][j] = tmp[j];
-		//write(1, &m->map[i][j], 1);
 		j++;
 	}
 	while (j < max_length)
 	{
 		m->map[i][j] = ' ';
-		//write(1, &m->map[i][j], 1);
 		j++;
 	}
-	//write(1, "\n", 1);
-	//printf("test:%s\n", m->map[i]);
-	//free(tmp);
 }
 
 int	fill_map(t_map *m, int fd, int rows, int max_length)
@@ -36,17 +31,11 @@ int	fill_map(t_map *m, int fd, int rows, int max_length)
 	if (m->map == NULL)
 		return (1);
 	tmp = get_next_line(fd);
-	//printf("******test %s\n", tmp);
 	while (tmp != NULL && find_start_map(tmp) != 0)
-	{
 		tmp = get_next_line(fd);
-	//	printf("......test %s\n", tmp);
-	}
-	//printf("******test %s\n", tmp);
 	while (i < rows && tmp != NULL)
 	{
 		m->map[i] = ft_calloc((max_length + 1), sizeof(char));
-		// printf("+fill_map_loop %s %s\n", tmp, m->map[i]);
 		if (m->map[i] == NULL)
 		{
 			while (--i >= 0)
@@ -55,7 +44,6 @@ int	fill_map(t_map *m, int fd, int rows, int max_length)
 		}
 		set_char(i, tmp, max_length, m);
 		free(tmp);
-		// printf("-fill_map_loop %s %s\n", tmp, m->map[i]);
 		cnt++;
 		i++;
 		tmp = get_next_line(fd);
@@ -100,7 +88,6 @@ t_map	*parse(int fd, char *argv)
 	tmp = parse_walls(fd, m); //map starts at tmp if everything worked right
 	if (check_all_arg(m) != 0)
 		return(free_map_struct(m), ft_prerr("invalid map", NULL), NULL);
-	//printf("valid map\n\n\n\n");
 	if (parse_map(fd, m, tmp, argv) != 0)
 		return(free_map_struct(m), ft_prerr("parsing of map failed", NULL), NULL);
 	return (m);
