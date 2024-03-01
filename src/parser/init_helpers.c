@@ -72,15 +72,27 @@ int	set_max_len(char *str, int max)
 int	find_start_map(char *str)
 {
 	int	len;
+	int	flag;
 
 	len = ft_strlen(str);
+	flag = 0;
+	//printf("str in find_start_map len: %i || %s", len, str);
 	while (len > 0)
 	{
-		if (str[len] == ' ' || str[len] == '1' || str[len] == '0')
+		//printf("::%c::\n", str[len]);
+		if (str[len] == ' ' || str[len] == '\n' || str[len] == '\0')
 			len--;
+		else if (str[len] == '1' || str[len] == '0' || str[len] == 'N' || str[len] == 'O' || str[len] == 'S' || str[len] == 'W')
+		{
+			len--;
+			flag = 1;
+		}
 		else
-			return(-1);
+			return(1);
 	}
+	//printf("out\n");
+	if (flag == 0)
+		return (1); //es muss auf jeden Fall noch ueberprueft werden, ob nur ein Startfeld drin ist
 	return(0);
 }
 
