@@ -90,6 +90,7 @@ Temporary Items
 .vscode/
 build/
 ./cub3d
+cub3d
 lib/MLX42/
 test.c
 lib

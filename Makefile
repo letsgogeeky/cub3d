@@ -8,8 +8,9 @@ LDFLAGS := -ldl -lglfw -pthread -lm -fsanitize=address -flto -framework Cocoa -f
 HEADERS := -I ./include -I ${BASELIB}/include -I $(LIBMLX)/include
 
 SRC_PARSER := parser/validator.c parser/map_init.c
-SRC_MAIN := main.c
-SRCS := $(SRC_MAIN) $(SRC_PARSER)
+SRC_ENGINE := engine/caster/cast.c
+SRC_MAIN := main.c init.c
+SRCS := $(SRC_MAIN) $(SRC_PARSER) $(SRC_ENGINE)
 
 OBJS := ${addprefix src/, ${SRCS:.c=.o}}
 LIBS := $(LIBMLX)/build/libmlx42.a ${BASELIB}/baselib.a
