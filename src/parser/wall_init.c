@@ -61,7 +61,7 @@ void	free_walls(t_map *m)
 		free(m->floor_color->str_color);
 	if (m->ceiling_color != NULL)
 		free(m->ceiling_color->str_color);
-	zero_map_struct(m);
+	//zero_map_struct(m);
 }
 
 char *parse_walls(int fd, t_map *m)

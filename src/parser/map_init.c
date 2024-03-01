@@ -4,29 +4,43 @@ void	set_char(int i, char *tmp, int max_length, t_map *m)
 {
 	int			j;
 	int			len;
+	int			nl;
 
 	j = 0;
+	nl = 0;
 	len = ft_strlen(tmp);
 	while (j < len)
 	{
 		m->map[i][j] = tmp[j];
 		j++;
 	}
+	if (tmp[j] == '\n')
+	{
+		nl = 1;
+		j++;
+	}
+	else
+	{
+		m->map[i][j] = tmp[j];
+		j++;
+	}
+	if	(nl != 0)
+		max_length--;
 	while (j < max_length)
 	{
 		m->map[i][j] = ' ';
 		j++;
 	}
+	if (nl != 0)
+		m->map[i][j] = '\n';
 }
 
 int	fill_map(t_map *m, int fd, int rows, int max_length)
 {
 	int		i;
-	int		cnt;
 	char	*tmp;
 
 	i = 0;
-	cnt = 0;
 	m->map = ft_calloc((rows + 1), sizeof(char));
 	if (m->map == NULL)
 		return (1);
@@ -44,7 +58,6 @@ int	fill_map(t_map *m, int fd, int rows, int max_length)
 		}
 		set_char(i, tmp, max_length, m);
 		free(tmp);
-		cnt++;
 		i++;
 		tmp = get_next_line(fd);
 	}
@@ -62,7 +75,7 @@ int	parse_map(int fd, t_map *m, char *tmp, char *argv)
 	max_length = 0;
 	while (tmp != NULL)
 	{
-		rows++;
+		rows++; // what if space or newlines or 0 and 1 after newline at eof at the end of file? -> needs to be adjusted
 		max_length = set_max_len(tmp, max_length);
 		free(tmp);
 		tmp = get_next_line(fd);
@@ -76,12 +89,10 @@ int	parse_map(int fd, t_map *m, char *tmp, char *argv)
 	return (0);
 }
 
-t_map	*parse(int fd, char *argv)
+t_map	*parse(t_map *m, int fd, char *argv)
 {
-	t_map	*m;
 	char	*tmp;
 
-	m = ft_calloc(1, sizeof(t_map));
 	tmp = NULL;
 	if (zero_map_struct(m) != 0)
 		return (ft_prerr("struct init didnt work", NULL), NULL);
@@ -95,17 +106,20 @@ t_map	*parse(int fd, char *argv)
 
 int main(int ac, char **argv)
 {
+	t_map	*m;
 	int fd;
 
 	if (ac == 2)
 	{
+		m = ft_calloc(1, sizeof(t_map));
 		fd = open(argv[1], O_RDONLY);
 		if (fd < 0)
 			return (ft_prerr("invalid file descriptor", NULL), 1);
-		if (parse(fd, argv[1]) == NULL)
+		if (parse(m, fd, argv[1]) == NULL)
 			return (ft_prerr("parsing failed", NULL), 1);
 	}
 	else
 		return (ft_prerr("wrong amount of arguments", NULL), 1);
+	free_map_struct(m);
 	return (0);
 }
