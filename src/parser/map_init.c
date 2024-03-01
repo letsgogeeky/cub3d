@@ -38,6 +38,7 @@ void	set_char(int i, char *tmp, int max_length, t_map *m)
 int	fill_map(t_map *m, int fd, int rows, int max_length)
 {
 	int		i;
+	int		n;
 	char	*tmp;
 
 	i = 0;
@@ -46,19 +47,24 @@ int	fill_map(t_map *m, int fd, int rows, int max_length)
 		return (1);
 	tmp = get_next_line(fd);
 	while (tmp != NULL && find_start_map(tmp) != 0)
+	{
+		free(tmp);
 		tmp = get_next_line(fd);
+	}
 	while (i < rows && tmp != NULL)
 	{
-		m->map[i] = ft_calloc((max_length + 1), sizeof(char));
-		if (m->map[i] == NULL)
+		n = 0;
+		m->map[n] = ft_calloc((max_length + 1), sizeof(char));
+		if (m->map[n] == NULL)
 		{
-			while (--i >= 0)
-				free(m->map[i]);
-			return (free(m->map), m->map = NULL, 1);
+			while (--n >= 0)
+				free(m->map[n]);
+			return (free(m->map), free(tmp), m->map = NULL, tmp = NULL, 1);
 		}
-		set_char(i, tmp, max_length, m);
+		set_char(n, tmp, max_length, m);
 		free(tmp);
 		i++;
+		n++;
 		tmp = get_next_line(fd);
 	}
 	if (tmp == NULL && i != rows)
@@ -94,8 +100,8 @@ t_map	*parse(t_map *m, int fd, char *argv)
 	char	*tmp;
 
 	tmp = NULL;
-	if (zero_map_struct(m) != 0)
-		return (ft_prerr("struct init didnt work", NULL), NULL);
+	if (zero_map_struct(m) != 0) // nur bis zu bestimmter stelle freen (oder gegen null absichern)
+		return (free_map_struct(m), ft_prerr("struct init didnt work", NULL), NULL);
 	tmp = parse_walls(fd, m); //map starts at tmp if everything worked right
 	if (check_all_arg(m) != 0)
 		return(free_map_struct(m), ft_prerr("invalid map", NULL), NULL);

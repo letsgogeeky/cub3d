@@ -47,22 +47,7 @@ void	set_var_map(t_map *m, char *ptr)
 	fill_var_map(flag, ptr, m);
 }
 
-void	free_walls(t_map *m)
-{
-	if (m->north_texture != NULL)
-		free(m->north_texture->path);
-	if (m->south_texture != NULL)
-		free(m->south_texture->path);
-	if (m->west_texture != NULL)
-		free(m->west_texture->path);
-	if (m->east_texture != NULL)
-		free(m->east_texture->path);
-	if (m->floor_color != NULL)
-		free(m->floor_color->str_color);
-	if (m->ceiling_color != NULL)
-		free(m->ceiling_color->str_color);
-	//zero_map_struct(m);
-}
+
 
 char *parse_walls(int fd, t_map *m)
 {
@@ -81,6 +66,7 @@ char *parse_walls(int fd, t_map *m)
 		if (find_start_map(ptr) == 0)
 			break;
 		set_var_map(m, ptr);
+		free(tmp);
 		tmp = get_next_line(fd);
 	}
 	return (tmp);

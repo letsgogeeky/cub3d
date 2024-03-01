@@ -32,7 +32,7 @@ typedef struct s_map // every element is allocated and has to be freed if failur
 }		t_map;
 
 //map_init.c
-t_map	*parse(int fd, char *argv);
+t_map	*parse(t_map *m, int fd, char *argv);
 int		parse_map(int fd, t_map *m, char *tmp, char *argv);
 int		fill_map(t_map *m, int fd, int rows, int max_length);
 void	set_char(int i, char *tmp, int max_length, t_map *m);
