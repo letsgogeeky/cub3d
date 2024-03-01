@@ -1,6 +1,8 @@
 #ifndef CUBE_H
 # define CUBE_H
 
+# include "mlx42.h"
+
 typedef struct s_texture
 {
 	char	*path;
