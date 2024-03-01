@@ -84,7 +84,7 @@ t_map	*mock_base_map_valid()
 	map->map[5] = ft_strdup("100000000100011");
 	map->map[6] = ft_strdup("100000000000001");
 	map->map[7] = ft_strdup("100000000000001");
-	map->map[8] = ft_strdup("100000000000001");
+	map->map[8] = ft_strdup("1000000000W0001");
 	map->map[9] = ft_strdup("111111111111111");
 	map->map[10] = NULL;
 	return (map);
