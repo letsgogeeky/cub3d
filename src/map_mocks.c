@@ -113,7 +113,8 @@ void	test_with_mocks()
 		map = ((t_map *(*)(void))valid_mocks[i])();
 		int	result;
 		result = validate(map);
-
+		t_position player_position = get_player_position(map);
+		ft_printf("Player position: %d, %d, %s\n", player_position.x, player_position.y, direction_to_str(player_position.direction));
 		if (result == 1)
 		{
 			ft_printf("Test case passing... for map %d\n", i);
@@ -132,7 +133,8 @@ void	test_with_mocks()
 		map = ((t_map *(*)(void))invalid_mocks[i])();
 		int	result;
 		result = validate(map);
-
+		t_position player_position = get_player_position(map);
+		ft_printf("Player position: %d, %d, %s\n", player_position.x, player_position.y, direction_to_str(player_position.direction));
 		if (result == 0)
 		{
 			ft_printf("Test case passing... for map %d\n", i);

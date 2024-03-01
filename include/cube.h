@@ -43,7 +43,9 @@ typedef struct s_map
 	int					cols;
 }		t_map;
 
-int		validate(t_map *map);
-void	test_with_mocks();
+int			validate(t_map *map);
+t_position	get_player_position(t_map *map);
+char		*direction_to_str(enum e_direction direction);
+void		test_with_mocks();
 
 #endif
