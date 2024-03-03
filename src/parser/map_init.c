@@ -3,8 +3,8 @@
 void	set_char(int i, char *tmp, int max_length, t_map *m)
 {
 	int			j;
-	int			len;
 	int			nl;
+	int			len;
 
 	j = 0;
 	nl = 0;
@@ -14,23 +14,17 @@ void	set_char(int i, char *tmp, int max_length, t_map *m)
 		m->map[i][j] = tmp[j];
 		j++;
 	}
-	if (tmp[j] == '\n')
-	{
+	if (tmp[j++] == '\n')
 		nl = 1;
-		j++;
-	}
 	else
 	{
 		m->map[i][j] = tmp[j];
 		j++;
 	}
-	if	(nl != 0)
+	if (nl != 0)
 		max_length--;
 	while (j < max_length)
-	{
-		m->map[i][j] = ' ';
-		j++;
-	}
+		m->map[i][j++] = ' ';
 	if (nl != 0)
 		m->map[i][j] = '\n';
 }
@@ -60,8 +54,8 @@ int	fill_map(t_map *m, int fd, int rows, int max_length)
 			return (free(m->map), free(tmp), m->map = NULL, tmp = NULL, 1);
 		}
 		set_char(i, tmp, max_length, m);
-		free(tmp);
 		i++;
+		free(tmp);
 		tmp = get_next_line(fd);
 	}
 	if (tmp == NULL && i != rows)
@@ -100,7 +94,7 @@ t_map	*parse(t_map *m, int fd, char *argv)
 
 	tmp = NULL;
 	if (zero_map_struct(m) != 0)
-		return (free_map_struct(m), ft_prerr("struct init didnt work", NULL), NULL);
+		return (free_map_struct(m), ft_prerr(STRUCT_FAILED, NULL), NULL);
 	tmp = parse_walls(fd, m);
 	if (check_all_arg(m) != 0)
 	{
@@ -109,30 +103,29 @@ t_map	*parse(t_map *m, int fd, char *argv)
 			free(tmp);
 			tmp = get_next_line(fd);
 		}
-		return(close(fd), free_map_struct2(m), ft_prerr("invalid map", NULL), NULL);
+		return (close(fd), free_map_struct2(m), ft_prerr(INV_MAP, NULL), NULL);
 	}
 	if (parse_map(fd, m, tmp, argv) != 0)
-		return(free_map_struct(m), ft_prerr("parsing of map failed", NULL), NULL);
+		return (free_map_struct(m), ft_prerr(PARSING_MAP_FAILED, NULL), NULL);
 	return (m);
 }
 
-
-int main(int ac, char **argv)
+int	main(int ac, char **argv)
 {
 	t_map	*m;
-	int fd;
+	int		fd;
 
 	if (ac == 2)
 	{
 		m = ft_calloc(1, sizeof(t_map));
 		fd = open(argv[1], O_RDONLY);
 		if (fd < 0)
-			return (ft_prerr("invalid file descriptor", NULL), 1);
+			return (ft_prerr(INV_FD, NULL), 1);
 		if (parse(m, fd, argv[1]) == NULL)
-			return (ft_prerr("parsing failed", NULL), 1);
+			return (ft_prerr(PARSING_FAILED, NULL), 1);
 	}
 	else
-		return (ft_prerr("wrong amount of arguments", NULL), 1);
+		return (ft_prerr(WRONG_ARG, NULL), 1);
 	free_map_struct(m);
 	return (0);
 }
