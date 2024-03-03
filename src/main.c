@@ -1,9 +1,8 @@
 #include "cube.h"
 
-int	main(int argc, char **argv)
+int	main()
 {
-	(void)argc;
-	(void)argv;
+	test_with_mocks();
 	t_game	*game;
 
 	game = init_game();
