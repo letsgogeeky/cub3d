@@ -78,20 +78,31 @@ void	free_map_struct(t_map *m)
 	free_walls(m);
 	if (m->north_texture != NULL)
 		free(m->north_texture);
+	m->north_texture = NULL;
 	if (m->south_texture != NULL)
 		free(m->south_texture);
+	m->south_texture = NULL;
 	if (m->west_texture != NULL)
 		free(m->west_texture);
+	m->west_texture = NULL;
 	if (m->east_texture != NULL)
 		free(m->east_texture);
+	m->east_texture = NULL;
 	if (m->ceiling_color != NULL)
 		free(m->ceiling_color);
+	m->ceiling_color = NULL;
 	if (m->floor_color != NULL)
 		free(m->floor_color);
+	m->floor_color = NULL;
 	while (m->map[i] != NULL)
+	{
 		free(m->map[i++]);
+		m->map[i] = NULL;
+	}
 	free(m->map);
+	m->map = NULL;
 	free(m);
+	m = NULL;
 }
 
 void	free_map_struct2(t_map *m)
@@ -100,17 +111,24 @@ void	free_map_struct2(t_map *m)
 	free_walls(m);
 	if (m->north_texture != NULL)
 		free(m->north_texture);
+	m->north_texture = NULL;
 	if (m->south_texture != NULL)
 		free(m->south_texture);
+	m->south_texture = NULL;
 	if (m->west_texture != NULL)
 		free(m->west_texture);
+	m->west_texture = NULL;
 	if (m->east_texture != NULL)
 		free(m->east_texture);
+	m->east_texture = NULL;
 	if (m->ceiling_color != NULL)
 		free(m->ceiling_color);
+	m->ceiling_color = NULL;
 	if (m->floor_color != NULL)
 		free(m->floor_color);
+	m->floor_color = NULL;
 	free(m);
+	m = NULL;
 }
 
 int	set_max_len(char *str, int max)
