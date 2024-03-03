@@ -78,7 +78,7 @@ int	parse_map(int fd, t_map *m, char *tmp, char *argv)
 	max_length = 0;
 	while (tmp != NULL)
 	{
-		rows++; // what if space or newlines or 0 and 1 after newline at eof at the end of file? -> needs to be adjusted
+		rows++;
 		max_length = set_max_len(tmp, max_length);
 		free(tmp);
 		tmp = get_next_line(fd);
@@ -99,7 +99,7 @@ t_map	*parse(t_map *m, int fd, char *argv)
 	char	*tmp;
 
 	tmp = NULL;
-	if (zero_map_struct(m) != 0) // nur bis zu bestimmter stelle freen (oder gegen null absichern)
+	if (zero_map_struct(m) != 0)
 		return (free_map_struct(m), ft_prerr("struct init didnt work", NULL), NULL);
 	tmp = parse_walls(fd, m);
 	if (check_all_arg(m) != 0)
@@ -122,24 +122,17 @@ int main(int ac, char **argv)
 	t_map	*m;
 	int fd;
 
-	//system("leaks ./a.out");
 	if (ac == 2)
 	{
 		m = ft_calloc(1, sizeof(t_map));
 		fd = open(argv[1], O_RDONLY);
 		if (fd < 0)
-		{
-			//system("leaks ./a.out");
 			return (ft_prerr("invalid file descriptor", NULL), 1);
-		}
 		if (parse(m, fd, argv[1]) == NULL)
-		{
 			return (ft_prerr("parsing failed", NULL), 1);
-		}
 	}
 	else
 		return (ft_prerr("wrong amount of arguments", NULL), 1);
 	free_map_struct(m);
-	
 	return (0);
 }
