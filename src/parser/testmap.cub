@@ -5,9 +5,9 @@ EA     textures/soul_sand.xpm
 
 SO textures/soul_soil_01.xpm
 
-C 53,41,34
+C 53,  41,34
 
-F   45,33,27
+F   45, 33, 27
 
 WE textures/soul_soil.xpm
 
@@ -27,3 +27,5 @@ WE textures/soul_soil.xpm
 11111  1111111111
 
 000
+
+RGB

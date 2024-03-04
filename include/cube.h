@@ -98,6 +98,7 @@ void		test_wall(t_map *m);
 void		fill_var_map(int flag, char *ptr, t_map *m);
 void		set_var_map(t_map *m, char *ptr);
 char		*parse_walls(int fd, t_map *m);
+int			fill_color_struct(t_color *c);
 
 //init_helpers.c
 void		ft_prerr(char *str, char *argv);
