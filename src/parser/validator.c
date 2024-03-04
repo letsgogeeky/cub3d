@@ -12,9 +12,9 @@ bool	all_ones(char *line, char ignore)
 
 	to = ft_strlen(line) - 1;
 	i = 0;
-	while (line[i] == ignore)
+	while (line[i] && line[i] == ignore)
 		i++;
-	while (line[to] == ignore)
+	while (to >= 0 && line[to] == ignore)
 		to--;
 	while (line[i] && i <= to)
 	{

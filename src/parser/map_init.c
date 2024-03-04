@@ -8,29 +8,38 @@ void	set_char(int i, char *tmp, int max_length, t_map *m)
 
 	j = 0;
 	nl = 0;
-	len = ft_strlen(tmp);
+	len = ft_strlen(tmp) - 1;
 	while (j < len)
 	{
 		m->map[i][j] = tmp[j];
 		printf("-%c-", tmp[j]);
 		j++;
 	}
-	printf("|||||\n");
-	if (tmp[j] == '\n')
-		nl = 1;
-	else
+	if (tmp[j] != '\0')
 	{
-		m->map[i][j] = tmp[j];
-		printf("%c\n", tmp[j]);
+		if (tmp[j] == '\n')
+			m->map[i][j] = ' ';
+		else
+			m->map[i][j] = tmp[j];
 		j++;
 	}
-	if (nl != 0)
-		max_length--;
+	printf("|||||\n");
+	// if (tmp[j] == '\n')
+		// nl = 1;
+	// else
+	// {
+		// m->map[i][j] = tmp[j];
+		// printf("%c\n", tmp[j]);
+		// j++;
+	// }
+	// if (nl != 0)
+	// 	max_length--;
 	while (j < max_length)
 	{
-		printf("space\n");
+		printf("space ");
 		m->map[i][j++] = ' ';
 	}
+	printf("\n");
 	if (nl != 0)
 		m->map[i][j] = '\n';
 }
