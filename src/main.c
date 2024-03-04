@@ -31,6 +31,9 @@ int	main(int ac, char **argv)
 			return (ft_prerr(INV_FD, NULL), 1);
 		if (parse(m, fd, argv[1]) == NULL)
 			return (ft_prerr(PARSING_FAILED, NULL), 1);
+		printf("parsing done\n");
+		if (validate(m) == 0)
+			return (ft_prerr(INV_MAP, NULL), 1);
 	}
 	else
 		return (ft_prerr(WRONG_ARG, NULL), 1);
