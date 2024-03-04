@@ -21,6 +21,13 @@
 # define PARSING_FAILED "parsing failed"
 # define WRONG_ARG "wrong amount of arguments entered"
 
+enum e_symbol
+{
+	EMPTY = ' ',
+	WALL = '1',
+	SPACE = '0',
+};
+
 enum e_direction
 {
 	NORTH,
@@ -76,7 +83,9 @@ typedef struct s_game
 	t_graphics	*graphics;
 }		t_game;
 
-
+int			largest_of_three(int a, int b, int c);
+bool		valid_with_surrounding(char *line, char *prev, char *next, char ignore);
+bool		surrounded_by_wall(char *line, char ignore);
 int			validate(t_map *map);
 t_position	get_player_position(t_map *map);
 char		*direction_to_str(enum e_direction direction);

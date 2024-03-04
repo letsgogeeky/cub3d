@@ -34,6 +34,7 @@ int	main(int ac, char **argv)
 		printf("parsing done\n");
 		if (validate(m) == 0)
 			return (ft_prerr(INV_MAP, NULL), 1);
+		printf("validation done\n");
 	}
 	else
 		return (ft_prerr(WRONG_ARG, NULL), 1);
