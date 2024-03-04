@@ -24,6 +24,7 @@ bool	all_ones(char *line, char ignore)
 	}
 	return (true);
 }
+
 int	index_of_first_nonignore(char *line, char ignore)
 {
 	int	i;
@@ -69,6 +70,7 @@ int	largest_of_three(int a, int b, int c)
 		return (b);
 	return (c);
 }
+
 bool	valid_from_back(char *line, char *prev, char *next, char ignore)
 {
 	int	i;
@@ -88,6 +90,7 @@ bool	valid_from_back(char *line, char *prev, char *next, char ignore)
 	}
 	return (true);
 }
+
 bool	valid_from_front(char *line, char *prev, char *next, char ignore)
 {
 	int	i;

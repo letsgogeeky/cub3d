@@ -12,19 +12,25 @@ void	set_char(int i, char *tmp, int max_length, t_map *m)
 	while (j < len)
 	{
 		m->map[i][j] = tmp[j];
+		printf("-%c-", tmp[j]);
 		j++;
 	}
+	printf("|||||\n");
 	if (tmp[j] == '\n')
 		nl = 1;
 	else
 	{
 		m->map[i][j] = tmp[j];
+		printf("%c\n", tmp[j]);
 		j++;
 	}
 	if (nl != 0)
 		max_length--;
 	while (j < max_length)
+	{
+		printf("space\n");
 		m->map[i][j++] = ' ';
+	}
 	if (nl != 0)
 		m->map[i][j] = '\n';
 }
@@ -84,7 +90,7 @@ int	parse_map(int fd, t_map *m, char *tmp, char *argv)
 	if (fill_map(m, fd, rows, max_length) != 0)
 		return (close(fd), 1);
 	close(fd);
-	//test_parsing(m, rows);
+	test_parsing(m, rows);
 	return (0);
 }
 

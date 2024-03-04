@@ -22,6 +22,7 @@ t_game	*allocate()
 	}
 	return (game);
 }
+
 t_game	*init_game(void)
 {
 	t_game	*game;
