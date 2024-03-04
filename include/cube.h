@@ -8,7 +8,7 @@
 # include <string.h>
 # include <unistd.h>
 # include "MLX42/MLX42.h"
-# include "baselib.h"
+# include "../lib/ft-baselib/include/baselib.h"
 # include <stdbool.h>
 
 # define WIDTH 1366

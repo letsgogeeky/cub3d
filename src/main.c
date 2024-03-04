@@ -1,4 +1,4 @@
-#include "cube.h"
+// #include "cube.h"
 
 // int	main()
 // {
@@ -15,6 +15,8 @@
 // 	mlx_loop(game->graphics->mlx);
 // 	return (0);
 // }
+
+#include "../include/cube.h"
 
 int	main(int ac, char **argv)
 {

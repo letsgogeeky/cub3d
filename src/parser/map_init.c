@@ -14,7 +14,7 @@ void	set_char(int i, char *tmp, int max_length, t_map *m)
 		m->map[i][j] = tmp[j];
 		j++;
 	}
-	if (tmp[j++] == '\n')
+	if (tmp[j] == '\n')
 		nl = 1;
 	else
 	{
