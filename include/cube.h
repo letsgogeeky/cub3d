@@ -101,10 +101,6 @@ int			fill_map(t_map *m, int fd, int rows, int max_length);
 int			parse_map(int fd, t_map *m, char *tmp, char *argv);
 t_map		*parse(t_map *m, int fd, char *argv);
 
-//test.c
-void		test_parsing(t_map *m, int rows);
-void		test_wall(t_map *m);
-
 //wall_init.c
 void		fill_var_map(int flag, char *ptr, t_map *m);
 void		set_var_map(t_map *m, char *ptr);
