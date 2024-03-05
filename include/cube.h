@@ -20,6 +20,7 @@
 # define INV_FD "invalid file descriptor"
 # define PARSING_FAILED "parsing failed"
 # define WRONG_ARG "wrong amount of arguments entered"
+# define INV_TEX_FILE "texture file included in map is invalid"
 
 enum e_symbol
 {
@@ -106,15 +107,15 @@ void		test_wall(t_map *m);
 //wall_init.c
 void		fill_var_map(int flag, char *ptr, t_map *m);
 void		set_var_map(t_map *m, char *ptr);
-char		*parse_walls(int fd, t_map *m);
 int			fill_color_struct(t_color *c);
+void		adjust_wall_path(t_map *m);
+char		*parse_walls(int fd, t_map *m);
 
 //init_helpers.c
 void		ft_prerr(char *str, char *argv);
 int			zero_map_struct(t_map *m);
 int			set_max_len(char *str, int max);
 int			find_start_map(char *str);
-int			check_all_arg(t_map *m);
 
 //free.c
 void		free_s_texture(t_texture *t);
@@ -122,5 +123,11 @@ void		free_string(char *str);
 void		free_color(t_color *c);
 void		free_walls(t_map *m);
 void		free_map_struct(t_map *m);
+
+//check.c
+void		check_n_change_c(char *str);
+// int			check_end(char *str);
+int			check_path(t_map *m);
+int			check_all_arg(t_map *m);
 
 #endif

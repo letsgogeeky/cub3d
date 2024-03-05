@@ -81,20 +81,3 @@ int	find_start_map(char *str)
 		return (1);
 	return (0);
 }
-
-int	check_all_arg(t_map *m)
-{
-	if (m->north_texture->path == NULL)
-		return (1);
-	if (m->south_texture->path == NULL)
-		return (1);
-	if (m->west_texture->path == NULL)
-		return (1);
-	if (m->east_texture->path == NULL)
-		return (1);
-	if (m->floor_color->str_color == NULL)
-		return (1);
-	if (m->ceiling_color->str_color == NULL)
-		return (1);
-	return (0);
-}
