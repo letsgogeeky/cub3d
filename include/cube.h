@@ -20,6 +20,7 @@
 # define INV_FD "invalid file descriptor"
 # define PARSING_FAILED "parsing failed"
 # define WRONG_ARG "wrong amount of arguments entered"
+# define CUB_FORMAT "input file needs .cub format"
 # define INV_TEX_FILE "texture file included in map is invalid"
 
 enum e_symbol
@@ -126,7 +127,7 @@ void		free_map_struct(t_map *m);
 
 //check.c
 void		check_n_change_c(char *str);
-// int			check_end(char *str);
+int			check_end(char *str);
 int			check_path(t_map *m);
 int			check_all_arg(t_map *m);
 
