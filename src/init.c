@@ -1,53 +1,48 @@
 # include "cube.h"
 
-t_game	*allocate()
+t_game	*allocate_game(t_map *m)
 {
 	t_game	*game;
 
+	if (m == NULL)
+		return (ft_prerr(INV_MAP, NULL), NULL);
 	game = malloc(sizeof(t_game));
 	if (!game)
 		return (NULL);
-	game->map = malloc(sizeof(t_map));
-	if (!game->map)
-	{
-		free(game);
-		return (NULL);
-	}
+	game->map = m;
 	game->graphics = malloc(sizeof(t_graphics));
 	if (!game->graphics)
 	{
-		free(game->map);
+		free_map_struct(game->map);
+		game->map = NULL;
 		free(game);
+		game = NULL;
 		return (NULL);
 	}
 	return (game);
 }
 
-t_game	*init_game(void)
+t_game	*init_game(t_map *m)
 {
 	t_game	*game;
 
-	game = allocate();
+	game = allocate_game(m);
 	if (!game)
 		return (NULL);
-	game->graphics->width = WIDTH;
-	game->graphics->height = HEIGHT;
-	game->graphics->mlx = mlx_init(game->graphics->width, game->graphics->height, "cub3d", false);
+	// game->graphics->width = WIDTH;
+	// game->graphics->height = HEIGHT;
+	game->graphics->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
 	if (!game->graphics->mlx)
 	{
-		free(game->graphics);
-		free(game->map);
-		free(game);
+		free_game(game);
 		return (NULL);
 	}
-	game->graphics->image = mlx_new_image(game->graphics->mlx, game->graphics->width, game->graphics->height);
+	game->graphics->image = mlx_new_image(game->graphics->mlx, WIDTH, HEIGHT);
 	if (!game->graphics->image)
 	{
-		free(game->graphics->mlx);
-		free(game->graphics);
-		free(game->map);
-		free(game);
-		return (NULL);
+		// free(game->graphics->mlx);
+		free_game(game);
+		return (mlx_terminate(game->graphics->mlx), NULL);
 	}
 	return (game);
 }

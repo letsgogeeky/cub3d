@@ -18,6 +18,47 @@
 
 #include "../include/cube.h"
 
+void	ft_hook(void *param)
+{
+	mlx_t	*mlx;
+
+	mlx = param;
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(mlx);
+}
+
+void	free_game(t_game *game)
+{
+	if (game->map != NULL)
+		free_map_struct(game->map);
+	game->map = NULL;
+	if (game->graphics != NULL)
+		free(game->graphics);
+	game->graphics = NULL;
+	if (game != NULL)
+		free(game);
+	game = NULL;
+}
+
+void	open_n_draw(t_map *m)
+{
+	t_game	*game;
+
+	game = init_game(m);
+	if (game == NULL)
+	{
+		ft_prerr(FAIL_GAME_INIT, NULL);
+		return ;
+
+	}
+	mlx_image_to_window(game->graphics->mlx, game->graphics->image, 0, 0);
+	mlx_loop_hook(game->graphics->mlx, ft_hook, game->graphics->mlx);
+	mlx_loop(game->graphics->mlx);
+	mlx_terminate(game->graphics->mlx);
+	free_game(game);
+	return ;
+}
+
 int	main(int ac, char **argv)
 {
 	t_map	*m;
@@ -35,9 +76,10 @@ int	main(int ac, char **argv)
 		if (validate(m) == 0)
 			return (ft_prerr(INV_MAP, NULL), 1);
 		printf("validation done\n");
+		open_n_draw(m);
 	}
 	else
 		return (ft_prerr(WRONG_ARG, NULL), 1);
-	free_map_struct(m);
+	// free_map_struct(m);
 	return (0);
 }

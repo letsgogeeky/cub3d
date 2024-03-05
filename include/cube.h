@@ -22,6 +22,7 @@
 # define WRONG_ARG "wrong amount of arguments entered"
 # define CUB_FORMAT "input file needs .cub format"
 # define INV_TEX_FILE "texture file included in map is invalid"
+# define FAIL_GAME_INIT "Error: failed to initialize game\n"
 
 enum e_symbol
 {
@@ -74,9 +75,9 @@ typedef struct s_map // every element is allocated and has to be freed if failur
 typedef struct s_graphics
 {
 	mlx_image_t	*image;
-	void		*mlx;
-	int			width;
-	int			height;
+	mlx_t		*mlx;
+	// int			width;
+	// int			height;
 }		t_graphics;
 
 typedef struct s_game
@@ -92,8 +93,10 @@ int			validate(t_map *map);
 t_position	get_player_position(t_map *map);
 char		*direction_to_str(enum e_direction direction);
 void		test_with_mocks();
-t_game		*init_game(void);
 
+//init.c
+t_game		*allocate_game(t_map *m);
+t_game		*init_game(t_map *m);
 
 //map_init.c
 void		set_char(int i, char *tmp, int max_length, t_map *m);
@@ -120,6 +123,7 @@ void		free_string(char *str);
 void		free_color(t_color *c);
 void		free_walls(t_map *m);
 void		free_map_struct(t_map *m);
+void		free_game(t_game *game);
 
 //check.c
 void		check_n_change_c(char *str);
@@ -130,5 +134,10 @@ int			check_all_arg(t_map *m);
 //test.c
 void		test_parsing(t_map *m, int rows);
 void		test_wall(t_map *m);
+
+// main.c
+void		open_n_draw(t_map *m);
+void		free_game(t_game *game);
+void		ft_hook(void *param);
 
 #endif
