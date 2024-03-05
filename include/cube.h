@@ -127,4 +127,8 @@ int			check_end(char *str);
 int			check_path(t_map *m);
 int			check_all_arg(t_map *m);
 
+//test.c
+void		test_parsing(t_map *m, int rows);
+void		test_wall(t_map *m);
+
 #endif
