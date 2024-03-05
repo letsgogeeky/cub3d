@@ -29,8 +29,6 @@ t_game	*init_game(t_map *m)
 	game = allocate_game(m);
 	if (!game)
 		return (NULL);
-	// game->graphics->width = WIDTH;
-	// game->graphics->height = HEIGHT;
 	game->graphics->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
 	if (!game->graphics->mlx)
 	{
@@ -40,9 +38,9 @@ t_game	*init_game(t_map *m)
 	game->graphics->image = mlx_new_image(game->graphics->mlx, WIDTH, HEIGHT);
 	if (!game->graphics->image)
 	{
-		// free(game->graphics->mlx);
 		free_game(game);
-		return (mlx_terminate(game->graphics->mlx), NULL);
+		mlx_terminate(game->graphics->mlx);
+		return (NULL);
 	}
 	return (game);
 }
