@@ -97,6 +97,10 @@ void		test_with_mocks();
 //init.c
 t_game		*allocate_game(t_map *m);
 t_game		*init_game(t_map *m);
+// void		ft_keyhook(mlx_key_data_t keydata, void *param);
+void		ft_hook(void *param);
+void		free_game(t_game *game);
+void		open_n_draw(t_map *m);
 
 //map_init.c
 void		set_char(int i, char *tmp, int max_length, t_map *m);
@@ -134,10 +138,5 @@ int			check_all_arg(t_map *m);
 //test.c
 void		test_parsing(t_map *m, int rows);
 void		test_wall(t_map *m);
-
-// main.c
-void		open_n_draw(t_map *m);
-void		free_game(t_game *game);
-void		ft_hook(void *param);
 
 #endif

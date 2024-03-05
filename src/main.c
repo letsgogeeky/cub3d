@@ -18,66 +18,6 @@
 
 #include "../include/cube.h"
 
-// void	ft_keyhook(mlx_key_data_t keydata, void *param)
-// {
-	
-// 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_REPEAT)
-// 		move_forward();
-// 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-// 		turn_left();
-// 	if (keydata.key == MLX_KEY_S && keydata.action == MLX_REPEAT)
-// 		move_backwards();
-// 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-// 		turn_right();
-// }
-
-void	ft_hook(void *param)
-{
-	mlx_t	*mlx;
-
-	mlx = param;
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
-	//mlx_key_hook(mlx, &ft_keyhook, NULL); //add parameter eg image if necessary
-}
-
-void	free_game(t_game *game)
-{
-	if (game->map != NULL)
-		free_map_struct(game->map);
-	game->map = NULL;
-	if (game->graphics != NULL)
-		free(game->graphics);
-	game->graphics = NULL;
-	if (game != NULL)
-		free(game);
-	game = NULL;
-}
-
-
-void	open_n_draw(t_map *m)
-{
-	t_game	*game;
-
-	game = init_game(m);
-	if (game == NULL)
-	{
-		ft_prerr(FAIL_GAME_INIT, NULL);
-		return ;
-	}
-	if (mlx_image_to_window(game->graphics->mlx, game->graphics->image, 0, 0) < 0)
-	{
-		free_game(game);
-		mlx_terminate(game->graphics->mlx);
-		return ;
-	}
-	mlx_loop_hook(game->graphics->mlx, ft_hook, game->graphics->mlx);
-	mlx_loop(game->graphics->mlx);
-	mlx_terminate(game->graphics->mlx);
-	free_game(game);
-	return ;
-}
-
 int	main(int ac, char **argv)
 {
 	t_map	*m;
