@@ -1,4 +1,4 @@
-#include "cube.h"
+#include "validator.h"
 
 bool	all_ones(char *line, char ignore)
 {
@@ -49,17 +49,37 @@ bool	validate_symbols(t_map *map)
 	return (has_player);
 }
 
+void	update_rows_cols_count(t_map *map)
+{
+	int		cols;
+	int		rows;
+	int		i;
+
+	rows = str_arr_len(map->map);
+	cols = ft_strlen(map->map[0]);
+	map->cols = cols;
+	i = rows - 1;
+	while (i >= 0)
+	{
+		if (is_empty(map->map[i]))
+			rows--;
+		else
+			break ;
+		i--;
+	}
+	map->rows = rows;
+}
+
 int	validate(t_map *map)
 {
 	int		rows;
 	int		cols;
 	char	**grid;
 
+	update_rows_cols_count(map);
 	grid = map->map;
-	rows = str_arr_len(grid);
-	cols = ft_strlen(grid[0]);
-	map->rows = rows;
-	map->cols = cols;
+	rows = map->rows;
+	cols = map->cols;
 	if (rows < 3 || cols < 3)
 		return (0);
 	if (!all_ones(grid[0], ' ') || !all_ones(grid[rows - 1], ' '))

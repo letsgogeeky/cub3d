@@ -143,4 +143,6 @@ void	test_with_mocks()
 			ft_printf("Test case failing... for map %d\n", i);
 		i++;
 	}
+	ft_printf("END OF MOCKS\n");
+	ft_printf("--------------------\n");
 }

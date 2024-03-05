@@ -8,7 +8,7 @@
 # include <string.h>
 # include <unistd.h>
 # include "MLX42/MLX42.h"
-# include "../lib/ft-baselib/include/baselib.h"
+# include "baselib.h"
 # include <stdbool.h>
 
 # define WIDTH 1366
@@ -83,9 +83,6 @@ typedef struct s_game
 	t_graphics	*graphics;
 }		t_game;
 
-int			largest_of_three(int a, int b, int c);
-bool		valid_with_surrounding(char *line, char *prev, char *next, char ignore);
-bool		surrounded_by_wall(char *line, char ignore);
 int			validate(t_map *map);
 t_position	get_player_position(t_map *map);
 char		*direction_to_str(enum e_direction direction);

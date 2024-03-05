@@ -1,4 +1,4 @@
-#include "cube.h"
+#include "validator.h"
 
 int	index_of_nonignore(char *line, char ignore, bool from_front)
 {
@@ -24,13 +24,13 @@ bool	valid_from_back(char *line, char *prev, char *next, char ignore)
 	int	i;
 	int	prev_i;
 	int	next_i;
-	int	largest;
+	int	smallest;
 
 	i = index_of_nonignore(line, ignore, false);
 	prev_i = index_of_nonignore(prev, ignore, false);
 	next_i = index_of_nonignore(next, ignore, false);
-	largest = largest_of_three(i, prev_i, next_i);
-	while (line[i] && i >= largest)
+	smallest = smallest_of_three(i, prev_i, next_i);
+	while (line[i] && i > smallest)
 	{
 		if (line[i] != WALL)
 			return (false);
