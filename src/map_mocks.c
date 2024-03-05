@@ -24,7 +24,6 @@ t_map	*mock_map_shifted_section_invalid()
 	return (map);
 }
 
-
 t_map	*mock_map_shifted_section_valid()
 {
 	t_map	*map;
