@@ -11,10 +11,10 @@ SRC_DEMO := map_mocks.c
 
 SRC_PARSER := parser/validator/validator.c parser/validator/boundary.c parser/validator/utils.c \
 			parser/map_init.c parser/player.c parser/check.c parser/test.c \
-			parser/free.c parser/init_helpers.c parser/wall_init.c
+			parser/free.c parser/init_helpers.c parser/wall_init.c 
 
 SRC_ENGINE := engine/caster/cast.c
-SRC_MAIN := main.c init.c
+SRC_MAIN := main.c init.c draw.c
 SRCS := $(SRC_MAIN) $(SRC_PARSER) $(SRC_ENGINE) $(SRC_DEMO)
 
 OBJS := ${addprefix src/, ${SRCS:.c=.o}}

@@ -97,6 +97,7 @@ void	open_n_draw(t_map *m)
 		mlx_terminate(game->graphics->mlx);
 		return ;
 	}
+	draw_block(game);
 	mlx_loop_hook(game->graphics->mlx, ft_hook, game->graphics->mlx);
 	mlx_loop(game->graphics->mlx);
 	mlx_terminate(game->graphics->mlx);
