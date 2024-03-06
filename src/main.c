@@ -23,7 +23,7 @@ int	main(int ac, char **argv)
 	t_map	*m;
 	int		fd;
 
-	if (ac == 2)
+	if (ac == 2 && check_end(argv[1]) == 0)
 	{
 		m = ft_calloc(1, sizeof(t_map));
 		fd = open(argv[1], O_RDONLY);
@@ -35,9 +35,9 @@ int	main(int ac, char **argv)
 		if (validate(m) == 0)
 			return (ft_prerr(INV_MAP, NULL), 1);
 		printf("validation done\n");
+		open_n_draw(m);
 	}
 	else
 		return (ft_prerr(WRONG_ARG, NULL), 1);
-	free_map_struct(m);
 	return (0);
 }
