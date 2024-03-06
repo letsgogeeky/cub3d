@@ -83,3 +83,11 @@ int	find_start_map(char *str)
 		return (1);
 	return (0);
 }
+
+int	colorcode(int red, int green, int blue)
+{
+	int	color_code;
+
+	color_code = (red << 16 | green << 8 | blue);
+	return (color_code);
+}

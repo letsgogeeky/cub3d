@@ -12,9 +12,9 @@ void	test_parsing(t_map *m, int rows)
 	printf("West: %s\n", m->west_texture->path);
 	printf("East: %s\n", m->east_texture->path);
 	printf("Floor str: %s", m->floor_color->str_color);
-	printf("Values: R: %i, G: %i, B: %i\n", m->floor_color->red, m->floor_color->green, m->floor_color->blue);
+	printf("Values: R: %i, G: %i, B: %i HEX: %#x\n", m->floor_color->red, m->floor_color->green, m->floor_color->blue, m->floor_color->hex_color_rgb);
 	printf("Ceiling str: %s", m->ceiling_color->str_color);
-	printf("Values: R: %i, G: %i, B: %i\n", m->ceiling_color->red, m->ceiling_color->green, m->ceiling_color->blue);
+	printf("Values: R: %i, G: %i, B: %i HEX: %#x\n", m->ceiling_color->red, m->ceiling_color->green, m->ceiling_color->blue, m->ceiling_color->hex_color_rgb);
 	printf("\n");
 	if (m->map != NULL)
 	{
@@ -22,7 +22,7 @@ void	test_parsing(t_map *m, int rows)
 		{
 			while (m->map[i][j] != '\0')
 				printf("%c", m->map[i][j++]);
-			printf("---\n");
+			printf("|\n");
 			j = 0;
 			i++;
 		}

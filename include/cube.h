@@ -57,6 +57,7 @@ typedef struct s_color
 	int		red;
 	int		green;
 	int		blue;
+	int		hex_color_rgb;
 }		t_color;
 
 typedef struct s_map // every element is allocated and has to be freed if failure occures
@@ -117,6 +118,7 @@ void		ft_prerr(char *str, char *argv);
 int			zero_map_struct(t_map *m);
 int			set_max_len(char *str, int max);
 int			find_start_map(char *str);
+int			colorcode(int red, int green, int blue);
 
 //free.c
 void		free_s_texture(t_texture *t);
