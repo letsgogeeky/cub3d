@@ -3,19 +3,19 @@
 void	set_char(int i, char *tmp, int max_length, t_map *m)
 {
 	int			j;
-	int			nl;
+	//int			nl;
 	int			len;
 
 	j = 0;
-	nl = 0;
+	//nl = 0;
 	len = ft_strlen(tmp) - 1;
 	while (j < len)
 	{
 		m->map[i][j] = tmp[j];
-		//printf("-%c-", tmp[j]);
+		printf("-%c-", tmp[j]);
 		j++;
 	}
-	if (tmp[j] != '\0')
+	if (tmp[j] != '\0' && (j < max_length))
 	{
 		if (tmp[j] == '\n')
 			m->map[i][j] = ' ';
@@ -36,12 +36,12 @@ void	set_char(int i, char *tmp, int max_length, t_map *m)
 	// 	max_length--;
 	while (j < max_length)
 	{
-		//printf("space ");
+		printf("space ");
 		m->map[i][j++] = ' ';
 	}
-	//printf("\n");
-	if (nl != 0)
-		m->map[i][j] = '\n';
+	printf("\n");
+	// if (nl != 0)
+	// 	m->map[i][j] = '\n';
 }
 
 int	fill_map(t_map *m, int fd, int rows, int max_length)

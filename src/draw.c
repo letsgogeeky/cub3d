@@ -32,7 +32,7 @@ void	draw_vert(t_game *game, int block_size)
 	y = 0;
 	x = 0;
 	cnt = 0;
-	while (cnt <= game->map->cols - 1)
+	while (cnt <= game->map->cols)
 	{
 		while (y < block_size * game->map->rows)
 		{
@@ -56,7 +56,7 @@ void	draw_hor(t_game *game, int block_size)
 	cnt = 0;
 	while (cnt <= game->map->rows)
 	{
-		while (x < block_size * (game->map->cols - 1 )) // why one more column then chars
+		while (x < block_size * (game->map->cols)) // why one more column then chars
 		{
 			mlx_put_pixel(game->graphics->image, x, y, 0x000000FF);
 			x++;
@@ -84,8 +84,8 @@ void	draw_block(t_game *game)
 	y = 0;
 	i = 0;
 	j = 0;
-	if (w / (game->map->cols - 1) < block_size)
-		block_size = w / (game->map->cols - 1);
+	if (w / (game->map->cols) < block_size)
+		block_size = w / (game->map->cols);
 	draw_vert(game, block_size);
 	draw_hor(game, block_size);
 	while (i < game->map->rows)
@@ -100,7 +100,7 @@ void	draw_block(t_game *game)
 			x = x + block_size;
 			j++;
 		}
-		printf("\n");
+		printf("---\n");
 		j = 0;
 		x = 0;
 		i++;
