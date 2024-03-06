@@ -100,7 +100,7 @@ void	draw_block(t_game *game)
 			x = x + block_size;
 			j++;
 		}
-		printf("\n");
+		printf("---\n");
 		j = 0;
 		x = 0;
 		i++;

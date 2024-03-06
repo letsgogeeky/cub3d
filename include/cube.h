@@ -67,8 +67,8 @@ typedef struct s_map // every element is allocated and has to be freed if failur
 	t_texture	*east_texture;
 	t_color		*floor_color;
 	t_color		*ceiling_color;
-	char				**map;
-  int					rows;
+	char				**map;	
+	int					rows;
 	int					cols;
 }		t_map;
 

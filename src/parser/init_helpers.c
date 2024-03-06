@@ -52,6 +52,8 @@ int	set_max_len(char *str, int max)
 	int	i;
 
 	i = ft_strlen(str);
+	if (i > 0 && str[i - 1] == '\n')
+		i = i - 1;
 	if (max < i)
 		return (i);
 	return (max);
