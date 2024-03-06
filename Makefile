@@ -3,7 +3,7 @@ NAME:= cub3d
 
 BASELIB := ./lib/ft-baselib
 LIBMLX := ./lib/MLX42
-CFLAGS	:= -Wextra -Wall -Werror -g -funroll-loops -march=native -flto -ffast-math -fsanitize=address
+CFLAGS	:= -Wextra -Wall -Werror -g -fsanitize=address #-funroll-loops -march=native -flto -ffast-math
 LDFLAGS := -ldl -lglfw -pthread -lm -fsanitize=address -flto -framework Cocoa -framework OpenGL -framework IOKit
 HEADERS := -I ./include -I ${BASELIB}/include -I $(LIBMLX)/include
 
