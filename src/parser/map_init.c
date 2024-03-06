@@ -3,19 +3,19 @@
 void	set_char(int i, char *tmp, int max_length, t_map *m)
 {
 	int			j;
-	int			nl;
+	//int			nl;
 	int			len;
 
 	j = 0;
-	nl = 0;
+	//nl = 0;
 	len = ft_strlen(tmp) - 1;
 	while (j < len)
 	{
 		m->map[i][j] = tmp[j];
-		//printf("-%c-", tmp[j]);
+		printf("-%c-", tmp[j]);
 		j++;
 	}
-	if (tmp[j] != '\0')
+	if (tmp[j] != '\0' && (j < max_length))
 	{
 		if (tmp[j] == '\n')
 			m->map[i][j] = ' ';
@@ -36,12 +36,12 @@ void	set_char(int i, char *tmp, int max_length, t_map *m)
 	// 	max_length--;
 	while (j < max_length)
 	{
-		//printf("space ");
+		printf("space ");
 		m->map[i][j++] = ' ';
 	}
-	//printf("\n");
-	if (nl != 0)
-		m->map[i][j] = '\n';
+	printf("\n");
+	// if (nl != 0)
+	// 	m->map[i][j] = '\n';
 }
 
 int	fill_map(t_map *m, int fd, int rows, int max_length)
@@ -99,25 +99,33 @@ int	parse_map(int fd, t_map *m, char *tmp, char *argv)
 	if (fill_map(m, fd, rows, max_length) != 0)
 		return (close(fd), 1);
 	close(fd);
+	test_parsing(m, rows);
 	return (0);
 }
 
 t_map	*parse(t_map *m, int fd, char *argv)
 {
 	char	*tmp;
+	int		i;
 
 	tmp = NULL;
+	//i = 0;
 	if (zero_map_struct(m) != 0)
 		return (free_map_struct(m), ft_prerr(STRUCT_FAILED, NULL), NULL);
 	tmp = parse_walls(fd, m);
-	if (check_all_arg(m) != 0)
+	i = check_all_arg(m);
+	if (i != 0)
 	{
 		while (tmp != NULL)
 		{
 			free(tmp);
 			tmp = get_next_line(fd);
 		}
-		return (close(fd), free_map_struct(m), ft_prerr(INV_MAP, NULL), NULL);
+		if (i == 1)
+			return (close(fd), free_map_struct(m), ft_prerr(INV_MAP, NULL), NULL);
+		if (i == 2)
+			return (close(fd), free_map_struct(m), \
+			ft_prerr(INV_TEX_FILE, NULL), NULL);
 	}
 	if (parse_map(fd, m, tmp, argv) != 0)
 		return (free_map_struct(m), ft_prerr(PARSING_MAP_FAILED, NULL), NULL);

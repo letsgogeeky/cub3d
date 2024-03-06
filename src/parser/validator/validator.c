@@ -168,6 +168,8 @@ int	validate(t_map *map)
 	grid = map->map;
 	rows = map->rows;
 	cols = map->cols;
+	printf("ROWS: %i\n", rows);
+	printf("COLS: %i\n", cols);
 	if (rows < 3 || cols < 3)
 		return (ft_printf("-> Failed on map minimum size requirements.\n"), 0);
 	if (!all_ones(grid[0], true) || !all_ones(grid[rows - 1], true))
