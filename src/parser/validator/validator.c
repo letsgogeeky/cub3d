@@ -112,18 +112,19 @@ bool	validate_top_bottom_passages(t_map *map)
 	grid = map->map;
 	if (all_ones(grid[0], false))
 		return (true);
-	j = 0;
 	i = 0;
-	to = index_of_nonignore(grid[map->cols - 1], EMPTY, false);
+	j = index_of_nonignore(grid[i], EMPTY, true);
+	to = index_of_nonignore(grid[map->rows - 1], EMPTY, false);
 	while (j < to)
 	{
-		j = index_of_nonignore(grid[i], EMPTY, true);
-		if (grid[i][j] == EMPTY)
-			if (grid[++i][j] == EMPTY)
-				if (!hit_wall_right(grid, i, j, to) || !hit_wall_left(grid, i, j))
-					return (false);
-			if (grid[i][j] == SPACE)
+		while (grid[i][j] == EMPTY)
+		{
+			if (!hit_wall_right(grid, i, j, to) || !hit_wall_left(grid, i, j))
 				return (false);
+			i++;
+			if (i >= map->rows || grid[i][j] == SPACE)
+				return (false);
+		}
 		j++;
 	}
 	return (true);
@@ -139,18 +140,19 @@ bool validate_bottom_top_passages(t_map *map)
 	grid = map->map;
 	if (all_ones(grid[map->rows - 1], false))
 		return (true);
-	j = 0;
 	i = map->rows - 1;
-	to = index_of_nonignore(grid[map->cols - 1], EMPTY, false);
+	j = index_of_nonignore(grid[i], EMPTY, true);
+	to = index_of_nonignore(grid[map->rows - 1], EMPTY, false);
 	while (j < to)
 	{
-		j = index_of_nonignore(grid[i], EMPTY, true);
-		if (grid[i][j] == EMPTY)
-			if (grid[--i][j] == EMPTY)
-				if (!hit_wall_right(grid, i, j, to) || !hit_wall_left(grid, i, j))
-					return (false);
-			if (grid[i][j] == SPACE)
+		while (grid[i][j] == EMPTY)
+		{
+			if (!hit_wall_right(grid, i, j, to) || !hit_wall_left(grid, i, j))
 				return (false);
+			i--;
+			if (i <= 0 || grid[i][j] == SPACE)
+				return (false);
+		}
 		j++;
 	}
 	return (true);
@@ -167,20 +169,20 @@ int	validate(t_map *map)
 	rows = map->rows;
 	cols = map->cols;
 	if (rows < 3 || cols < 3)
-		return (0);
+		return (ft_printf("-> Failed on map minimum size requirements.\n"), 0);
 	if (!all_ones(grid[0], true) || !all_ones(grid[rows - 1], true))
-		return (0);
+		return (ft_printf("-> Failed on First / Last row checks\n"), 0);
 	if (!validate_symbols(map))
-		return (0);
-	// if (!validate_top_bottom_passages(map) || !validate_bottom_top_passages(map))
-	// 	return (0);
+		return (ft_printf("-> Failed on Symbols checks\n"), 0);
+	if (!validate_top_bottom_passages(map) || !validate_bottom_top_passages(map))
+		return (ft_printf("-> Failed on passages checks\n"), 0);
 	rows -= 2;
 	while (rows > 0)
 	{
 		if (!surrounded_by_wall(grid[rows] , EMPTY))
-			return (0);
-		if (!valid_with_surrounding(grid[rows], grid[rows - 1], grid[rows + 1], true))
-			return (0);
+			return (ft_printf("-> Failed on Walls Checks at row: %d\n", rows), 0);
+		if (!valid_with_surrounding(grid[rows], grid[rows - 1], grid[rows + 1], EMPTY))
+			return (ft_printf("-> Failed on validating internal map content and boundaries at row: %d\n", rows), 0);
 		rows--;
 	}
 	return (1);

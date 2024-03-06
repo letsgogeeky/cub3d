@@ -10,7 +10,7 @@ t_map	*mock_map_shifted_section_invalid()
 	map->map[1] =  ft_strdup("        1000000000110000000000001");
 	map->map[2] =  ft_strdup("        1011000001110000000000001");
 	map->map[3] =  ft_strdup("        1001000000000000000000001");
-	map->map[4] =  ft_strdup("111110011011000001110000000000001");
+	map->map[4] =  ft_strdup("111100011011000001110000000000001");
 	map->map[5] =  ft_strdup("100000000011000001110111111111111");
 	map->map[6] =  ft_strdup("11110111111111011100000010001    ");
 	map->map[7] =  ft_strdup("11110111111111011101010010001    ");
@@ -180,6 +180,11 @@ t_map	*mock_deep_passage_map_valid()
 void	test_with_mocks()
 {
 	int	i;
+	char	*passed;
+	char	*failed;
+
+	passed = "\033[0;32mPASSED\033[0m";
+	failed = "\033[1;31m FAILED \033[0m";
 	void	*valid_mocks[] = {
 		&mock_map_shifted_section_valid,
 		&mock_base_map_valid,
@@ -196,7 +201,7 @@ void	test_with_mocks()
 		NULL
 	};
 
-	ft_printf("\033[0;32m Testing valid maps::::\n \033[0m");
+	ft_printf("\033[0;32m Testing valid maps::::\n\033[0m");
 	i = 0;
 	while (valid_mocks[i])
 	{
@@ -208,15 +213,15 @@ void	test_with_mocks()
 		ft_printf("Player position: %d, %d, %s\n", player_position.x, player_position.y, direction_to_str(player_position.direction));
 		if (result == 1)
 		{
-			ft_printf("Test case \033[0;32mPASSED\033[0m for map %d\n", i);
+			ft_printf("Test case %s for map %d\n", passed, i);
 			ft_printf("Map is valid\n");
 		}
 		else
-			ft_printf("Test case FAILED for map %d\n", i);
+			ft_printf("Test case %s for map %d\n", failed, i);
 		i++;
 	}
 	ft_printf("--------------------\n");
-	ft_printf("\033[0;32m Testing invalid maps::::\n \033[0m");
+	ft_printf("\033[0;32m Testing invalid maps::::\n\033[0m");
 	i = 0;
 	while (invalid_mocks[i])
 	{
@@ -228,11 +233,11 @@ void	test_with_mocks()
 		ft_printf("Player position: %d, %d, %s\n", player_position.x, player_position.y, direction_to_str(player_position.direction));
 		if (result == 0)
 		{
-			ft_printf("Test case passing... for map %d\n", i);
+			ft_printf("Test case %s for map %d\n", passed, i);
 			ft_printf("Map is invalid\n");
 		}
 		else
-			ft_printf("\033[1;31m Test case FAILED for map %d\n \033[0m", i);
+			ft_printf("Test case %s for map %d\n", failed, i);
 		i++;
 	}
 	ft_printf("END OF MOCKS\n");
