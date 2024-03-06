@@ -1,4 +1,4 @@
-// #include "cube.h"
+#include "cube.h"
 
 // int	main()
 // {
@@ -16,8 +16,6 @@
 // 	return (0);
 // }
 
-#include "../include/cube.h"
-
 int	main(int ac, char **argv)
 {
 	t_map	*m;
@@ -34,7 +32,7 @@ int	main(int ac, char **argv)
 		printf("parsing done\n");
 		if (validate(m) == 0)
 			return (ft_prerr(INV_MAP, NULL), 1);
-		printf("validation done\n");
+		printf("validation done. map is valid!\n");
 		open_n_draw(m);
 	}
 	else

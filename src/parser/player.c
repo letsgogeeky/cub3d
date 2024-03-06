@@ -54,3 +54,12 @@ t_position	get_player_position(t_map *map)
 	}
 	return (position);
 }
+
+void	log_player_position(t_map *map)
+{
+	t_position	position;
+
+	position = get_player_position(map);
+	ft_printf("Player position: X: %d, Y: %d, Direction: %s\n", \
+		position.x, position.y, direction_to_str(position.direction));
+}
