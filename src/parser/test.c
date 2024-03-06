@@ -22,7 +22,7 @@ void	test_parsing(t_map *m, int rows)
 		{
 			while (m->map[i][j] != '\0')
 				printf("%c", m->map[i][j++]);
-			printf("---\n");
+			printf("|\n");
 			j = 0;
 			i++;
 		}

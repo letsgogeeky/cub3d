@@ -57,9 +57,7 @@ int	validate(t_map *map)
 
 	grid = map->map;
 	rows = str_arr_len(grid);
-	printf("ROWS: %i\n", rows);
 	cols = ft_strlen(grid[0]);
-	printf("COLS: %i\n", cols);
 	map->rows = rows;
 	map->cols = cols;
 	if (rows < 3 || cols < 3)

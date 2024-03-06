@@ -92,7 +92,6 @@ void	draw_block(t_game *game)
 	{
 		while (game->map->map[i][j] != '\0')
 		{
-			printf("%c ", game->map->map[i][j]);
 			if (game->map->map[i][j] == '1')
 				fill_block(game, block_size, x, y, 0x000000FF);
 			else if (ft_strchr("NSEW", game->map->map[i][j]) != NULL)
@@ -100,7 +99,6 @@ void	draw_block(t_game *game)
 			x = x + block_size;
 			j++;
 		}
-		printf("---\n");
 		j = 0;
 		x = 0;
 		i++;
