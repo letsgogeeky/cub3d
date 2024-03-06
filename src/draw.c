@@ -1,6 +1,6 @@
 # include "cube.h"
 
-void	fill_block(t_game *game, int block_size, int x, int y)
+void	fill_block(t_game *game, int block_size, int x, int y, int color)
 {
 	int	tmp_x;
 	// int	cnt_y;
@@ -15,10 +15,11 @@ void	fill_block(t_game *game, int block_size, int x, int y)
 	{
 		while (x < x_max)
 		{
-			mlx_put_pixel(game->graphics->image, x, y, 0xFF0000FF);
+			mlx_put_pixel(game->graphics->image, x, y, color);
 			x++;
 		}
 		x = tmp_x;
+		y++;
 	}
 }
 
@@ -31,11 +32,11 @@ void	draw_vert(t_game *game, int block_size)
 	y = 0;
 	x = 0;
 	cnt = 0;
-	while (cnt <= game->map->cols)
+	while (cnt <= game->map->cols - 1)
 	{
 		while (y < block_size * game->map->rows)
 		{
-			mlx_put_pixel(game->graphics->image, x, y, 0xFF0000FF);
+			mlx_put_pixel(game->graphics->image, x, y, 0x000000FF);
 			y++;
 		}
 		y = 0;
@@ -55,9 +56,9 @@ void	draw_hor(t_game *game, int block_size)
 	cnt = 0;
 	while (cnt <= game->map->rows)
 	{
-		while (x < block_size * game->map->cols)
+		while (x < block_size * (game->map->cols - 1 )) // why one more column then chars
 		{
-			mlx_put_pixel(game->graphics->image, x, y, 0xFF0000FF);
+			mlx_put_pixel(game->graphics->image, x, y, 0x000000FF);
 			x++;
 		}
 		x = 0;
@@ -79,30 +80,28 @@ void	draw_block(t_game *game)
 	w = game->graphics->mlx->width;
 	h = game->graphics->mlx->width;
 	block_size = h / game->map->rows;
-	printf("BLOCKSIZE1: %i\n", block_size);
 	x = 0;
 	y = 0;
 	i = 0;
 	j = 0;
-	if (w / game->map->cols < block_size)
-		block_size = w / game->map->cols;
-	printf("BLOCKSIZE2: %i\n", block_size);
+	if (w / (game->map->cols - 1) < block_size)
+		block_size = w / (game->map->cols - 1);
 	draw_vert(game, block_size);
 	draw_hor(game, block_size);
-	while (game->map->map[i] != NULL)
+	while (i < game->map->rows)
 	{
-	printf("test\n");
 		while (game->map->map[i][j] != '\0')
 		{
-			write(1, &game->map->map[i][j], 1);
-			if (game->map->map[i][j] == 1)
-			{
-				fill_block(game, block_size, x, y);
-			}
+			printf("%c ", game->map->map[i][j]);
+			if (game->map->map[i][j] == '1')
+				fill_block(game, block_size, x, y, 0x000000FF);
+			else if (ft_strchr("NSEW", game->map->map[i][j]) != NULL)
+				fill_block(game, block_size, x, y, 0x00FFFFFF);
 			x = x + block_size;
 			j++;
 		}
-		write(1, "\n", 1);
+		printf("\n");
+		j = 0;
 		x = 0;
 		i++;
 		y = y + block_size;
