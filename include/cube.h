@@ -88,8 +88,8 @@ typedef struct s_game
 
 int			validate(t_map *map);
 t_position	get_player_position(t_map *map);
+void		log_player_position(t_map *map);
 char		*direction_to_str(enum e_direction direction);
-void		test_with_mocks();
 
 //init.c
 t_game		*allocate_game(t_map *m);

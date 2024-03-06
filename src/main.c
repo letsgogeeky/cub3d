@@ -20,8 +20,7 @@ int	main(int ac, char **argv)
 {
 	t_map	*m;
 	int		fd;
-  
-	test_with_mocks();
+
 	if (ac == 2 && check_end(argv[1]) == 0)
 	{
 		m = ft_calloc(1, sizeof(t_map));
