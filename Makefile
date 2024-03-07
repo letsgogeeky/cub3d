@@ -60,9 +60,13 @@ clean:
 	@rm -rf $(OBJS_TEST)
 
 fclean: clean
-	@$(MAKE) fclean --directory=${BASELIB}
 	rm -f ${NAME}
 	rm -f ${NAME_TEST}
+
+relib: rmlibs MLX BASELIB
+
+libclean:
+	@$(MAKE) fclean --directory=${BASELIB}
 
 re: fclean all
 
