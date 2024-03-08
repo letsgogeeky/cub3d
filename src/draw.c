@@ -54,7 +54,7 @@ void	draw_hor(t_game *game, int block_size)
 	y = 0;
 	x = 0;
 	cnt = 0;
-	while (cnt <= game->map->rows)
+	while (cnt < game->map->rows)
 	{
 		while (x < block_size * (game->map->cols)) // why one more column then chars
 		{
@@ -87,16 +87,28 @@ void	cast_wall(t_game *game, int size, int x, int y, int color)
 		y++;
 	}
 }
-
-void	show_player(t_game *game, int block_size)
+void	clear_area(t_game *game)
 {
 	int	x;
 	int	y;
 
-	x = game->player.pos.x * block_size;
-	y = game->player.pos.y * block_size;
+	x = game->player.pos.x * game->block_size;
+	y = game->player.pos.y * game->block_size;
+	fill_block(game, game->block_size, x, y, 0x00FFA000);
+}
+
+void	show_player(t_game *game)
+{
+	int	x;
+	int	y;
+
+	ft_printf("Direction: %f, %f\n", game->player.dir.x, game->player.dir.y);
+	ft_printf("Position: %f, %f\n", game->player.pos.x, game->player.pos.y);
+	x = game->player.pos.x * game->block_size;
+	y = game->player.pos.y * game->block_size;
 	ft_printf("x: %d, y: %d\n", x, y);
-	fill_block(game, block_size / 2, x, y, 0x00FFFFFF);
+	fill_block(game, game->block_size, x, y, 0x00FFFFFF);
+	visualize_2d_ray(game, 0x000000FF);
 }
 
 void	draw_block(t_game *game)
@@ -132,6 +144,5 @@ void	draw_block(t_game *game)
 		i++;
 		y = y + block_size;
 	}
-	show_player(game, block_size);
-	visualize_2d_ray(game, 0x00FFA000, block_size);
+	show_player(game);
 }

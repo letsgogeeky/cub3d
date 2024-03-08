@@ -61,8 +61,12 @@ t_player	init_player(t_map *map)
 	t_position	position;
 
 	position = get_player_position(map);
-	player.pos.x = position.x + 0.25;
-	player.pos.y = position.y + 0.25;
+	player.pos.x = position.x;
+	player.pos.y = position.y;
+	player.dir.x = 0;
+	player.dir.y = 0;
+	player.plane.x = 0;
+	player.plane.y = 0;
 	if (position.direction == NORTH)
 	{
 		player.dir.x = -1;

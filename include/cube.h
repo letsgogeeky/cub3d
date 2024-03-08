@@ -114,6 +114,7 @@ typedef struct s_game
 	t_graphics	*graphics;
 	t_player	player;
 	t_ray		ray;
+	int		block_size;
 }		t_game;
 
 int			validate(t_map *map);
@@ -177,5 +178,16 @@ void		draw_block(t_game *game);
 // player
 t_player	init_player(t_map *map);
 t_ray		init_ray(void);
-void		visualize_2d_ray(t_game *game, int color, int block_size);
+void		visualize_2d_ray(t_game *game, int color);
+void		show_player(t_game *game);
+void		clear_area(t_game *game);
+
+// movement
+void	move_forward(t_game *game);
+void	move_backward(t_game *game);
+void	move_left(t_game *game);
+void	move_right(t_game *game);
+void	turn_left(t_game *game);
+void	turn_right(t_game *game);
+
 #endif
