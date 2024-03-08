@@ -7,6 +7,7 @@ void	ft_prerr(char *str, char *argv)
 	i = 0;
 	if (str == NULL)
 		return ;
+	write(2, "Error\n", 6);
 	while (str[i] != '\0')
 		write(2, &str[i++], 1);
 	if (argv != NULL)
