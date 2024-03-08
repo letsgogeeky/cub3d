@@ -67,25 +67,53 @@ void	draw_hor(t_game *game, int block_size)
 	}
 }
 
+void	cast_wall(t_game *game, int size, int x, int y, int color)
+{
+	int	tmp_x;
+	int	x_max;
+	int	y_max;
+
+	tmp_x = x;
+	x_max = x + size;
+	y_max = y + size;
+	while (y < y_max)
+	{
+		while (x < x_max)
+		{
+			mlx_put_pixel(game->graphics->image, x, y, color);
+			x++;
+		}
+		x = tmp_x;
+		y++;
+	}
+}
+
+void	show_player(t_game *game, int block_size)
+{
+	int	x;
+	int	y;
+
+	x = game->player.pos.x * block_size;
+	y = game->player.pos.y * block_size;
+	ft_printf("x: %d, y: %d\n", x, y);
+	fill_block(game, block_size / 2, x, y, 0x00FFFFFF);
+}
+
 void	draw_block(t_game *game)
 {
-	int	w;
-	int	h;
 	int	block_size;
 	int	x;
 	int	y;
 	int	i;
 	int	j;
 
-	w = game->graphics->mlx->width;
-	h = game->graphics->mlx->width;
-	block_size = h / game->map->rows;
+	block_size = HEIGHT / game->map->rows;
 	x = 0;
 	y = 0;
 	i = 0;
 	j = 0;
-	if (w / (game->map->cols) < block_size)
-		block_size = w / (game->map->cols);
+	if (WIDTH / (game->map->cols) < block_size)
+		block_size = WIDTH / (game->map->cols);
 	draw_vert(game, block_size);
 	draw_hor(game, block_size);
 	while (i < game->map->rows)
@@ -94,8 +122,8 @@ void	draw_block(t_game *game)
 		{
 			if (game->map->map[i][j] == '1')
 				fill_block(game, block_size, x, y, 0x000000FF);
-			else if (ft_strchr("NSEW", game->map->map[i][j]) != NULL)
-				fill_block(game, block_size, x, y, 0x00FFFFFF);
+			// else if (ft_strchr("NSEW", game->map->map[i][j]) != NULL)
+			// 	fill_block(game, block_size, x, y, 0x00FFFFFF);
 			x = x + block_size;
 			j++;
 		}
@@ -104,4 +132,6 @@ void	draw_block(t_game *game)
 		i++;
 		y = y + block_size;
 	}
+	show_player(game, block_size);
+	visualize_2d_ray(game, 0x00FFA000, block_size);
 }

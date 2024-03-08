@@ -42,6 +42,8 @@ t_game	*init_game(t_map *m)
 		mlx_terminate(game->graphics->mlx);
 		return (NULL);
 	}
+	game->player = init_player(game->map);
+	game->ray = init_ray();
 	return (game);
 }
 

@@ -55,6 +55,40 @@ t_position	get_player_position(t_map *map)
 	return (position);
 }
 
+t_player	init_player(t_map *map)
+{
+	t_player	player;
+	t_position	position;
+
+	position = get_player_position(map);
+	player.pos.x = position.x + 0.25;
+	player.pos.y = position.y + 0.25;
+	if (position.direction == NORTH)
+	{
+		player.dir.x = -1;
+		player.plane.y = 0.66;
+	}
+	else if (position.direction == SOUTH)
+	{
+		player.dir.x = 1;
+		player.plane.y = -0.66;
+	}
+	else if (position.direction == WEST)
+	{
+		player.dir.y = -1;
+		player.plane.x = -0.66;
+	}
+	else if (position.direction == EAST)
+	{
+		player.dir.y = 1;
+		player.plane.x = 0.66;
+	}
+	player.rotation_angle = 0;
+	player.walk_speed = 0.1;
+	player.turn_speed = 0.1;
+	return (player);
+}
+
 void	log_player_position(t_map *map)
 {
 	t_position	position;

@@ -10,6 +10,7 @@
 # include "MLX42/MLX42.h"
 # include "baselib.h"
 # include <stdbool.h>
+# include <math.h>
 
 # define WIDTH 1366
 # define HEIGHT 768
@@ -39,12 +40,38 @@ enum e_direction
 	EAST
 };
 
+typedef struct	s_vector
+{
+	double	x;
+	double	y;
+}		t_vector;
+
+
 typedef struct s_position
 {
 	int					x;
 	int					y;
 	enum e_direction	direction;
 }		t_position;
+
+typedef struct	s_player
+{
+	t_vector	pos;
+	t_vector	dir;
+	t_vector	plane;
+	double		rotation_angle;
+	double		walk_speed;
+	double		turn_speed;
+
+}		t_player;
+
+typedef struct s_ray
+{
+	t_vector	dir;
+	t_vector	angle;
+	t_vector	side_dist;
+	t_vector	delta_dist;
+}		t_ray;
 
 typedef struct s_texture
 {
@@ -85,6 +112,8 @@ typedef struct s_game
 {
 	t_map		*map;
 	t_graphics	*graphics;
+	t_player	player;
+	t_ray		ray;
 }		t_game;
 
 int			validate(t_map *map);
@@ -144,4 +173,9 @@ void		draw_vert(t_game *game, int block_size);
 void		draw_hor(t_game *game, int block_size);
 void		draw_block(t_game *game);
 
+
+// player
+t_player	init_player(t_map *map);
+t_ray		init_ray(void);
+void		visualize_2d_ray(t_game *game, int color, int block_size);
 #endif
