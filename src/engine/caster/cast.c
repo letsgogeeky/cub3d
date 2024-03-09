@@ -12,6 +12,10 @@ t_ray	init_ray(void)
 	ray.side_dist.y = 0;
 	ray.delta_dist.x = 0;
 	ray.delta_dist.y = 0;
+	ray.map.x = 0;
+	ray.map.y = 0;
+	ray.step.x = 0;
+	ray.step.y = 0;
 	return (ray);
 }
 
@@ -171,7 +175,11 @@ void	do_raycast(t_game *game)
 				game->ray.map.y += game->ray.step.y;
 				game->ray.side = 1;
 			}
-			if (game->map->map[(int)game->ray.map.x][(int)game->ray.map.y] == WALL)
+			int map_x = (int)game->ray.map.x;
+			int map_y = (int)game->ray.map.y;
+			if (map_x < 0 || map_y < 0 || map_x >= game->map->rows || map_y >= game->map->cols)
+				break;
+			if (game->map->map[map_x][map_y] && game->map->map[map_x][map_y] == WALL)
 				hit = true;
 		}
 		if (!game->ray.side)
