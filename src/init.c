@@ -101,6 +101,7 @@ void	free_game(t_game *game)
 	game = NULL;
 }
 
+
 void	open_n_draw(t_map *m)
 {
 	t_game	*game;
@@ -117,7 +118,9 @@ void	open_n_draw(t_map *m)
 		mlx_terminate(game->graphics->mlx);
 		return ;
 	}
-	draw_block(game);
+	// raycast(game);
+	// draw_block(game);
+	do_raycast(game);
 	mlx_loop_hook(game->graphics->mlx, ft_hook, game);
 	mlx_loop(game->graphics->mlx);
 	mlx_terminate(game->graphics->mlx);

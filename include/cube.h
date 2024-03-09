@@ -71,6 +71,10 @@ typedef struct s_ray
 	t_vector	angle;
 	t_vector	side_dist;
 	t_vector	delta_dist;
+	t_vector	map;
+	t_vector	step;
+	int			side;
+	double		length;
 }		t_ray;
 
 typedef struct s_texture
@@ -189,5 +193,5 @@ void	move_left(t_game *game);
 void	move_right(t_game *game);
 void	turn_left(t_game *game);
 void	turn_right(t_game *game);
-
+void	do_raycast(t_game *game);
 #endif

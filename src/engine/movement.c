@@ -4,11 +4,9 @@ void	move_forward(t_game *game)
 {
 	t_map	*map;
 	t_player	*player;
-	t_ray	*ray;
 
 	map = game->map;
 	player = &game->player;
-	ray = &game->ray;
 	if (map->map[(int)(player->pos.x + player->dir.x * player->walk_speed)][(int)player->pos.y] != '1')
 		player->pos.x += player->dir.x * player->walk_speed;
 	if (map->map[(int)player->pos.x][(int)(player->pos.y + player->dir.y * player->walk_speed)] != '1')
@@ -20,11 +18,9 @@ void	move_backward(t_game *game)
 {
 	t_map	*map;
 	t_player	*player;
-	t_ray	*ray;
 
 	map = game->map;
 	player = &game->player;
-	ray = &game->ray;
 	if (map->map[(int)(player->pos.x - player->dir.x * player->walk_speed)][(int)player->pos.y] != '1')
 		player->pos.x -= player->dir.x * player->walk_speed;
 	if (map->map[(int)player->pos.x][(int)(player->pos.y - player->dir.y * player->walk_speed)] != '1')
@@ -68,11 +64,9 @@ void	move_left(t_game *game)
 {
 	t_map	*map;
 	t_player	*player;
-	t_ray	*ray;
 
 	map = game->map;
 	player = &game->player;
-	ray = &game->ray;
 	if (map->map[(int)(player->pos.x - player->plane.x * player->walk_speed)][(int)player->pos.y] != '1')
 		player->pos.x -= player->plane.x * player->walk_speed;
 	if (map->map[(int)player->pos.x][(int)(player->pos.y - player->plane.y * player->walk_speed)] != '1')
@@ -84,11 +78,9 @@ void	move_right(t_game *game)
 {
 	t_map	*map;
 	t_player	*player;
-	t_ray	*ray;
 
 	map = game->map;
 	player = &game->player;
-	ray = &game->ray;
 	if (map->map[(int)(player->pos.x + player->plane.x * player->walk_speed)][(int)player->pos.y] != '1')
 		player->pos.x += player->plane.x * player->walk_speed;
 	if (map->map[(int)player->pos.x][(int)(player->pos.y + player->plane.y * player->walk_speed)] != '1')

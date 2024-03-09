@@ -80,3 +80,106 @@ void	visualize_2d_ray(t_game *game, int color)
 	ft_printf("end: %f, %f\n", end.x, end.y);
 	draw_line(game, start, end, color);
 }
+
+
+void	compute_pixel_column(t_game *game, int x)
+{
+	double	wall_hit;
+	t_vector	wall;
+	int		wall_height;
+	int	y;
+
+	wall_height = (int)(HEIGHT / game->ray.length);
+	wall.x = (-wall_height / 2 + HEIGHT / 2);
+	if (wall.x < 0)
+		wall.x = 0;
+	wall.y = (wall_height / 2 + HEIGHT / 2);
+	if (wall.y >= HEIGHT)
+		wall.y = HEIGHT - 1;
+	if (game->ray.side == 0)
+		wall_hit = game->player.pos.y + game->ray.length * game->ray.angle.y;
+	else
+		wall_hit = game->player.pos.x + game->ray.length * game->ray.angle.x;
+	wall_hit -= floor(wall_hit);
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		if (y < wall.x)
+			mlx_put_pixel(game->graphics->image, x, y, 0x00FF0000);
+		else if (y > wall.x && y < wall.y)
+			mlx_put_pixel(game->graphics->image, x, y, 0x00FFFFFF);
+		else
+			mlx_put_pixel(game->graphics->image, x, y, 0x000000FF);
+		y++;
+	
+	}
+}
+
+void	do_raycast(t_game *game)
+{
+	double	camera_x;
+	int		x;
+
+	x = 0;
+	while (x < WIDTH)
+	{
+		camera_x = 2 * x / (double)WIDTH - 1;
+		game->ray.angle.x = game->player.dir.x + game->player.plane.x * camera_x;
+		game->ray.angle.y = game->player.dir.y + game->player.plane.y * camera_x;
+		game->ray.delta_dist.x = fabs(1 / game->ray.angle.x);
+		if (game->ray.angle.x == 0)
+			game->ray.delta_dist.x = INFINITY;
+		game->ray.delta_dist.y = fabs(1 / game->ray.angle.y);
+		if (game->ray.angle.y == 0)
+			game->ray.delta_dist.y = INFINITY;
+		game->ray.map.x = (int)game->player.pos.x;
+		game->ray.map.y = (int)game->player.pos.y;
+
+		if (game->ray.angle.x < 0)
+		{
+			game->ray.step.x = -1;
+			game->ray.side_dist.x = (game->player.pos.x - game->ray.map.x) * game->ray.delta_dist.x;
+		}
+		else
+		{
+			game->ray.step.x = 1;
+			game->ray.side_dist.x = (game->ray.map.x + 1.0 - game->player.pos.x) * game->ray.delta_dist.x;
+		}
+		if (game->ray.angle.y < 0)
+		{
+			game->ray.step.y = -1;
+			game->ray.side_dist.y = (game->player.pos.y - game->ray.map.y) * game->ray.delta_dist.y;
+		}
+		else
+		{
+			game->ray.step.y = 1;
+			game->ray.side_dist.y = (game->ray.map.y + 1.0 - game->player.pos.y) * game->ray.delta_dist.y;
+		}
+		bool hit = false;
+		while (!hit)
+		{
+			if (game->ray.side_dist.x < game->ray.side_dist.y)
+			{
+				game->ray.side_dist.x += game->ray.delta_dist.x;
+				game->ray.map.x += game->ray.step.x;
+				game->ray.side = 0;
+			}
+			else
+			{
+				game->ray.side_dist.y += game->ray.delta_dist.y;
+				game->ray.map.y += game->ray.step.y;
+				game->ray.side = 1;
+			}
+			if (game->map->map[(int)game->ray.map.x][(int)game->ray.map.y] == WALL)
+				hit = true;
+		}
+		if (!game->ray.side)
+			game->ray.length = (game->ray.side_dist.x - game->ray.delta_dist.x);
+		else
+			game->ray.length = (game->ray.side_dist.y - game->ray.delta_dist.y);
+		
+		compute_pixel_column(game, x);
+		x++;
+	}
+}
