@@ -39,12 +39,6 @@ enum e_direction
 	EAST
 };
 
-typedef struct s_position
-{
-	int					x;
-	int					y;
-	enum e_direction	direction;
-}		t_position;
 
 typedef struct s_texture
 {
@@ -75,16 +69,42 @@ typedef struct s_map // every element is allocated and has to be freed if failur
 
 typedef struct s_graphics
 {
-	mlx_image_t	*image;
+	mlx_image_t	*image; //equals the plane
 	mlx_t		*mlx;
 	// int			width;
 	// int			height;
 }		t_graphics;
 
+typedef struct s_ray // size of arrays equals amnt of rays
+{
+	int					amnt_of_rays;
+	int					*hit_x;
+	int					*hit_y;
+	float				*radian;
+	int					*len_to_wall;
+	int					*wall_height;
+	enum e_direction	wall_texture;
+}		t_ray;
+
+typedef struct s_position
+{
+	int					x;
+	int					y;
+	enum e_direction	direction;
+}		t_position;
+
+typedef struct s_data
+{
+	t_position	player;
+	t_ray		rays;
+}		t_data;
+
 typedef struct s_game
 {
 	t_map		*map;
 	t_graphics	*graphics;
+	t_data		*data;
+
 }		t_game;
 
 int			validate(t_map *map);
