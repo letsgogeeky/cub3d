@@ -56,6 +56,7 @@ typedef struct s_position
 
 typedef struct	s_player
 {
+	//TODO: update pos to use t_position struct
 	t_vector	pos;
 	t_vector	dir;
 	t_vector	plane;
