@@ -10,6 +10,19 @@ t_game	*allocate_game(t_map *m)
 	if (!game)
 		return (NULL);
 	game->map = m;
+	game->data = malloc(sizeof(t_data));
+	if (!game->data)
+	{
+		free(game);
+		return (NULL);
+	}
+	game->data->rays = malloc(sizeof(t_ray) * WIDTH);
+	if (!game->data->rays)
+	{
+		free(game->data);
+		free(game);
+		return (NULL);
+	}
 	return (game);
 }
 
@@ -64,6 +77,9 @@ void	free_game(t_game *game)
 	if (game->map != NULL)
 		free_map_struct(game->map);
 	game->map = NULL;
+	if (game->data != NULL)
+		free(game->data);
+	game->data = NULL;
 	if (game != NULL)
 		free(game);
 	game = NULL;
