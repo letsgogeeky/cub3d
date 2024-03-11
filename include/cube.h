@@ -118,18 +118,12 @@ typedef struct s_map // every element is allocated and has to be freed if failur
 	int					cols;
 }		t_map;
 
-typedef struct s_graphics
-{
-	mlx_image_t	*image;
-	mlx_t		*mlx;
-}		t_graphics;
-
 typedef struct s_game
 {
-	// TODO: move graphics attrs to this struct and remove the graphics struct
 	t_map		*map;
-	t_graphics	*graphics;
 	t_data      *data;
+	mlx_image_t	*image;
+	mlx_t		*mlx;
 }		t_game;
 
 int			validate(t_map *map);

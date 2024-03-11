@@ -15,7 +15,7 @@ void	fill_block(t_game *game, int block_size, int x, int y, int color)
 	{
 		while (x < x_max)
 		{
-			mlx_put_pixel(game->graphics->image, x, y, color);
+			mlx_put_pixel(game->image, x, y, color);
 			x++;
 		}
 		x = tmp_x;
@@ -36,7 +36,7 @@ void	draw_vert(t_game *game, int block_size)
 	{
 		while (y < block_size * game->map->rows)
 		{
-			mlx_put_pixel(game->graphics->image, x, y, 0x000000FF);
+			mlx_put_pixel(game->image, x, y, 0x000000FF);
 			y++;
 		}
 		y = 0;
@@ -58,7 +58,7 @@ void	draw_hor(t_game *game, int block_size)
 	{
 		while (x < block_size * (game->map->cols)) // why one more column then chars
 		{
-			mlx_put_pixel(game->graphics->image, x, y, 0x000000FF);
+			mlx_put_pixel(game->image, x, y, 0x000000FF);
 			x++;
 		}
 		x = 0;
@@ -77,8 +77,8 @@ void	draw_block(t_game *game)
 	int	i;
 	int	j;
 
-	w = game->graphics->mlx->width;
-	h = game->graphics->mlx->width;
+	w = game->mlx->width;
+	h = game->mlx->width;
 	block_size = h / game->map->rows;
 	x = 0;
 	y = 0;

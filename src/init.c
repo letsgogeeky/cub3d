@@ -10,13 +10,17 @@ t_game	*allocate_game(t_map *m)
 	if (!game)
 		return (NULL);
 	game->map = m;
-	game->graphics = malloc(sizeof(t_graphics));
-	if (!game->graphics)
+	game->data = malloc(sizeof(t_data));
+	if (!game->data)
 	{
-		free_map_struct(game->map);
-		game->map = NULL;
 		free(game);
-		game = NULL;
+		return (NULL);
+	}
+	game->data->rays = malloc(sizeof(t_ray) * WIDTH);
+	if (!game->data->rays)
+	{
+		free(game->data);
+		free(game);
 		return (NULL);
 	}
 	return (game);
@@ -29,17 +33,17 @@ t_game	*init_game(t_map *m)
 	game = allocate_game(m);
 	if (!game)
 		return (NULL);
-	game->graphics->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
-	if (!game->graphics->mlx)
+	game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
+	if (!game->mlx)
 	{
 		free_game(game);
 		return (NULL);
 	}
-	game->graphics->image = mlx_new_image(game->graphics->mlx, WIDTH, HEIGHT);
-	if (!game->graphics->image)
+	game->image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	if (!game->image)
 	{
 		free_game(game);
-		mlx_terminate(game->graphics->mlx);
+		mlx_terminate(game->mlx);
 		return (NULL);
 	}
 	return (game);
@@ -73,9 +77,9 @@ void	free_game(t_game *game)
 	if (game->map != NULL)
 		free_map_struct(game->map);
 	game->map = NULL;
-	if (game->graphics != NULL)
-		free(game->graphics);
-	game->graphics = NULL;
+	if (game->data != NULL)
+		free(game->data);
+	game->data = NULL;
 	if (game != NULL)
 		free(game);
 	game = NULL;
@@ -91,16 +95,16 @@ void	open_n_draw(t_map *m)
 		ft_prerr(FAIL_GAME_INIT, NULL);
 		return ;
 	}
-	if (mlx_image_to_window(game->graphics->mlx, game->graphics->image, 0, 0) < 0)
+	if (mlx_image_to_window(game->mlx, game->image, 0, 0) < 0)
 	{
 		free_game(game);
-		mlx_terminate(game->graphics->mlx);
+		mlx_terminate(game->mlx);
 		return ;
 	}
 	draw_block(game);
-	mlx_loop_hook(game->graphics->mlx, ft_hook, game->graphics->mlx);
-	mlx_loop(game->graphics->mlx);
-	mlx_terminate(game->graphics->mlx);
+	mlx_loop_hook(game->mlx, ft_hook, game->mlx);
+	mlx_loop(game->mlx);
+	mlx_terminate(game->mlx);
 	free_game(game);
 	return ;
 }
