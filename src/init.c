@@ -54,12 +54,17 @@ t_game	*init_game(t_map *m)
 	
 // 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_REPEAT)
 // 		move_forward();
-// 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
+// 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_REPEAT)
 // 		turn_left();
 // 	if (keydata.key == MLX_KEY_S && keydata.action == MLX_REPEAT)
 // 		move_backwards();
-// 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
+// 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_REPEAT)
 // 		turn_right();
+// 	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_REPEAT)
+// 		turn_left();
+// 	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_REPEAT)
+// 		turn_right();
+
 // }
 
 void	ft_hook(void *param) // need to try if two loops are possible if different param are needed

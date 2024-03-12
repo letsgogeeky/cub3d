@@ -2,11 +2,20 @@
 
 void	ft_prerr(char *str, char *argv)
 {
-	int	i;
+	int			i;
+	static int	err;
 
 	i = 0;
+	//err = 0;
+	// printf("TEST %i\n", err);
 	if (str == NULL)
 		return ;
+	if (err == 0)
+	{
+		write(2, "Error\n", 6);
+		err++;
+		// printf("%i\n", err);
+	}
 	while (str[i] != '\0')
 		write(2, &str[i++], 1);
 	if (argv != NULL)
