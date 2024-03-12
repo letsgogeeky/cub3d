@@ -39,10 +39,62 @@ enum e_direction
 	EAST
 };
 
+typedef struct  s_vector
+{
+    float   x;
+    float   y;
+}       t_vector;
+
+typedef struct	s_vector_int
+{
+	int		x;
+	int		y;
+}		t_vector_int;
+
+typedef struct s_position
+{
+    int                 x;
+    int                 y;
+    // enum e_direction start_orientation;
+    t_vector            direction;
+}       t_position;
+
+typedef struct s_ray // size of arrays equals amnt of rays
+{
+    // int                  amnt_of_rays; //for every x (or y if steep wall)
+    int			        hit_x; //calculate by myself
+	int			        hit_y; //calculate by myself
+    t_vector            ray; // has to be from position to hitpoint so that i can calculate the rest
+	t_vector			angle;
+	t_vector			side_dist;
+	t_vector			delta_dist;
+    int                 len_to_wall; //calculate by myself
+    int                 wall_height; //calculate by myself
+    enum e_direction    wall_texture;
+}       t_ray;
+
 typedef struct s_texture
 {
-	char	*path;
+	char			*path;
+	mlx_texture_t	*tex;
 }		t_texture;
+
+typedef struct	s_player
+{
+	t_position	pos;
+	t_vector	dir;
+	t_vector	plane;
+	double		rotation_angle;
+	double		walk_speed;
+	double		turn_speed;
+
+}		t_player;
+
+typedef struct s_data
+{
+    t_player  	player;
+    t_ray       *rays;
+}       t_data;
 
 typedef struct s_color
 {
@@ -66,50 +118,12 @@ typedef struct s_map // every element is allocated and has to be freed if failur
 	int					cols;
 }		t_map;
 
-
-typedef struct	s_vector
-{
-	float	x;
-	float	y;
-}		t_vector;
-
-typedef struct s_ray // size of arrays equals amnt of rays
-{
-	// int					amnt_of_rays; //for every x (or y if steep wall)
-	int					hit_x; //calculate by myself
-	int					hit_y; //calculate by myself
-	t_vector			ray; // has to be from position to hitpoint so that i can calculate the rest
-	int					len_to_wall; //calculate by myself
-	int					wall_height; //calculate by myself
-	enum e_direction	wall_texture;
-}		t_ray;
-
-typedef struct s_position
-{
-	int					x;
-	int					y;
-	// enum e_direction	start_orientation; 
-	t_vector			direction;
-}		t_position;
-
-typedef struct s_data
-{
-	t_position	player;
-	t_ray		*rays;
-}		t_data;
-
-typedef struct s_graphics //do we need a seperate struct or can we put it inside t_game?
-{
-	mlx_image_t	*image;
-	mlx_t		*mlx;
-}		t_graphics;
-
 typedef struct s_game
 {
 	t_map		*map;
-	t_graphics	*graphics;
-	t_data		*data;
-
+	t_data      *data;
+	mlx_image_t	*image;
+	mlx_t		*mlx;
 }		t_game;
 
 int			validate(t_map *map);
