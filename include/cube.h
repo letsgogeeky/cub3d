@@ -39,7 +39,6 @@ enum e_direction
 	EAST
 };
 
-
 typedef struct s_texture
 {
 	char	*path;
@@ -62,27 +61,26 @@ typedef struct s_map // every element is allocated and has to be freed if failur
 	t_texture	*east_texture;
 	t_color		*floor_color;
 	t_color		*ceiling_color;
-	char				**map;	
+	char				**map;
 	int					rows;
 	int					cols;
 }		t_map;
 
-typedef struct s_graphics
+
+typedef struct	s_vector
 {
-	mlx_image_t	*image; //equals the plane
-	mlx_t		*mlx;
-	// int			width;
-	// int			height;
-}		t_graphics;
+	float	x;
+	float	y;
+}		t_vector;
 
 typedef struct s_ray // size of arrays equals amnt of rays
 {
-	int					amnt_of_rays;
-	int					*hit_x;
-	int					*hit_y;
-	float				*radian;
-	int					*len_to_wall;
-	int					*wall_height;
+	// int					amnt_of_rays; //for every x (or y if steep wall)
+	int					hit_x; //calculate by myself
+	int					hit_y; //calculate by myself
+	t_vector			ray; // has to be from position to hitpoint so that i can calculate the rest
+	int					len_to_wall; //calculate by myself
+	int					wall_height; //calculate by myself
 	enum e_direction	wall_texture;
 }		t_ray;
 
@@ -90,14 +88,21 @@ typedef struct s_position
 {
 	int					x;
 	int					y;
-	enum e_direction	direction;
+	// enum e_direction	start_orientation; 
+	t_vector			direction;
 }		t_position;
 
 typedef struct s_data
 {
 	t_position	player;
-	t_ray		rays;
+	t_ray		*rays;
 }		t_data;
+
+typedef struct s_graphics //do we need a seperate struct or can we put it inside t_game?
+{
+	mlx_image_t	*image;
+	mlx_t		*mlx;
+}		t_graphics;
 
 typedef struct s_game
 {
