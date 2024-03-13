@@ -1,5 +1,28 @@
 # include "cube.h"
 
+int	compute_block_size(t_game *game)
+{
+	int	block_size;
+
+	block_size = HEIGHT / game->map->rows;
+	if (WIDTH / (game->map->cols) < block_size)
+		block_size = WIDTH / (game->map->cols);
+	game->block_size = block_size;
+	return (block_size);
+}
+
+void	clear_area(t_game *game)
+{
+	int	x;
+	int	y;
+	t_player	player;
+
+	player = game->data->player;
+	x = player.pos.x * game->block_size;
+	y = player.pos.y * game->block_size;
+	fill_block(game, game->block_size, x, y, 0x00FFA000);
+}
+
 void	fill_block(t_game *game, int block_size, int x, int y, int color)
 {
 	int	tmp_x;
@@ -8,9 +31,11 @@ void	fill_block(t_game *game, int block_size, int x, int y, int color)
 	int	y_max;
 
 	tmp_x = x;
+	ft_printf("x: %d, y: %d\n", x, y);
 	// cnt_y = y;
 	x_max = x + block_size;
 	y_max = y + block_size;
+	ft_printf("x_max: %d, y_max: %d\n", x_max, y_max);
 	while (y < y_max)
 	{
 		while (x < x_max)
@@ -69,23 +94,17 @@ void	draw_hor(t_game *game, int block_size)
 
 void	draw_block(t_game *game)
 {
-	int	w;
-	int	h;
 	int	block_size;
 	int	x;
 	int	y;
 	int	i;
 	int	j;
 
-	w = game->mlx->width;
-	h = game->mlx->width;
-	block_size = h / game->map->rows;
+	block_size = compute_block_size(game);
 	x = 0;
 	y = 0;
 	i = 0;
 	j = 0;
-	if (w / (game->map->cols) < block_size)
-		block_size = w / (game->map->cols);
 	draw_vert(game, block_size);
 	draw_hor(game, block_size);
 	while (i < game->map->rows)

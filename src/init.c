@@ -23,6 +23,7 @@ t_game	*allocate_game(t_map *m)
 		free(game);
 		return (NULL);
 	}
+	game->data->player = init_player(m);
 	return (game);
 }
 
@@ -107,7 +108,7 @@ void	open_n_draw(t_map *m)
 		return ;
 	}
 	draw_block(game);
-	mlx_loop_hook(game->mlx, ft_hook, game->mlx);
+	mlx_loop_hook(game->mlx, ft_controls, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 	free_game(game);

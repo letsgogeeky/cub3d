@@ -10,6 +10,7 @@
 # include "MLX42/MLX42.h"
 # include "baselib.h"
 # include <stdbool.h>
+# include <math.h>
 
 # define WIDTH 1366
 # define HEIGHT 768
@@ -36,7 +37,8 @@ enum e_direction
 	NORTH,
 	SOUTH,
 	WEST,
-	EAST
+	EAST,
+	UNKNOWN
 };
 
 typedef struct  s_vector
@@ -87,7 +89,7 @@ typedef struct	s_player
 	double		rotation_angle;
 	double		walk_speed;
 	double		turn_speed;
-
+	enum e_direction	initial_orientation;
 }		t_player;
 
 typedef struct s_data
@@ -124,12 +126,14 @@ typedef struct s_game
 	t_data      *data;
 	mlx_image_t	*image;
 	mlx_t		*mlx;
+	int			block_size;
 }		t_game;
 
 int			validate(t_map *map);
 t_position	get_player_position(t_map *map);
 void		log_player_position(t_map *map);
 char		*direction_to_str(enum e_direction direction);
+void		show_player(t_game *game);
 
 //init.c
 t_game		*allocate_game(t_map *m);
@@ -182,5 +186,20 @@ void		fill_block(t_game *game, int block_size, int x, int y, int color);
 void		draw_vert(t_game *game, int block_size);
 void		draw_hor(t_game *game, int block_size);
 void		draw_block(t_game *game);
+void		clear_area(t_game *game);
 
+
+// movement.c
+void	move_forward(t_game *game);
+void	move_backward(t_game *game);
+void	move_left(t_game *game);
+void	move_right(t_game *game);
+void	turn_left(t_game *game);
+void	turn_right(t_game *game);
+
+// controls.c
+void	ft_controls(void *param);
+
+// player.c
+t_player	init_player(t_map *map);
 #endif
