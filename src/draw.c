@@ -80,7 +80,7 @@ void	cast_wall(t_game *game, int size, int x, int y, int color)
 	{
 		while (x < x_max)
 		{
-			mlx_put_pixel(game->graphics->image, x, y, color);
+			mlx_put_pixel(game->image, x, y, color);
 			x++;
 		}
 		x = tmp_x;

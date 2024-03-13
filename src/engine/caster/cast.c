@@ -38,7 +38,7 @@ void	draw_line(t_game *game, t_vector start, t_vector end, int color)
 	i = 0;
 	while (i <= steps)
 	{
-		mlx_put_pixel(game->graphics->image, x, y, color);
+		mlx_put_pixel(game->image, x, y, color);
 		x += dx;
 		y += dy;
 		i++;
@@ -110,11 +110,11 @@ void	compute_pixel_column(t_game *game, int x)
 	while (y < HEIGHT)
 	{
 		if (y < wall.x)
-			mlx_put_pixel(game->graphics->image, x, y, 0x00FF0000);
+			mlx_put_pixel(game->image, x, y, 0x00FF0000);
 		else if (y > wall.x && y < wall.y)
-			mlx_put_pixel(game->graphics->image, x, y, 0x00FFFFFF);
+			mlx_put_pixel(game->image, x, y, 0x00FFFFFF);
 		else
-			mlx_put_pixel(game->graphics->image, x, y, 0x000000FF);
+			mlx_put_pixel(game->image, x, y, 0x000000FF);
 		y++;
 	
 	}

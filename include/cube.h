@@ -37,7 +37,8 @@ enum e_direction
 	NORTH,
 	SOUTH,
 	WEST,
-	EAST
+	EAST,
+	UNKNOWN
 };
 
 typedef struct	s_vector
@@ -51,46 +52,24 @@ typedef struct s_position
 {
     int                 x;
     int                 y;
-    // enum e_direction start_orientation;
-    t_vector            direction;
 }       t_position;
-
-typedef struct s_ray // size of arrays equals amnt of rays
-{
-    // int                  amnt_of_rays; //for every x (or y if steep wall)
-    int			        hit_x; //calculate by myself
-	int			        hit_y; //calculate by myself
-    t_vector            ray; // has to be from position to hitpoint so that i can calculate the rest
-	t_vector			angle;
-	t_vector			side_dist;
-	t_vector			delta_dist;
-    int                 len_to_wall; //calculate by myself
-    int                 wall_height; //calculate by myself
-    enum e_direction    wall_texture;
-}       t_ray;
-
-typedef struct	s_player
-{
-	//TODO: update pos to use t_position struct
-	t_vector	pos;
-	t_vector	dir;
-	t_vector	plane;
-	double		rotation_angle;
-	double		walk_speed;
-	double		turn_speed;
-
-}		t_player;
 
 typedef struct s_ray
 {
-	t_vector	dir;
-	t_vector	angle;
-	t_vector	side_dist;
-	t_vector	delta_dist;
-	t_vector	map;
-	t_vector	step;
-	int			side;
-	double		length;
+	int			        hit_x; //calculate by myself
+	int			        hit_y; //calculate by myself
+    t_vector            ray; // has to be from position to hitpoint so that i can calculate the rest
+	t_vector			dir;
+	t_vector			angle;
+	t_vector			side_dist;
+	t_vector			delta_dist;
+	t_vector			map;
+	t_vector			step;
+	int					side;
+	double				length;
+	int                 len_to_wall; //calculate by myself
+    int                 wall_height; //calculate by myself
+    enum e_direction    wall_texture;
 }		t_ray;
 
 typedef struct s_texture
@@ -101,13 +80,13 @@ typedef struct s_texture
 
 typedef struct	s_player
 {
-	t_position	pos;
-	t_vector	dir;
-	t_vector	plane;
-	double		rotation_angle;
-	double		walk_speed;
-	double		turn_speed;
-
+	t_position			pos;
+	t_vector			dir;
+	t_vector			plane;
+	double				rotation_angle;
+	double				walk_speed;
+	double				turn_speed;
+	enum e_direction	init_orientation;
 }		t_player;
 
 typedef struct s_data
@@ -141,11 +120,11 @@ typedef struct s_map // every element is allocated and has to be freed if failur
 typedef struct s_game
 {
 	t_map		*map;
-	t_graphics	*graphics;
 	t_player	player;
 	t_ray		ray;
-	int		block_size;
+	// Should we continue using the `data` struct if we don't have an array of rays?
 	t_data      *data;
+	int			block_size;
 	mlx_image_t	*image;
 	mlx_t		*mlx;
 }		t_game;

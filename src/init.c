@@ -87,7 +87,7 @@ void	ft_hook(void *param) // need to try if two loops are possible if different 
 	t_game	*game;
 
 	game = param;
-	mlx = game->graphics->mlx;
+	mlx = game->mlx;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	else if (mlx_is_key_down(mlx, MLX_KEY_W))
@@ -117,7 +117,6 @@ void	free_game(t_game *game)
 	game = NULL;
 }
 
-
 void	open_n_draw(t_map *m)
 {
 	t_game	*game;
@@ -137,7 +136,7 @@ void	open_n_draw(t_map *m)
 	// raycast(game);
 	// draw_block(game);
 	do_raycast(game);
-	mlx_loop_hook(game->mlx, ft_hook, game->mlx);
+	mlx_loop_hook(game->mlx, ft_hook, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 	free_game(game);
