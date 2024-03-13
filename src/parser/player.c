@@ -109,7 +109,7 @@ t_player	init_player(t_map *map)
 	else if (player.init_orientation == EAST)
 	{
 		player.dir.x = -1;
-		player.plane.y = -1.2;
+		player.plane.y = -0.66;
 	}
 	player.rotation_angle = 0;
 	player.walk_speed = 0.1;
