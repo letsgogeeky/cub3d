@@ -45,7 +45,7 @@ t_position	get_player_position(t_map *map)
 			{
 				position.x = j;
 				position.y = i;
-				position.direction = get_direction(map->map[i][j]);
+				// position.direction = get_direction(map->map[i][j]);
 				return (position);
 			}
 			j++;
@@ -99,5 +99,5 @@ void	log_player_position(t_map *map)
 
 	position = get_player_position(map);
 	ft_printf("Player position: X: %d, Y: %d, Direction: %s\n", \
-		position.x, position.y, direction_to_str(position.direction));
+		position.x, position.y, direction_to_str(1));
 }

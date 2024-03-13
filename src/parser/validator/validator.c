@@ -71,11 +71,6 @@ void	update_rows_cols_count(t_map *map)
 	}
 	map->rows = rows;
 }
-// bool	validate_path_downwards_backtrack(char **grid, int i, int j, int rows)
-// {
-// 	if (grid[i][j] == EMPTY)
-// 		validate_path_downwards_backtrack(grid, i + 1, j, rows);
-// }
 
 bool	hit_wall_left(char **grid, int i, int j)
 {

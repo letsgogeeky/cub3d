@@ -6,6 +6,8 @@ void	check_n_change_c(char *str)
 	int	len;
 
 	i = 0;
+	if (str == NULL)
+		return ;
 	len = ft_strlen(str);
 	while (i < len)
 	{
