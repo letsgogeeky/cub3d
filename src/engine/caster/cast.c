@@ -71,18 +71,87 @@ void	visualize_2d_ray(t_game *game, int color)
 {
 	t_vector	start;
 	t_vector	end;
-	t_vector	distance;
+	// t_vector	distance;
 	int		block_size;
 
 	block_size = game->block_size;
-	distance = distance_to_wall(game);
+	// distance = distance_to_wall(game);
 	start.x = game->player.pos.x * block_size + block_size / 2;
 	start.y = game->player.pos.y * block_size + block_size / 2;
-	end.x = game->player.dir.x * block_size + start.x + (distance.x * block_size);
-	end.y = game->player.dir.y * block_size + start.y + (distance.y * block_size);
+	end.x = game->player.dir.x * block_size + start.x;
+	end.y = game->player.dir.y * block_size + start.y;
+	draw_line(game, start, end, 0xFFFFFFFF);
+	int x = 0;
+	float column_x;
+	// int max;
+	// if ()
+	column_x = 0;
+	while (x < 10)
+	{
+		// calculate ray position and direction
+		column_x = 2 * x / (double)10 - 1;
+		ft_printf("Column_x: %f\n", column_x);
+		ft_printf("dir.x: %f, dir.y: %f\n", game->player.dir.x, game->player.dir.y);
+		ft_printf("plane.x: %f, plane.y: %f\n", game->player.plane.x, game->player.plane.y);
+		game->ray.angle.x = game->player.dir.x + game->player.plane.x * column_x;
+		game->ray.angle.y = game->player.dir.y + game->player.plane.y * column_x;
+		game->ray.delta_dist.x = fabs(1 / game->ray.angle.x);
+		// if (game->ray.angle.x == 0)
+		// 	game->ray.delta_dist.x = INFINITY;
+		game->ray.delta_dist.y = fabs(1 / game->ray.angle.y);
+		// if (game->ray.angle.y == 0)
+		// 	game->ray.delta_dist.y = INFINITY;
+		game->ray.map.x = (int)game->player.pos.x;
+		game->ray.map.y = (int)game->player.pos.y;
+		// calculate step and initial side_dist
+		game->ray.side_dist.x = game->ray.delta_dist.x;
+		game->ray.side_dist.y = game->ray.delta_dist.y;
+		ft_printf("Angel.x: %f, Angel.y: %f\n", game->ray.angle.x, game->ray.angle.y);
+		if (game->ray.angle.x < 0)
+			game->ray.step.x = -1;
+		else
+			game->ray.step.x = 1;
+		if (game->ray.angle.y < 0)
+			game->ray.step.y = -1;
+		else
+			game->ray.step.y = 1;
+		bool hit = false;
+		while (!hit)
+		{
+			if (game->ray.side_dist.x < game->ray.side_dist.y)
+			{
+				game->ray.side_dist.x += game->ray.delta_dist.x;
+				game->ray.map.x += game->ray.step.x;
+				game->ray.side = 0;
+			}
+			else
+			{
+				game->ray.side_dist.y += game->ray.delta_dist.y;
+				game->ray.map.y += game->ray.step.y;
+				game->ray.side = 1;
+			}
+			int map_x = (int)game->ray.map.x;
+			int map_y = (int)game->ray.map.y;
+			if (map_x < 0 || map_y < 0 || map_x >= game->map->rows || map_y >= game->map->cols)
+				break;
+			if (game->map->map[map_x][map_y] && game->map->map[map_x][map_y] == WALL)
+				hit = true;
+		}
+		if (game->ray.side == 0)
+			game->ray.length = (game->ray.side_dist.x - game->ray.delta_dist.x);
+		else
+			game->ray.length = (game->ray.side_dist.y - game->ray.delta_dist.y);
+		
+		ft_printf("map.x: %f, map.y: %f\n", game->ray.map.x, game->ray.map.y);
+		end.x = (int)game->ray.map.x * block_size + start.x;
+		end.y = (int)game->ray.map.y * block_size + start.y;
+		ft_printf("end.x: %f, end.y: %f\n", end.x, end.y);
+		draw_line(game, start, end, color);
+		x++;
+	}
 	ft_printf("start: %f, %f\n", start.x, start.y);
 	ft_printf("end: %f, %f\n", end.x, end.y);
-	draw_line(game, start, end, color);
+	
 }
 
 

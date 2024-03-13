@@ -134,8 +134,8 @@ void	open_n_draw(t_map *m)
 		return ;
 	}
 	// raycast(game);
-	// draw_block(game);
-	do_raycast(game);
+	draw_block(game);
+	// do_raycast(game);
 	mlx_loop_hook(game->mlx, ft_hook, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);

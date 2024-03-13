@@ -108,7 +108,7 @@ void	show_player(t_game *game)
 	y = game->player.pos.y * game->block_size;
 	ft_printf("x: %d, y: %d\n", x, y);
 	fill_block(game, game->block_size, x, y, 0x00FFFFFF);
-	visualize_2d_ray(game, 0x000000FF);
+	visualize_2d_ray(game, 0xFF0000FF);
 }
 
 void	draw_block(t_game *game)
