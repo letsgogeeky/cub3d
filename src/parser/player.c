@@ -45,6 +45,7 @@ t_position	get_player_position(t_map *map)
 			{
 				position.x = j;
 				position.y = i;
+				// position.direction = get_direction(map->map[i][j]);
 				return (position);
 			}
 			j++;
@@ -92,23 +93,23 @@ t_player	init_player(t_map *map)
 	player.plane.y = 0;
 	if (player.init_orientation == NORTH)
 	{
-		player.dir.x = -1;
-		player.plane.y = 0.66;
+		player.dir.y = -1;
+		player.plane.y = -0.66;
 	}
 	else if (player.init_orientation == SOUTH)
 	{
-		player.dir.x = 1;
-		player.plane.y = -0.66;
+		player.dir.y = 1;
+		player.plane.x = 0.66;
 	}
 	else if (player.init_orientation == WEST)
 	{
-		player.dir.y = -1;
-		player.plane.x = -0.66;
+		player.dir.x = -1;
+		player.plane.y = 0.66; 
 	}
 	else if (player.init_orientation == EAST)
 	{
-		player.dir.y = 1;
-		player.plane.x = 0.66;
+		player.dir.x = -1;
+		player.plane.y = -1.2;
 	}
 	player.rotation_angle = 0;
 	player.walk_speed = 0.1;
