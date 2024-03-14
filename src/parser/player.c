@@ -94,7 +94,7 @@ t_player	init_player(t_map *map)
 	if (player.init_orientation == NORTH)
 	{
 		player.dir.y = -1;
-		player.plane.y = -0.66;
+		player.plane.x = -0.66;
 	}
 	else if (player.init_orientation == SOUTH)
 	{
@@ -108,7 +108,7 @@ t_player	init_player(t_map *map)
 	}
 	else if (player.init_orientation == EAST)
 	{
-		player.dir.x = -1;
+		player.dir.x = 1;
 		player.plane.y = -0.66;
 	}
 	player.rotation_angle = 0;
