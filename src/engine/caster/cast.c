@@ -260,7 +260,6 @@ void	do_raycast(t_game *game)
 			game->ray.length = (game->ray.side_dist.x - game->ray.delta_dist.x);
 		else
 			game->ray.length = (game->ray.side_dist.y - game->ray.delta_dist.y);
-		
 		compute_pixel_column(game, x);
 		x++;
 	}

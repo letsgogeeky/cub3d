@@ -11,7 +11,6 @@ void	move_forward(t_game *game)
 		player->pos.x += player->dir.x * player->walk_speed;
 	if (map->map[(int)player->pos.x][(int)(player->pos.y + player->dir.y * player->walk_speed)] != '1')
 		player->pos.y += player->dir.y * player->walk_speed;
-	show_player(game);
 }
 
 void	move_backward(t_game *game)
@@ -25,7 +24,6 @@ void	move_backward(t_game *game)
 		player->pos.x -= player->dir.x * player->walk_speed;
 	if (map->map[(int)player->pos.x][(int)(player->pos.y - player->dir.y * player->walk_speed)] != '1')
 		player->pos.y -= player->dir.y * player->walk_speed;
-	show_player(game);
 }
 
 void	turn_left(t_game *game)
@@ -41,7 +39,6 @@ void	turn_left(t_game *game)
 	old_plane_x = player->plane.x;
 	player->plane.x = player->plane.x * cos(player->turn_speed) - player->plane.y * sin(player->turn_speed);
 	player->plane.y = old_plane_x * sin(player->turn_speed) + player->plane.y * cos(player->turn_speed);
-	show_player(game);
 }
 
 void	turn_right(t_game *game)
@@ -57,7 +54,6 @@ void	turn_right(t_game *game)
 	old_plane_x = player->plane.x;
 	player->plane.x = player->plane.x * cos(-player->turn_speed) - player->plane.y * sin(-player->turn_speed);
 	player->plane.y = old_plane_x * sin(-player->turn_speed) + player->plane.y * cos(-player->turn_speed);
-	show_player(game);
 }
 
 void	move_left(t_game *game)
@@ -71,7 +67,6 @@ void	move_left(t_game *game)
 		player->pos.x -= player->plane.x * player->walk_speed;
 	if (map->map[(int)player->pos.x][(int)(player->pos.y - player->plane.y * player->walk_speed)] != '1')
 		player->pos.y -= player->plane.y * player->walk_speed;
-	show_player(game);
 }
 
 void	move_right(t_game *game)
@@ -85,5 +80,4 @@ void	move_right(t_game *game)
 		player->pos.x += player->plane.x * player->walk_speed;
 	if (map->map[(int)player->pos.x][(int)(player->pos.y + player->plane.y * player->walk_speed)] != '1')
 		player->pos.y += player->plane.y * player->walk_speed;
-	show_player(game);
 }

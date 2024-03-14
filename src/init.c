@@ -91,17 +91,17 @@ void	ft_hook(void *param) // need to try if two loops are possible if different 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	else if (mlx_is_key_down(mlx, MLX_KEY_W))
-		return (clear_area(game), move_forward(game));
+		return (move_forward(game), draw_block(game));
 	else if (mlx_is_key_down(mlx, MLX_KEY_A))
-		return (clear_area(game), move_left(game));
+		return (move_left(game), draw_block(game));
 	else if (mlx_is_key_down(mlx, MLX_KEY_S))
-		return (clear_area(game), move_backward(game));
+		return (move_backward(game), draw_block(game));
 	else if (mlx_is_key_down(mlx, MLX_KEY_D))
-		return (clear_area(game), move_right(game));
+		return (move_right(game), draw_block(game));
 	else if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		return (clear_area(game), turn_left(game));
+		return (turn_left(game), draw_block(game));
 	else if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		return (clear_area(game), turn_right(game));
+		return (turn_right(game), draw_block(game));
 }
 
 void	free_game(t_game *game)
