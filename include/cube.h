@@ -50,8 +50,8 @@ typedef struct	s_vector
 
 typedef struct s_position
 {
-    int                 x;
-    int                 y;
+    double                 x;
+    double                 y;
 }       t_position;
 
 typedef struct s_ray
@@ -199,7 +199,6 @@ void	move_forward(t_game *game);
 void	move_backward(t_game *game);
 void	move_left(t_game *game);
 void	move_right(t_game *game);
-void	turn_left(t_game *game);
-void	turn_right(t_game *game);
+void	rotate(t_game *game, bool clockwise);
 void	do_raycast(t_game *game);
 #endif

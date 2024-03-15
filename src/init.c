@@ -99,9 +99,9 @@ void	ft_hook(void *param) // need to try if two loops are possible if different 
 	else if (mlx_is_key_down(mlx, MLX_KEY_D))
 		return (move_right(game), draw_block(game));
 	else if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		return (turn_left(game), draw_block(game));
+		return (rotate(game, true), draw_block(game));
 	else if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		return (turn_right(game), draw_block(game));
+		return (rotate(game, false), draw_block(game));
 }
 
 void	free_game(t_game *game)

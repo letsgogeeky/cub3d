@@ -96,6 +96,7 @@ void	visualize_2d_ray(t_game *game, int color)
 	float dir_scalar = 1;
 	while (x < 10)
 	{
+		ft_printf("player position: x: %f, y: %f\n", game->player.pos.x, game->player.pos.y);
 		dir_scalar -= scalar;
 		game->ray.angle.x = game->player.dir.x + game->player.plane.x * dir_scalar;
 		game->ray.angle.y = game->player.dir.y + game->player.plane.y * dir_scalar;

@@ -97,25 +97,6 @@ void	clear_area(t_game *game)
 	fill_block(game, game->block_size, x, y, 0x00FFA000);
 }
 
-void	clear_image(t_game *game)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (y < HEIGHT)
-	{
-		while (x < WIDTH)
-		{
-			mlx_put_pixel(game->image, x, y, 0x00000000);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-}
-
 void	show_player(t_game *game)
 {
 	int	x;
@@ -138,14 +119,11 @@ void	draw_block(t_game *game)
 	int	i;
 	int	j;
 
-	block_size = HEIGHT / game->map->rows;
 	x = 0;
 	y = 0;
 	i = 0;
 	j = 0;
-	if (WIDTH / (game->map->cols) < block_size)
-		block_size = WIDTH / (game->map->cols);
-	clear_image(game);
+	block_size = game->block_size;
 	draw_vert(game, block_size);
 	draw_hor(game, block_size);
 	while (i < game->map->rows)
@@ -154,8 +132,6 @@ void	draw_block(t_game *game)
 		{
 			if (game->map->map[i][j] == '1')
 				fill_block(game, block_size, x, y, 0x000000FF);
-			// else if (ft_strchr("NSEW", game->map->map[i][j]) != NULL)
-			// 	fill_block(game, block_size, x, y, 0x00FFFFFF);
 			x = x + block_size;
 			j++;
 		}
