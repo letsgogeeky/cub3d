@@ -87,6 +87,26 @@ void	cast_wall(t_game *game, int size, int x, int y, int color)
 		y++;
 	}
 }
+
+
+void	clear_image(t_game *game)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (y < HEIGHT)
+	{
+		while (x < WIDTH)
+		{
+			mlx_put_pixel(game->image, x, y, 0x00000000);
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+}
 void	clear_area(t_game *game)
 {
 	int	x;
@@ -124,6 +144,7 @@ void	draw_block(t_game *game)
 	i = 0;
 	j = 0;
 	block_size = game->block_size;
+	clear_image(game);
 	draw_vert(game, block_size);
 	draw_hor(game, block_size);
 	while (i < game->map->rows)
