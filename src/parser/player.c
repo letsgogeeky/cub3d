@@ -84,7 +84,7 @@ t_player	init_player(t_map *map)
 
 	position = get_player_position(map);
 	player.init_orientation = initial_orientation(map);
-	ft_printf("Initial orientation: %s\n", direction_to_str(player.init_orientation));
+	// ft_printf("Initial orientation: %s\n", direction_to_str(player.init_orientation));
 	player.pos.x = position.x;
 	player.pos.y = position.y;
 	player.dir.x = 0;
@@ -122,6 +122,6 @@ void	log_player_position(t_map *map)
 	t_position	position;
 
 	position = get_player_position(map);
-	ft_printf("Player position: X: %d, Y: %d, Direction: %s\n", \
-		position.x, position.y, direction_to_str(1));
+	// ft_printf("Player position: X: %d, Y: %d, Direction: %s\n", \
+	//	position.x, position.y, direction_to_str(1));
 }

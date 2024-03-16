@@ -15,6 +15,8 @@
 # define WIDTH 1366
 # define HEIGHT 768
 
+# define AMOUNT_RAYS_2D_FOV 10
+
 # define STRUCT_FAILED "building of struct failed"
 # define INV_MAP "invalid map"
 # define PARSING_MAP_FAILED "parsing of the input map failed"
@@ -24,6 +26,35 @@
 # define CUB_FORMAT "input file needs .cub format"
 # define INV_TEX_FILE "texture file included in map is invalid"
 # define FAIL_GAME_INIT "Error: failed to initialize game\n"
+
+
+typedef struct s_texture
+{
+	char			*path;
+	mlx_texture_t	*tex;
+}		t_texture;
+
+typedef struct s_color
+{
+	char	*str_color;
+	int		red;
+	int		green;
+	int		blue;
+	int		hex_color_rgb;
+}		t_color;
+
+typedef struct s_map // every element is allocated and has to be freed if failure occures
+{
+	t_texture			*north_texture;
+	t_texture			*south_texture;
+	t_texture			*west_texture;
+	t_texture			*east_texture;
+	t_color				*floor_color;
+	t_color				*ceiling_color;
+	char				**map;
+	int					rows;
+	int					cols;
+}		t_map;
 
 enum e_symbol
 {
@@ -38,7 +69,7 @@ enum e_direction
 	SOUTH,
 	WEST,
 	EAST,
-	UNKNOWN
+	UNKNOWN,
 };
 
 typedef struct	s_vector
@@ -47,36 +78,31 @@ typedef struct	s_vector
 	double	y;
 }		t_vector;
 
-
 typedef struct s_position
 {
-    int                 x;
-    int                 y;
-}       t_position;
+	double		x;
+	double		y;
+}		t_position;
 
 typedef struct s_ray
 {
-	int			        hit_x; //calculate by myself
-	int			        hit_y; //calculate by myself
-    t_vector            ray; // has to be from position to hitpoint so that i can calculate the rest
+	t_vector			ray; // has to be from position to hitpoint so that i can calculate the rest
 	t_vector			dir;
 	t_vector			angle;
-	t_vector			side_dist;
-	t_vector			delta_dist;
+	t_vector			step_for_plus_x;
+	t_vector			step_for_plus_y;
+	t_vector			hitpoint;
+	t_vector			side_dist; //all blocks we passed so far
+	t_vector			delta_dist; //distance to next block
 	t_vector			map;
 	t_vector			step;
 	int					side;
 	double				length;
-	int                 len_to_wall; //calculate by myself
-    int                 wall_height; //calculate by myself
-    enum e_direction    wall_texture;
+	int					len_to_wall; //calculate by myself
+	int					wall_height; //calculate by myself
+	enum e_direction	wall_texture;
 }		t_ray;
 
-typedef struct s_texture
-{
-	char			*path;
-	mlx_texture_t	*tex;
-}		t_texture;
 
 typedef struct	s_player
 {
@@ -91,31 +117,9 @@ typedef struct	s_player
 
 typedef struct s_data
 {
-    t_player  	player;
-    t_ray       *rays;
-}       t_data;
-
-typedef struct s_color
-{
-	char	*str_color;
-	int		red;
-	int		green;
-	int		blue;
-	int		hex_color_rgb;
-}		t_color;
-
-typedef struct s_map // every element is allocated and has to be freed if failure occures
-{
-	t_texture	*north_texture;
-	t_texture	*south_texture;
-	t_texture	*west_texture;
-	t_texture	*east_texture;
-	t_color		*floor_color;
-	t_color		*ceiling_color;
-	char				**map;
-	int					rows;
-	int					cols;
-}		t_map;
+	t_player	player;
+	t_ray		*rays;
+}		t_data;
 
 typedef struct s_game
 {
@@ -123,7 +127,7 @@ typedef struct s_game
 	t_player	player;
 	t_ray		ray;
 	// Should we continue using the `data` struct if we don't have an array of rays?
-	t_data      *data;
+	t_data		*data;
 	int			block_size;
 	mlx_image_t	*image;
 	mlx_t		*mlx;
@@ -133,6 +137,21 @@ int			validate(t_map *map);
 t_position	get_player_position(t_map *map);
 void		log_player_position(t_map *map);
 char		*direction_to_str(enum e_direction direction);
+
+//draw_2d.c
+void		draw_line(t_game *game, t_vector start, t_vector end, int color);
+void		draw_ray(t_game *game, int color);
+
+//set_var.c
+double		vector_length(t_vector *vec);
+t_vector	set_player_in_block(t_game *game);
+float		set_first_block_border(t_game *game);
+int			check_hit(t_game *game, t_position hitpoint);
+int			check_first_wall(t_game *game, float factor, t_position	*hitpoint);
+t_position	dda(t_game *game);
+void		calculate_hitpoint(t_game *game);
+void		set_steps(t_game *game);
+void		set_angle(t_game *game, int x);
 
 //init.c
 t_game		*allocate_game(t_map *m);
@@ -195,11 +214,11 @@ void		show_player(t_game *game);
 void		clear_area(t_game *game);
 
 // movement
-void	move_forward(t_game *game);
-void	move_backward(t_game *game);
-void	move_left(t_game *game);
-void	move_right(t_game *game);
-void	turn_left(t_game *game);
-void	turn_right(t_game *game);
-void	do_raycast(t_game *game);
+void		move_forward(t_game *game);
+void		move_backward(t_game *game);
+void		move_left(t_game *game);
+void		move_right(t_game *game);
+void		turn_left(t_game *game);
+void		turn_right(t_game *game);
+void		do_raycast(t_game *game);
 #endif
