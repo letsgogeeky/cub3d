@@ -145,7 +145,7 @@ void		draw_ray(t_game *game, int color);
 //set_var.c
 double		vector_length(t_vector *vec);
 t_vector	set_player_in_block(t_game *game);
-float		set_first_block_border(t_game *game);
+double		set_first_block_border(t_game *game);
 int			check_hit(t_game *game, t_position hitpoint);
 int			check_first_wall(t_game *game, float factor, t_position	*hitpoint);
 t_position	dda(t_game *game);

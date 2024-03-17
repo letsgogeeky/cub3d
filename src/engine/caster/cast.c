@@ -54,6 +54,7 @@ void	visualize_2d_ray(t_game *game, int color)
 		set_steps(game);
 		calculate_hitpoint(game);
 		draw_ray(game, color);
+		printf("\n");
 		x++;
 	}
 	return;
