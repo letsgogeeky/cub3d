@@ -92,7 +92,8 @@ typedef struct s_ray
 	t_vector			step_for_plus_x;
 	t_vector			step_for_plus_y;
 	t_vector			hitpoint;
-	t_vector			side_dist; //all blocks we passed so far
+	t_vector			side_dist_x; //all blocks we passed so far
+	t_vector			side_dist_y; //all blocks we passed so far
 	t_vector			delta_dist; //distance to next block
 	t_vector			map;
 	t_vector			step;
@@ -147,8 +148,8 @@ double		vector_length(t_vector *vec);
 t_vector	set_player_in_block(t_game *game);
 double		set_first_block_border(t_game *game);
 int			check_hit(t_game *game, t_position hitpoint);
-int			check_first_wall(t_game *game, float factor, t_position	*hitpoint);
-t_position	dda(t_game *game);
+int			check_first_wall(t_game *game, double factor, t_position	*hitpoint);
+// t_position	dda(t_game *game);
 void		calculate_hitpoint(t_game *game);
 void		set_steps(t_game *game);
 void		set_angle(t_game *game, int x);

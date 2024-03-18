@@ -27,6 +27,40 @@ t_vector	set_player_in_block(t_game *game)
 	game = NULL;
 }
 
+
+// t_position	dda(t_game *game)
+// {
+// 	double			length_a;
+// 	t_vector		a;
+// 	t_vector		b;
+// 	double			length_b;
+// 	t_position		hitpoint;
+
+
+// 	a.x = /*game->player.pos.x*/ game->ray.side_dist.x + dx.x;
+// 	a.y = /*game->player.pos.y*/ game->ray.side_dist.y + dx.y;
+// 	b.x = /*game->player.pos.x*/ game->ray.side_dist.x + dy.x;
+// 	b.y = /*game->player.pos.y*/ game->ray.side_dist.y + dy.y;
+// 	length_a = vector_length(&a);
+
+// 	length_b = vector_length(&b);
+// 	printf("vektor a: %f, vektor b = %f\n", length_a, length_b);
+// 	if (length_a > length_b)
+// 	{
+// 		game->ray.side_dist.x += dy.x;
+// 		game->ray.side_dist.y += dy.y;
+// 	}
+// 	else
+// 	{
+// 		game->ray.side_dist.x += dx.x;
+// 		game->ray.side_dist.y += dx.y;
+// 	}
+// 	hitpoint.x = game->player.pos.x + game->ray.side_dist.x;
+// 	hitpoint.y = game->player.pos.y + game->ray.side_dist.y;
+// 	printf("dda hitpoint: %f %f\n", game->ray.side_dist.x, game->ray.side_dist.y);
+// 	return (hitpoint);
+// }
+
 double	set_first_block_border(t_game *game)
 {
 	t_vector	angle;
@@ -36,8 +70,10 @@ double	set_first_block_border(t_game *game)
 	angle.x = game->ray.angle.x;
 	angle.y = game->ray.angle.y;
 	player_in_block = set_player_in_block(game);
-	factor = 1;
-	if (angle.x < 0 && fabs(angle.y/angle.x) <= 1)
+	factor = 0;
+	if (player_in_block.x == 0 && player_in_block.y == 0)
+		return (factor);
+	else if (angle.x < 0 && fabs(angle.y/angle.x) <= 1)
 	{
 		factor = fabs(angle.x);
 		printf("A\n");
@@ -69,64 +105,38 @@ int	check_hit(t_game *game, t_position hitpoint)
 	char	**map;
 	int		i;
 	int		j;
+	int		test;
 
 	map = game->map->map;
 	i = (int)hitpoint.x;
 	j = (int)hitpoint.y;
-	printf("test i:%i j:%i\n", i, j);
-	if (ft_atoi(&map[i][j]) == 1)
+	test = ft_strncmp(&map[i][j], "1", 1);
+	// test = ft_atoi(&map[i][j]);
+	printf("test i:%i j:%i\n Number: %c \n", i, j, map[i][j]);
+	if (map[i][j] && test == 0)
 		return (1);
 	return (0);
 }
 
-int	check_first_wall(t_game *game, float factor, t_position	*hitpoint)
+int	check_first_wall(t_game *game, double factor, t_position	*hitpoint)
 {
-	game->ray.side_dist.x = (double)factor * game->ray.angle.x;
-	game->ray.side_dist.y = (double)factor * game->ray.angle.y;
-	hitpoint->x = game->player.pos.x + game->ray.side_dist.x;
-	hitpoint->y = game->player.pos.y + game->ray.side_dist.y;
-	printf("factor: %f, hitpoint = %f/%f\n", factor, hitpoint->x, hitpoint->y);
+	printf("FAKTOR %f\n", factor);
+	game->ray.side_dist_x.x = factor * game->ray.angle.x;
+	game->ray.side_dist_x.y = factor * game->ray.angle.y;
+	game->ray.side_dist_y.x = factor * game->ray.angle.x;
+	game->ray.side_dist_y.y = factor * game->ray.angle.y;
+	hitpoint->x = game->player.pos.x + game->ray.side_dist_x.x;
+	hitpoint->y = game->player.pos.y + game->ray.side_dist_x.y;
+	printf("*****factor: %f, hitpoint = %f/%f\n", factor, hitpoint->x, hitpoint->y);
+	printf("Aray_side_dist_x = %f / %f ray_side_dist_y = %f / %f\n", game->ray.side_dist_x.x, game->ray.side_dist_x.y, game->ray.side_dist_y.x, game->ray.side_dist_y.y);
 	if (check_hit(game, (*hitpoint)) == 1)
 		return (1);
+	game->ray.side_dist_x.x += game->ray.step_for_plus_x.x;
+	game->ray.side_dist_x.y += game->ray.step_for_plus_x.y;
+	game->ray.side_dist_y.x += game->ray.step_for_plus_y.x;
+	game->ray.side_dist_y.y += game->ray.step_for_plus_y.y;
+	printf("Bray_side_dist_x = %f / %f ray_side_dist_y = %f / %f \n", game->ray.side_dist_x.x, game->ray.side_dist_x.y, game->ray.side_dist_y.x, game->ray.side_dist_y.y);
 	return (0);
-}
-
-t_position	dda(t_game *game)
-{
-	t_vector		dx;
-	t_vector		dy;
-	double			length_a;
-	t_vector		a;
-	t_vector		b;
-	double			length_b;
-	t_position		hitpoint;
-
-
-	dx = game->ray.step_for_plus_x;
-	dy = game->ray.step_for_plus_y;
-	printf("ray_side_dist = %f / %f dx %f/%f dy %f/%f\n", game->ray.side_dist.x, game->ray.side_dist.y, dx.x, dx.y, dy.x, dy.y);
-	a.x = /*game->player.pos.x*/ game->ray.side_dist.x + dx.x;
-	a.y = /*game->player.pos.y*/ game->ray.side_dist.y + dx.y;
-	b.x = /*game->player.pos.x*/ game->ray.side_dist.x + dy.x;
-	b.y = /*game->player.pos.y*/ game->ray.side_dist.y + dy.y;
-	length_a = vector_length(&a);
-
-	length_b = vector_length(&b);
-	printf("vektor a: %f, vektor b = %f\n", length_a, length_b);
-	if (length_a > length_b)
-	{
-		game->ray.side_dist.x += dy.x;
-		game->ray.side_dist.y += dy.y;
-	}
-	else
-	{
-		game->ray.side_dist.x += dx.x;
-		game->ray.side_dist.y += dx.y;
-	}
-	hitpoint.x = game->player.pos.x + game->ray.side_dist.x;
-	hitpoint.y = game->player.pos.y + game->ray.side_dist.y;
-	printf("dda hitpoint: %f %f\n", game->ray.side_dist.x, game->ray.side_dist.y);
-	return (hitpoint);
 }
 
 void	calculate_hitpoint(t_game *game)
@@ -134,21 +144,54 @@ void	calculate_hitpoint(t_game *game)
 	bool		hit;
 	double		factor;
 	t_position	hitpoint;
+	t_vector	dx;
+	t_vector	dy;
+
 
 	hit = false;
 	factor = set_first_block_border(game);
+	dx = game->ray.step_for_plus_x;
+	dy = game->ray.step_for_plus_y;
+	// printf("dx = %f /%f dy = %f / %f \n", dx.x, dx.y, dy.x, dy.y);
 	if (check_first_wall(game, factor, &hitpoint) == 1)
 		hit = true;
-	while (hit == false && hitpoint.x >= 0 && hitpoint.y >= 0)
+	// printf("firstcheckover\n\n");
+
+	while (hit == false && hitpoint.x > 0 && hitpoint.y > 0)
 	{
-		hitpoint = dda(game);
-		printf("calc hit\n");
+		// printf("hitpoint = %f / %f \n", hitpoint.x, hitpoint.y);
 		if(check_hit(game, hitpoint) == 1)
 		{
 			//set_direction_wall(game) also welche texture;
 			hit = true;
 			break;
 		}
+		// printf("calc hit\n\n");
+		// printf("ray_side_dist_x = %f / %f ray_side_dist_y = %f / %f dx %f/%f dy %f/%f\n", game->ray.side_dist_x.x, game->ray.side_dist_x.y, game->ray.side_dist_y.x, game->ray.side_dist_y.y, dx.x, dx.y, dy.x, dy.y);
+		if (vector_length(&game->ray.side_dist_x) < vector_length(&game->ray.side_dist_y))
+		{
+			hitpoint.x = game->player.pos.x + game->ray.side_dist_x.x;
+			hitpoint.y = game->player.pos.y + game->ray.side_dist_x.y;
+			if (hitpoint.x > 0 && hitpoint.y > 0)
+			{
+				game->ray.side_dist_x.x += dx.x;
+				game->ray.side_dist_x.y += dx.y;
+			}
+			// printf("oben\n");
+		}
+		else
+		{
+			hitpoint.x = game->player.pos.x + game->ray.side_dist_y.x;
+			hitpoint.y = game->player.pos.y + game->ray.side_dist_y.y;
+			if (hitpoint.x > 0 && hitpoint.y > 0)
+			{
+				game->ray.side_dist_y.x += dy.x;
+				game->ray.side_dist_y.y += dy.y;
+			}
+			// printf("unten\n");
+		}
+		// printf("hitpoint = %f / %f \n", hitpoint.x, hitpoint.y);
+		// hitpoint = dda(game);
 	}
 	game->ray.hitpoint.x = hitpoint.x;
 	game->ray.hitpoint.y = hitpoint.y;

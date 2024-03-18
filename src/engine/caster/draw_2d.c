@@ -54,8 +54,8 @@ void	draw_ray(t_game *game, int color)
 	// 	end.y = ((game->ray.step_for_plus_x.y + 0.5) * block_size) + start.y;
 	// else
 	// 	end.y = ((game->ray.step_for_plus_x.y - 0.5) * block_size) + start.y;
-	end.x = game->ray.hitpoint.x;
-	end.y = game->ray.hitpoint.y;
+	end.x = game->ray.hitpoint.x * block_size;
+	end.y = game->ray.hitpoint.y * block_size;
 
 	printf("START: %f/%f END: %f/%f\n", start.x, start.y, end.x, end.y);
 	draw_line(game, start, end, color);

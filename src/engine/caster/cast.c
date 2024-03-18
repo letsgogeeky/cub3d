@@ -8,8 +8,10 @@ t_ray	init_ray(void)
 	ray.angle.y = 0;
 	ray.dir.x = 0;
 	ray.dir.y = 0;
-	ray.side_dist.x = 0;
-	ray.side_dist.y = 0;
+	ray.side_dist_x.x = 0;
+	ray.side_dist_x.y = 0;
+	ray.side_dist_y.x = 0;
+	ray.side_dist_y.y = 0;
 	ray.delta_dist.x = 0;
 	ray.delta_dist.y = 0;
 	ray.map.x = 0;
@@ -141,64 +143,64 @@ void	compute_pixel_column(t_game *game, int x)
 }
 
 
-void	do_raycast(t_game *game)
-{
-	double	column_x;
-	int		x;
+// void	do_raycast(t_game *game)
+// {
+// 	double	column_x;
+// 	int		x;
 
-	x = 0;
-	while (x < WIDTH)
-	{
-		// calculate ray position and direction
-		column_x = 2 * x / (double)WIDTH - 1;
-		game->ray.angle.x = game->player.dir.x + game->player.plane.x * column_x;
-		game->ray.angle.y = game->player.dir.y + game->player.plane.y * column_x;
-		game->ray.delta_dist.x = fabs(1 / game->ray.angle.x);
-		// if (game->ray.angle.x == 0)
-		// 	game->ray.delta_dist.x = INFINITY;
-		game->ray.delta_dist.y = fabs(1 / game->ray.angle.y);
-		// if (game->ray.angle.y == 0)
-		// 	game->ray.delta_dist.y = INFINITY;
-		game->ray.map.x = (int)game->player.pos.x;
-		game->ray.map.y = (int)game->player.pos.y;
-		// calculate step and initial side_dist
-		game->ray.side_dist.x = game->ray.delta_dist.x;
-		game->ray.side_dist.y = game->ray.delta_dist.y;
-		if (game->ray.angle.x < 0)
-			game->ray.step.x = -1;
-		else
-			game->ray.step.x = 1;
-		if (game->ray.angle.y < 0)
-			game->ray.step.y = -1;
-		else
-			game->ray.step.y = 1;
-		bool hit = false;
-		while (!hit)
-		{
-			if (game->ray.side_dist.x < game->ray.side_dist.y)
-			{
-				game->ray.side_dist.x += game->ray.delta_dist.x;
-				game->ray.map.x += game->ray.step.x;
-				game->ray.side = 0;
-			}
-			else
-			{
-				game->ray.side_dist.y += game->ray.delta_dist.y;
-				game->ray.map.y += game->ray.step.y;
-				game->ray.side = 1;
-			}
-			int map_x = (int)game->ray.map.x;
-			int map_y = (int)game->ray.map.y;
-			if (map_x < 0 || map_y < 0 || map_x >= game->map->rows || map_y >= game->map->cols)
-				break;
-			if (game->map->map[map_x][map_y] && game->map->map[map_x][map_y] == WALL)
-				hit = true;
-		}
-		if (game->ray.side == 0)
-			game->ray.length = (game->ray.side_dist.x - game->ray.delta_dist.x);
-		else
-			game->ray.length = (game->ray.side_dist.y - game->ray.delta_dist.y);
-		compute_pixel_column(game, x);
-		x++;
-	}
-}
+// 	x = 0;
+// 	while (x < WIDTH)
+// 	{
+// 		// calculate ray position and direction
+// 		column_x = 2 * x / (double)WIDTH - 1;
+// 		game->ray.angle.x = game->player.dir.x + game->player.plane.x * column_x;
+// 		game->ray.angle.y = game->player.dir.y + game->player.plane.y * column_x;
+// 		game->ray.delta_dist.x = fabs(1 / game->ray.angle.x);
+// 		// if (game->ray.angle.x == 0)
+// 		// 	game->ray.delta_dist.x = INFINITY;
+// 		game->ray.delta_dist.y = fabs(1 / game->ray.angle.y);
+// 		// if (game->ray.angle.y == 0)
+// 		// 	game->ray.delta_dist.y = INFINITY;
+// 		game->ray.map.x = (int)game->player.pos.x;
+// 		game->ray.map.y = (int)game->player.pos.y;
+// 		// calculate step and initial side_dist
+// 		game->ray.side_dist.x = game->ray.delta_dist.x;
+// 		game->ray.side_dist.y = game->ray.delta_dist.y;
+// 		if (game->ray.angle.x < 0)
+// 			game->ray.step.x = -1;
+// 		else
+// 			game->ray.step.x = 1;
+// 		if (game->ray.angle.y < 0)
+// 			game->ray.step.y = -1;
+// 		else
+// 			game->ray.step.y = 1;
+// 		bool hit = false;
+// 		while (!hit)
+// 		{
+// 			if (game->ray.side_dist.x < game->ray.side_dist.y)
+// 			{
+// 				game->ray.side_dist.x += game->ray.delta_dist.x;
+// 				game->ray.map.x += game->ray.step.x;
+// 				game->ray.side = 0;
+// 			}
+// 			else
+// 			{
+// 				game->ray.side_dist.y += game->ray.delta_dist.y;
+// 				game->ray.map.y += game->ray.step.y;
+// 				game->ray.side = 1;
+// 			}
+// 			int map_x = (int)game->ray.map.x;
+// 			int map_y = (int)game->ray.map.y;
+// 			if (map_x < 0 || map_y < 0 || map_x >= game->map->rows || map_y >= game->map->cols)
+// 				break;
+// 			if (game->map->map[map_x][map_y] && game->map->map[map_x][map_y] == WALL)
+// 				hit = true;
+// 		}
+// 		if (game->ray.side == 0)
+// 			game->ray.length = (game->ray.side_dist.x - game->ray.delta_dist.x);
+// 		else
+// 			game->ray.length = (game->ray.side_dist.y - game->ray.delta_dist.y);
+// 		compute_pixel_column(game, x);
+// 		x++;
+// 	}
+// }
