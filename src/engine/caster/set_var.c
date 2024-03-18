@@ -27,40 +27,6 @@ t_vector	set_player_in_block(t_game *game)
 	game = NULL;
 }
 
-
-// t_position	dda(t_game *game)
-// {
-// 	double			length_a;
-// 	t_vector		a;
-// 	t_vector		b;
-// 	double			length_b;
-// 	t_position		hitpoint;
-
-
-// 	a.x = /*game->player.pos.x*/ game->ray.side_dist.x + dx.x;
-// 	a.y = /*game->player.pos.y*/ game->ray.side_dist.y + dx.y;
-// 	b.x = /*game->player.pos.x*/ game->ray.side_dist.x + dy.x;
-// 	b.y = /*game->player.pos.y*/ game->ray.side_dist.y + dy.y;
-// 	length_a = vector_length(&a);
-
-// 	length_b = vector_length(&b);
-// 	printf("vektor a: %f, vektor b = %f\n", length_a, length_b);
-// 	if (length_a > length_b)
-// 	{
-// 		game->ray.side_dist.x += dy.x;
-// 		game->ray.side_dist.y += dy.y;
-// 	}
-// 	else
-// 	{
-// 		game->ray.side_dist.x += dx.x;
-// 		game->ray.side_dist.y += dx.y;
-// 	}
-// 	hitpoint.x = game->player.pos.x + game->ray.side_dist.x;
-// 	hitpoint.y = game->player.pos.y + game->ray.side_dist.y;
-// 	printf("dda hitpoint: %f %f\n", game->ray.side_dist.x, game->ray.side_dist.y);
-// 	return (hitpoint);
-// }
-
 double	set_first_block_border(t_game *game)
 {
 	t_vector	angle;
@@ -74,26 +40,16 @@ double	set_first_block_border(t_game *game)
 	if (player_in_block.x == 0 && player_in_block.y == 0)
 		return (factor);
 	else if (angle.x < 0 && fabs(angle.y/angle.x) <= 1)
-	{
 		factor = fabs(angle.x);
-		// printf("A\n");
-	}
 		//view direction west;
 	else if (angle.x >= 0 && fabs(angle.y/angle.x) <= 1)
-	{
 		factor = fabs(1 - angle.x);
-		// printf("B\n");
-	}
 		//view direction east
 	else if (angle.y >= 0 && fabs(angle.x/angle.y) <= 1)
-	{
 		factor = fabs(1 - angle.y);
-		// printf("C\n");
-	}
 		//view direction south
 	else if (angle.y < 0 && fabs(angle.x/angle.y) <= 1)
 	{
-		// printf("D\n");
 		factor = fabs(angle.y);
 	}
 	// printf("Angle: %f/%f Player: %f/%f first factor: %f\n", angle.x, angle.y, player_in_block.x, player_in_block.y, factor);
@@ -111,7 +67,6 @@ int	check_hit(t_game *game, t_position hitpoint)
 	i = (int)hitpoint.x;
 	j = (int)hitpoint.y;
 	test = ft_strncmp(&map[j][i], "1", 1);
-	// test = ft_atoi(&map[i][j]);
 	printf("test i:%i j:%i\n Number: %c \n", i, j, map[j][i]);
 	if (map[j][i] && test == 0)
 		return (1);
@@ -177,7 +132,6 @@ void	calculate_hitpoint(t_game *game)
 				game->ray.side_dist_x.x += dx.x;
 				game->ray.side_dist_x.y += dx.y;
 			}
-			// printf("oben\n");
 		}
 		else
 		{
@@ -188,8 +142,6 @@ void	calculate_hitpoint(t_game *game)
 				game->ray.side_dist_y.x += dy.x;
 				game->ray.side_dist_y.y += dy.y;
 			}
-	
-			// printf("unten\n");
 		}
 		// printf("hitpoint = %f / %f \n", hitpoint.x, hitpoint.y);
 		// hitpoint = dda(game);

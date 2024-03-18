@@ -38,24 +38,6 @@ void	draw_ray(t_game *game, int color)
 	
 	start.x = game->player.pos.x * block_size + block_size / 2;
 	start.y = game->player.pos.y * block_size + block_size / 2;
-	// game->ray.angle.x = game->player.dir.x + game->player.plane.x;
-	// game->ray.angle.y = game->player.dir.y + game->player.plane.y;
-	// end.x = game->ray.angle.x * block_size + start.x;
-	// end.y = game->ray.angle.y * block_size + start.y;
-	// end.x = (game->ray.angle.x * block_size) + start.x;
-	// end.y = (game->ray.angle.y * block_size) + start.y;
-	// draw_line(game, start, end, color);
-
-
-
-	// if (game->ray.step_for_plus_x.x < 0)
-	// 	end.x = ((game->ray.step_for_plus_x.x + 0.5) * block_size) + start.x;
-	// else 
-	// 	end.x = ((game->ray.step_for_plus_x.x - 0.5) * block_size) + start.x;
-	// if (game->ray.step_for_plus_x.y < 0)
-	// 	end.y = ((game->ray.step_for_plus_x.y + 0.5) * block_size) + start.y;
-	// else
-	// 	end.y = ((game->ray.step_for_plus_x.y - 0.5) * block_size) + start.y;
 	round_x = (int)game->ray.hitpoint.x;
 	round_y = (int)game->ray.hitpoint.y;
 	end.x = (float)round_x * block_size;
@@ -63,14 +45,4 @@ void	draw_ray(t_game *game, int color)
 
 	printf("START: %f/%f END: %f/%f\n", start.x, start.y, end.x, end.y);
 	draw_line(game, start, end, color);
-	// if (game->ray.step_for_plus_y.x < 0)
-	// 	end.x = ((game->ray.step_for_plus_y.x + 0.5) * block_size) + start.x;
-	// else
-	// 	end.x = ((game->ray.step_for_plus_y.x - 0.5) * block_size) + start.x;
-
-	// if (game->ray.step_for_plus_y.y < 0)
-	// 	end.x = ((game->ray.step_for_plus_y.y + 0.5) * block_size) + start.x;
-	// else
-	// 	end.x = ((game->ray.step_for_plus_y.y - 0.5) * block_size) + start.x;
-	// draw_line(game, start, end, color);
 }
