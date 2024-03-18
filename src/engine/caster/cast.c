@@ -52,12 +52,15 @@ void	visualize_2d_ray(t_game *game, int color)
 	x = 0;
 	while (x < AMOUNT_RAYS_2D_FOV)
 	{
+		printf("*************Count %x\n", x);
 		set_angle(game, x);
 		set_steps(game);
 		calculate_hitpoint(game);
 		draw_ray(game, color);
 		printf("\n");
 		x++;
+		// test_parsing(game->map, game->map->rows);
+
 	}
 	return;
 

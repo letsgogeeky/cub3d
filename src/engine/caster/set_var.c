@@ -76,27 +76,27 @@ double	set_first_block_border(t_game *game)
 	else if (angle.x < 0 && fabs(angle.y/angle.x) <= 1)
 	{
 		factor = fabs(angle.x);
-		printf("A\n");
+		// printf("A\n");
 	}
 		//view direction west;
 	else if (angle.x >= 0 && fabs(angle.y/angle.x) <= 1)
 	{
 		factor = fabs(1 - angle.x);
-		printf("B\n");
+		// printf("B\n");
 	}
 		//view direction east
 	else if (angle.y >= 0 && fabs(angle.x/angle.y) <= 1)
 	{
 		factor = fabs(1 - angle.y);
-		printf("C\n");
+		// printf("C\n");
 	}
 		//view direction south
 	else if (angle.y < 0 && fabs(angle.x/angle.y) <= 1)
 	{
-		printf("D\n");
+		// printf("D\n");
 		factor = fabs(angle.y);
 	}
-	printf("Angle: %f/%f Player: %f/%f first factor: %f\n", angle.x, angle.y, player_in_block.x, player_in_block.y, factor);
+	// printf("Angle: %f/%f Player: %f/%f first factor: %f\n", angle.x, angle.y, player_in_block.x, player_in_block.y, factor);
 	return (factor);
 }
 
@@ -110,32 +110,32 @@ int	check_hit(t_game *game, t_position hitpoint)
 	map = game->map->map;
 	i = (int)hitpoint.x;
 	j = (int)hitpoint.y;
-	test = ft_strncmp(&map[i][j], "1", 1);
+	test = ft_strncmp(&map[j][i], "1", 1);
 	// test = ft_atoi(&map[i][j]);
-	printf("test i:%i j:%i\n Number: %c \n", i, j, map[i][j]);
-	if (map[i][j] && test == 0)
+	printf("test i:%i j:%i\n Number: %c \n", i, j, map[j][i]);
+	if (map[j][i] && test == 0)
 		return (1);
 	return (0);
 }
 
 int	check_first_wall(t_game *game, double factor, t_position	*hitpoint)
 {
-	printf("FAKTOR %f\n", factor);
+	// printf("FAKTOR %f\n", factor);
 	game->ray.side_dist_x.x = factor * game->ray.angle.x;
 	game->ray.side_dist_x.y = factor * game->ray.angle.y;
 	game->ray.side_dist_y.x = factor * game->ray.angle.x;
 	game->ray.side_dist_y.y = factor * game->ray.angle.y;
 	hitpoint->x = game->player.pos.x + game->ray.side_dist_x.x;
 	hitpoint->y = game->player.pos.y + game->ray.side_dist_x.y;
-	printf("*****factor: %f, hitpoint = %f/%f\n", factor, hitpoint->x, hitpoint->y);
-	printf("Aray_side_dist_x = %f / %f ray_side_dist_y = %f / %f\n", game->ray.side_dist_x.x, game->ray.side_dist_x.y, game->ray.side_dist_y.x, game->ray.side_dist_y.y);
+	// printf("*****factor: %f, hitpoint = %f/%f\n", factor, hitpoint->x, hitpoint->y);
+	// printf("Aray_side_dist_x = %f / %f ray_side_dist_y = %f / %f\n", game->ray.side_dist_x.x, game->ray.side_dist_x.y, game->ray.side_dist_y.x, game->ray.side_dist_y.y);
 	if (check_hit(game, (*hitpoint)) == 1)
 		return (1);
 	game->ray.side_dist_x.x += game->ray.step_for_plus_x.x;
 	game->ray.side_dist_x.y += game->ray.step_for_plus_x.y;
 	game->ray.side_dist_y.x += game->ray.step_for_plus_y.x;
 	game->ray.side_dist_y.y += game->ray.step_for_plus_y.y;
-	printf("Bray_side_dist_x = %f / %f ray_side_dist_y = %f / %f \n", game->ray.side_dist_x.x, game->ray.side_dist_x.y, game->ray.side_dist_y.x, game->ray.side_dist_y.y);
+	// printf("Bray_side_dist_x = %f / %f ray_side_dist_y = %f / %f \n", game->ray.side_dist_x.x, game->ray.side_dist_x.y, game->ray.side_dist_y.x, game->ray.side_dist_y.y);
 	return (0);
 }
 
@@ -188,6 +188,7 @@ void	calculate_hitpoint(t_game *game)
 				game->ray.side_dist_y.x += dy.x;
 				game->ray.side_dist_y.y += dy.y;
 			}
+	
 			// printf("unten\n");
 		}
 		// printf("hitpoint = %f / %f \n", hitpoint.x, hitpoint.y);

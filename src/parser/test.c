@@ -27,6 +27,7 @@ void	test_parsing(t_map *m, int rows)
 			i++;
 		}
 	}
+	printf("///////test: %c\n", m->map[8][6]);
 	printf("\n");
 }
 
