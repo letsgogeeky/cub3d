@@ -25,6 +25,11 @@
 # define INV_TEX_FILE "texture file included in map is invalid"
 # define FAIL_GAME_INIT "Error: failed to initialize game\n"
 
+# define MINIMAP_PLAYER 0x34A853FF
+# define MINIMAP_WALL 0x4285F4FF
+# define MINIMAP_FLOOR 0xFBBC05FF
+# define MINIMAP_DIR 0xEA4335FF
+
 enum e_symbol
 {
 	EMPTY = ' ',
@@ -117,6 +122,14 @@ typedef struct s_map // every element is allocated and has to be freed if failur
 	int					cols;
 }		t_map;
 
+typedef struct s_minimap
+{
+	int			width;
+	int			height;
+	mlx_image_t	*image;
+	int			arrows_count;
+}		t_minimap;
+
 typedef struct s_game
 {
 	t_map		*map;
@@ -126,6 +139,7 @@ typedef struct s_game
 	t_data      *data;
 	int			block_size;
 	mlx_image_t	*image;
+	t_minimap	*minimap;
 	mlx_t		*mlx;
 }		t_game;
 
@@ -186,13 +200,15 @@ void		draw_vert(t_game *game, int block_size);
 void		draw_hor(t_game *game, int block_size);
 void		draw_block(t_game *game);
 
+//graphics
+void	clear_image(mlx_image_t *image, int width, int height);
+
 
 // player
 t_player	init_player(t_map *map);
 t_ray		init_ray(void);
 void		visualize_2d_ray(t_game *game, int color);
 void		show_player(t_game *game);
-void		clear_area(t_game *game);
 
 // movement
 void	move_forward(t_game *game);

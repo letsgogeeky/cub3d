@@ -15,7 +15,8 @@ SRC_PARSER := parser/validator/validator.c parser/validator/boundary.c parser/va
 			parser/free.c parser/init_helpers.c parser/wall_init.c 
 
 SRC_ENGINE := engine/caster/cast.c engine/movement.c
-SRCS := $(SRC_PARSER) $(SRC_ENGINE)
+SRC_GRAPHICS := graphics/utils.c
+SRCS := $(SRC_PARSER) $(SRC_ENGINE) $(SRC_GRAPHICS)
 SRC_MAIN := main.c init.c draw.c
 
 OBJS := ${addprefix src/, ${SRCS:.c=.o} ${SRC_MAIN:.c=.o}}

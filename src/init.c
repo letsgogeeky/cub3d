@@ -23,16 +23,31 @@ t_game	*allocate_game(t_map *m)
 		free(game);
 		return (NULL);
 	}
+	game->minimap = malloc(sizeof(t_minimap));
+	if (!game->minimap)
+	{
+		free(game->data->rays);
+		free(game->data);
+		free(game);
+		return (NULL);
+	}
 	return (game);
+}
+
+void	set_minimap_attributes(t_game *game)
+{
+	game->minimap->width = WIDTH / 2;
+	game->minimap->height = HEIGHT / 2;
+	game->minimap->arrows_count = 11;
 }
 
 void	compute_block_size(t_game *game)
 {
 	int	block_size;
 
-	block_size = HEIGHT / game->map->rows;
-	if (WIDTH / (game->map->cols) < block_size)
-		block_size = WIDTH / (game->map->cols);
+	block_size = game->minimap->height / game->map->rows;
+	if (game->minimap->width / (game->map->cols) < block_size)
+		block_size = game->minimap->width / (game->map->cols);
 	game->block_size = block_size;
 }
 
@@ -43,6 +58,7 @@ t_game	*init_game(t_map *m)
 	game = allocate_game(m);
 	if (!game)
 		return (NULL);
+	set_minimap_attributes(game);
 	game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
 	if (!game->mlx)
 	{
@@ -53,6 +69,14 @@ t_game	*init_game(t_map *m)
 	if (!game->image)
 	{
 		free_game(game);
+		mlx_terminate(game->mlx);
+		return (NULL);
+	}
+	game->minimap->image = mlx_new_image(game->mlx, game->minimap->width, game->minimap->height);
+	if (!game->minimap)
+	{
+		free_game(game);
+		mlx_delete_image(game->mlx, game->image);
 		mlx_terminate(game->mlx);
 		return (NULL);
 	}
@@ -128,6 +152,12 @@ void	open_n_draw(t_map *m)
 		return ;
 	}
 	if (mlx_image_to_window(game->mlx, game->image, 0, 0) < 0)
+	{
+		free_game(game);
+		mlx_terminate(game->mlx);
+		return ;
+	}
+	if (mlx_image_to_window(game->mlx, game->minimap->image, WIDTH - game->minimap->width - 10, 10) < 0)
 	{
 		free_game(game);
 		mlx_terminate(game->mlx);

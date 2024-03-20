@@ -64,8 +64,8 @@ void	move_left(t_game *game)
 
 	map = game->map;
 	player = &game->player;
-	next_x = player->pos.x - player->plane.x * player->walk_speed;
-	next_y = player->pos.y - player->plane.y * player->walk_speed;
+	next_x = player->pos.x + player->plane.x * player->walk_speed;
+	next_y = player->pos.y + player->plane.y * player->walk_speed;
 	if (map->map[(int)player->pos.y][(int)next_x] != WALL)
 		player->pos.x = next_x;
 	if (map->map[(int)next_y][(int)player->pos.x] != WALL)
@@ -81,8 +81,8 @@ void	move_right(t_game *game)
 
 	map = game->map;
 	player = &game->player;
-	next_x = player->pos.x + player->plane.x * player->walk_speed;
-	next_y = player->pos.y + player->plane.y * player->walk_speed;
+	next_x = player->pos.x - player->plane.x * player->walk_speed;
+	next_y = player->pos.y - player->plane.y * player->walk_speed;
 	if (map->map[(int)player->pos.y][(int)next_x] != WALL)
 		player->pos.x = next_x;
 	if (map->map[(int)next_y][(int)player->pos.x] != WALL)
