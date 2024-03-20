@@ -40,7 +40,7 @@ void	visualize_2d_ray(t_game *game, int color)
 		x++;
 	}
 	return;
-
+}
 // void	compute_pixel_column(t_game *game, int x)
 // {
 // 	double	wall_hit;
