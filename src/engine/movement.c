@@ -11,10 +11,30 @@ void	move_forward(t_game *game)
 	player = &game->player;
 	next_x = player->pos.x + player->dir.x * player->walk_speed;
 	next_y = player->pos.y + player->dir.y * player->walk_speed;
-	if (map->map[(int)player->pos.y][(int)next_x] != WALL)
-		player->pos.x = next_x;
-	if (map->map[(int)next_y][(int)player->pos.x] != WALL)
-		player->pos.y = next_y;
+	if (player->dir.x < 0)
+	{
+		ft_printf("rounding next_x: %f\n", round(next_x));
+		if (map->map[(int)player->pos.y][(int)round(next_x)] != WALL)
+			player->pos.x = next_x;
+	}
+	else
+	{
+		ft_printf("ceiling next_x: %f\n", ceilf(next_x));
+		if (map->map[(int)player->pos.y][(int)ceilf(next_x)] != WALL)
+			player->pos.x = next_x;
+	}
+	if (player->dir.y < 0)
+	{
+		ft_printf("round next_y: %f\n", round(next_y));
+		if (map->map[(int)round(next_y)][(int)player->pos.x] != WALL)
+			player->pos.y = next_y;
+	}
+	else
+	{
+		ft_printf("ceiling next_y: %f\n", ceilf(next_y));
+		if (map->map[(int)ceilf(next_y)][(int)player->pos.x] != WALL)
+			player->pos.y = next_y;
+	}
 }
 
 void	move_backward(t_game *game)

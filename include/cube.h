@@ -86,6 +86,7 @@ typedef struct s_texture
 typedef struct	s_player
 {
 	t_position			pos;
+	t_position			coordinate;
 	t_vector			dir;
 	t_vector			plane;
 	double				rotation_angle;

@@ -79,7 +79,7 @@ void	visualize_2d_ray(t_game *game, int color)
 	start.y = game->player.pos.y * block_size + block_size / 2;
 	dir_scalar = 1;
 	i = 0;
-	while (i <= 10)
+	while (i <= game->minimap->arrows_count)
 	{
 		game->ray.angle.x = game->player.dir.x + game->player.plane.x * dir_scalar;
 		game->ray.angle.y = game->player.dir.y + game->player.plane.y * dir_scalar;

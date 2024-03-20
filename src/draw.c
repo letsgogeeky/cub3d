@@ -107,31 +107,23 @@ void	draw_circle(mlx_image_t *image, t_position point, int radius, int color)
 
 void	show_player(t_game *game)
 {
-	int	x;
-	int	y;
-	t_position player_center;
-
 	ft_printf("Direction: %f, %f\n", game->player.dir.x, game->player.dir.y);
 	ft_printf("Position: %f, %f\n", game->player.pos.x, game->player.pos.y);
-	x = game->player.pos.x * game->block_size;
-	y = game->player.pos.y * game->block_size;
-	ft_printf("x: %d, y: %d\n", x, y);
-	player_center.x = x;
-	player_center.y = y;
-	draw_circle(game->minimap->image, player_center, game->block_size / 2, MINIMAP_PLAYER);
+	game->player.coordinate.x = game->player.pos.x * game->block_size;
+	game->player.coordinate.y = game->player.pos.y * game->block_size;
+	ft_printf("Coordinate: %f, %f\n", game->player.coordinate.x, game->player.coordinate.y);
+	draw_circle(game->minimap->image, \
+		game->player.coordinate, game->block_size / 2, \
+		MINIMAP_PLAYER);
 	visualize_2d_ray(game, MINIMAP_DIR);
 }
 
 void	draw_block(t_game *game)
 {
 	int	block_size;
-	int	x;
-	int	y;
 	int	i;
 	int	j;
 
-	x = 0;
-	y = 0;
 	i = 0;
 	j = 0;
 	block_size = game->block_size;
@@ -141,14 +133,11 @@ void	draw_block(t_game *game)
 		while (game->map->map[i][j] != '\0')
 		{
 			if (game->map->map[i][j] == WALL)
-				fill_block(game, block_size, x, y, MINIMAP_WALL);
-			x = x + block_size;
+				fill_block(game, block_size, j * block_size, i * block_size, MINIMAP_WALL);
 			j++;
 		}
 		j = 0;
-		x = 0;
 		i++;
-		y = y + block_size;
 	}
 	draw_vert(game, block_size);
 	draw_hor(game, block_size);

@@ -76,7 +76,29 @@ enum e_direction initial_orientation(t_map *map)
 	}
 	return (UNKNOWN);
 }
-
+void	transform_orientation(t_player *player)
+{
+	if (player->init_orientation == NORTH)
+	{
+		player->dir.y = -1;
+		player->plane.x = -0.66;
+	}
+	else if (player->init_orientation == SOUTH)
+	{
+		player->dir.y = 1;
+		player->plane.x = 0.66;
+	}
+	else if (player->init_orientation == WEST)
+	{
+		player->dir.x = -1;
+		player->plane.y = 0.66;
+	}
+	else if (player->init_orientation == EAST)
+	{
+		player->dir.x = 1;
+		player->plane.y = -0.66;
+	}
+}
 t_player	init_player(t_map *map)
 {
 	t_player	player;
@@ -88,26 +110,7 @@ t_player	init_player(t_map *map)
 	player.dir.y = 0;
 	player.plane.x = 0;
 	player.plane.y = 0;
-	if (player.init_orientation == NORTH)
-	{
-		player.dir.y = -1;
-		player.plane.x = -0.66;
-	}
-	else if (player.init_orientation == SOUTH)
-	{
-		player.dir.y = 1;
-		player.plane.x = 0.66;
-	}
-	else if (player.init_orientation == WEST)
-	{
-		player.dir.x = -1;
-		player.plane.y = 0.66; 
-	}
-	else if (player.init_orientation == EAST)
-	{
-		player.dir.x = 1;
-		player.plane.y = -0.66;
-	}
+	transform_orientation(&player);
 	player.rotation_angle = 0;
 	player.walk_speed = 0.1;
 	player.turn_speed = 0.07;
