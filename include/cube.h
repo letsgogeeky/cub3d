@@ -146,9 +146,7 @@ typedef struct s_game
 }		t_game;
 
 int			validate(t_map *map);
-t_position	get_player_position(t_map *map);
-void		log_player_position(t_map *map);
-char		*direction_to_str(enum e_direction direction);
+
 
 //init.c
 t_game		*allocate_game(t_map *m);
@@ -210,6 +208,11 @@ void	clear_image(mlx_image_t *image, int width, int height);
 t_player	init_player(t_map *map);
 t_ray		init_ray(void);
 void		visualize_2d_ray(t_game *game, int color);
+enum e_direction	get_orientation(char c);
+bool		is_orientation(char c);
+t_position	get_player_position(t_map *map);
+void		log_player_position(t_map *map);
+char		*direction_to_str(enum e_direction direction);
 void		show_player(t_game *game);
 
 // movement

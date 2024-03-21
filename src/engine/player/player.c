@@ -1,31 +1,5 @@
 #include "cube.h"
 
-char	*direction_to_str(enum e_direction direction)
-{
-	if (direction == NORTH)
-		return ("NORTH");
-	if (direction == SOUTH)
-		return ("SOUTH");
-	if (direction == WEST)
-		return ("WEST");
-	if (direction == EAST)
-		return ("EAST");
-	return ("INVALID");
-}
-
-enum e_direction	get_orientation(char c)
-{
-	if (c == 'N')
-		return (NORTH);
-	if (c == 'S')
-		return (SOUTH);
-	if (c == 'W')
-		return (WEST);
-	if (c == 'E')
-		return (EAST);
-	return (0);
-}
-
 t_position	get_player_position(t_map *map)
 {
 	t_position	position;
@@ -40,12 +14,10 @@ t_position	get_player_position(t_map *map)
 		j = 0;
 		while (j < map->cols)
 		{
-			if (map->map[i][j] == 'N' || map->map[i][j] == 'S'
-				|| map->map[i][j] == 'W' || map->map[i][j] == 'E')
+			if (is_orientation(map->map[i][j]))
 			{
 				position.x = j;
 				position.y = i;
-				// position.direction = get_direction(map->map[i][j]);
 				return (position);
 			}
 			j++;
@@ -67,8 +39,7 @@ enum e_direction initial_orientation(t_map *map)
 		j = 0;
 		while (j < map->cols)
 		{
-			if (map->map[i][j] == 'N' || map->map[i][j] == 'S'
-				|| map->map[i][j] == 'W' || map->map[i][j] == 'E')
+			if (is_orientation(map->map[i][j]))
 				return (get_orientation(map->map[i][j]));
 			j++;
 		}
@@ -105,7 +76,6 @@ t_player	init_player(t_map *map)
 
 	player.pos = get_player_position(map);
 	player.init_orientation = initial_orientation(map);
-	ft_printf("Initial orientation: %s\n", direction_to_str(player.init_orientation));
 	player.dir.x = 0;
 	player.dir.y = 0;
 	player.plane.x = 0;
@@ -115,13 +85,4 @@ t_player	init_player(t_map *map)
 	player.walk_speed = 0.08;
 	player.turn_speed = 0.05;
 	return (player);
-}
-
-void	log_player_position(t_map *map)
-{
-	t_position	position;
-
-	position = get_player_position(map);
-	ft_printf("Player position: X: %d, Y: %d, Direction: %s\n", \
-		position.x, position.y, direction_to_str(1));
 }
