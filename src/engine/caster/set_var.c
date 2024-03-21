@@ -4,7 +4,7 @@ double	vector_length(t_vector *vec)
 {
 	double	len;
 
-	len = sqrt((vec->x)*(vec->x) + (vec->y)*(vec->y));
+	len = sqrt((vec->x) * (vec->x) + (vec->y) * (vec->y));
 	return (len);
 }
 
@@ -36,7 +36,7 @@ t_vector	set_first_block_border(t_game *game)
 	factor.x = 0;
 	factor.y = 0;
 	if (player_in_block.x == 0 && player_in_block.y == 0)
-		return(factor);
+		return (factor);
 	if (angle.x < 0)
 		factor.x = (fabs(player_in_block.x));
 	else if (angle.x > 0)
@@ -112,7 +112,6 @@ int	check_hit(t_game *game, t_position hitpoint)
 	// b.y = (hitpoint.y) * game->block_size;
 	// draw_line(game, a, b, 0x0000FFFF);
 	test = ft_strncmp(&map[j][i], "1", 1);
-	printf("test i:%i j:%i\n Number: %c \n", i, j, map[j][i]);
 	if (map[j][i] && test == 0)
 		return (1);
 	return (0);
@@ -139,12 +138,14 @@ void	dda(t_position *hitpoint, t_game *game, t_vector *dx, t_vector *dy)
 	flag = 0;
 	while (hitpoint->x > 0 && hitpoint->y > 0)
 	{
-		if (vector_length(&game->ray.side_dist_x) == vector_length(&game->ray.side_dist_y))
+		if (vector_length(&game->ray.side_dist_x) == \
+			vector_length(&game->ray.side_dist_y))
 		{
 			if (vector_length(dx) < vector_length(dy))
 				flag = 1;
 		}
-		if (flag == 1 || vector_length(&game->ray.side_dist_x) < vector_length(&game->ray.side_dist_y))
+		if (flag == 1 || vector_length(&game->ray.side_dist_x) < \
+			vector_length(&game->ray.side_dist_y))
 		{
 			set_hitpoint(hitpoint, game, 1);
 			if (hitpoint->x > 0 && hitpoint->y > 0)
@@ -156,7 +157,7 @@ void	dda(t_position *hitpoint, t_game *game, t_vector *dx, t_vector *dy)
 			if (hitpoint->x > 0 && hitpoint->y > 0)
 				add_one_step(&game->ray.side_dist_y, dy);
 		}
-		if(check_hit(game, (*hitpoint)) == 1)
+		if (check_hit(game, (*hitpoint)) == 1)
 			return ;
 	}
 }
@@ -178,30 +179,6 @@ void	calculate_hitpoint(t_game *game)
 		return ;
 	}
 	dda(&hitpoint, game, &dx, &dy);
-	// int			flag;
-	// flag = 0;
-	// while (hitpoint.x > 0 && hitpoint.y > 0)
-	// {
-	// 	if (vector_length(&game->ray.side_dist_x) == vector_length(&game->ray.side_dist_y))
-	// 	{
-	// 		if (vector_length(&dx) < vector_length(&dy))
-	// 			flag = 1;
-	// 	}
-	// 	if (flag == 1 || vector_length(&game->ray.side_dist_x) < vector_length(&game->ray.side_dist_y))
-	// 	{
-	// 		set_hitpoint(&hitpoint, game, 1);
-	// 		if (hitpoint.x > 0 && hitpoint.y > 0)
-	// 			add_one_step(&game->ray.side_dist_x, &dx);
-	// 	}
-	// 	else
-	// 	{
-	// 		set_hitpoint(&hitpoint, game, 0);
-	// 		if (hitpoint.x > 0 && hitpoint.y > 0)
-	// 			add_one_step(&game->ray.side_dist_y, &dy);
-	// 	}
-	// 	if(check_hit(game, hitpoint) == 1)
-	// 		break;
-	// }
 	game->ray.hitpoint.x = hitpoint.x;
 	game->ray.hitpoint.y = hitpoint.y;
 }
@@ -224,9 +201,11 @@ void	set_angle(t_game *game, int x)
 	float		scalar;
 
 	if (AMOUNT_RAYS_2D_FOV > 1)
-		scalar = (2/((float)AMOUNT_RAYS_2D_FOV - 1));
+		scalar = (2 / ((float)AMOUNT_RAYS_2D_FOV - 1));
 	else
 		scalar = 0;
-	game->ray.angle.x = game->player.dir.x + game->player.plane.x * (1 - x * scalar);
-	game->ray.angle.y = game->player.dir.y + game->player.plane.y * (1 - x * scalar);
+	game->ray.angle.x = game->player.dir.x + \
+		game->player.plane.x * (1 - x * scalar);
+	game->ray.angle.y = game->player.dir.y + \
+		game->player.plane.y * (1 - x * scalar);
 }

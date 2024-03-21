@@ -26,21 +26,19 @@ void	visualize_2d_ray(t_game *game, int color)
 	int			block_size;
 	int			x;
 
-
 	block_size = game->block_size;
 	x = 0;
 	while (x < AMOUNT_RAYS_2D_FOV)
 	{
-		printf("*************Count %x\n", x);
 		set_angle(game, x);
 		set_steps(game);
 		calculate_hitpoint(game);
 		draw_ray(game, color);
-		printf("\n");
 		x++;
 	}
-	return;
+	return ;
 }
+
 // void	compute_pixel_column(t_game *game, int x)
 // {
 // 	double	wall_hit;
