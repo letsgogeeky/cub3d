@@ -11,11 +11,12 @@ HEADERS := -I ./include -I ${BASELIB}/include -I $(LIBMLX)/include
 SRC_TEST := test/invalid_mocks.c test/valid_mocks.c test/main.c
 
 SRC_PARSER := parser/validator/validator.c parser/validator/boundary.c parser/validator/utils.c \
-			parser/map_init.c parser/player.c parser/check.c parser/test.c \
+			parser/map_init.c parser/check.c parser/test.c \
 			parser/free.c parser/init_helpers.c parser/wall_init.c 
 
-SRC_ENGINE := engine/caster/cast.c engine/movement.c
-SRCS := $(SRC_PARSER) $(SRC_ENGINE)
+SRC_ENGINE := engine/caster/cast.c engine/movement.c engine/player/player.c engine/player/utils.c
+SRC_GRAPHICS := graphics/utils.c
+SRCS := $(SRC_PARSER) $(SRC_ENGINE) $(SRC_GRAPHICS)
 SRC_MAIN := main.c init.c draw.c
 
 OBJS := ${addprefix src/, ${SRCS:.c=.o} ${SRC_MAIN:.c=.o}}
