@@ -158,23 +158,21 @@ void	calculate_hitpoint(t_game *game)
 		if (flag == 1 || vector_length(&game->ray.side_dist_x) < vector_length(&game->ray.side_dist_y))
 		{
 			set_hitpoint(&hitpoint, game, 1);
-			// hitpoint.x = game->player.pos.x + game->ray.side_dist_x.x;
-			// hitpoint.y = game->player.pos.y + game->ray.side_dist_x.y;
 			if (hitpoint.x > 0 && hitpoint.y > 0)
 			{
-				game->ray.side_dist_x.x += dx.x;
-				game->ray.side_dist_x.y += dx.y;
+				add_one_step(&game->ray.side_dist_x, &dx);
+				// game->ray.side_dist_x.x += dx.x;
+				// game->ray.side_dist_x.y += dx.y;
 			}
 		}
 		else
 		{
 			set_hitpoint(&hitpoint, game, 0);
-			// hitpoint.x = game->player.pos.x + game->ray.side_dist_y.x;
-			// hitpoint.y = game->player.pos.y + game->ray.side_dist_y.y;
 			if (hitpoint.x > 0 && hitpoint.y > 0)
 			{
-				game->ray.side_dist_y.x += dy.x;
-				game->ray.side_dist_y.y += dy.y;
+				add_one_step(&game->ray.side_dist_y, &dy);
+				// game->ray.side_dist_y.x += dy.x;
+				// game->ray.side_dist_y.y += dy.y;
 			}
 		}
 		if(check_hit(game, hitpoint) == 1)
