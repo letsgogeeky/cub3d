@@ -134,21 +134,26 @@ void	set_hitpoint(t_position *hitpoint, t_game *game, int i)
 
 void	calculate_hitpoint(t_game *game)
 {
-	bool		hit;
+	// bool		hit;
 	t_vector	factor;
 	t_position	hitpoint;
 	t_vector	dx;
 	t_vector	dy;
 	int			flag;
 
-	hit = false;
+	// hit = false;
 	factor = set_first_block_border(game);
 	dx = game->ray.step_for_plus_x;
 	dy = game->ray.step_for_plus_y;
 	flag = 0;
 	if (check_first_wall(game, factor, &hitpoint) == 1)
-		hit = true;
-	while (hit == false && hitpoint.x > 0 && hitpoint.y > 0)
+	{
+		game->ray.hitpoint.x = hitpoint.x;
+		game->ray.hitpoint.y = hitpoint.y;
+		return ;
+	}
+		// hit = true;
+	while (/*hit == false && */hitpoint.x > 0 && hitpoint.y > 0)
 	{
 		if (vector_length(&game->ray.side_dist_x) == vector_length(&game->ray.side_dist_y))
 		{
@@ -159,21 +164,13 @@ void	calculate_hitpoint(t_game *game)
 		{
 			set_hitpoint(&hitpoint, game, 1);
 			if (hitpoint.x > 0 && hitpoint.y > 0)
-			{
 				add_one_step(&game->ray.side_dist_x, &dx);
-				// game->ray.side_dist_x.x += dx.x;
-				// game->ray.side_dist_x.y += dx.y;
-			}
 		}
 		else
 		{
 			set_hitpoint(&hitpoint, game, 0);
 			if (hitpoint.x > 0 && hitpoint.y > 0)
-			{
 				add_one_step(&game->ray.side_dist_y, &dy);
-				// game->ray.side_dist_y.x += dy.x;
-				// game->ray.side_dist_y.y += dy.y;
-			}
 		}
 		if(check_hit(game, hitpoint) == 1)
 			break;
