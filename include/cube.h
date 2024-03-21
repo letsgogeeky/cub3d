@@ -27,7 +27,6 @@
 # define INV_TEX_FILE "texture file included in map is invalid"
 # define FAIL_GAME_INIT "Error: failed to initialize game\n"
 
-
 typedef struct s_texture
 {
 	char			*path;
@@ -214,7 +213,6 @@ void		fill_block(t_game *game, int block_size, int x, int y, int color);
 void		draw_vert(t_game *game, int block_size);
 void		draw_hor(t_game *game, int block_size);
 void		draw_block(t_game *game);
-
 
 // player
 t_player	init_player(t_map *map);
