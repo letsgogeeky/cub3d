@@ -4,10 +4,16 @@ t_ray	init_ray(void)
 {
 	t_ray	ray;
 
-	ray.angle.x = 0;
-	ray.angle.y = 0;
 	ray.dir.x = 0;
 	ray.dir.y = 0;
+	ray.angle.x = 0;
+	ray.angle.y = 0;
+	ray.step_for_plus_x.x = 0;
+	ray.step_for_plus_x.y = 0;
+	ray.step_for_plus_y.x = 0;
+	ray.step_for_plus_y.y = 0;
+	ray.hitpoint.x = 0;
+	ray.hitpoint.y = 0;
 	ray.side_dist_x.x = 0;
 	ray.side_dist_x.y = 0;
 	ray.side_dist_y.x = 0;
@@ -16,8 +22,10 @@ t_ray	init_ray(void)
 	ray.delta_dist.y = 0;
 	ray.map.x = 0;
 	ray.map.y = 0;
-	ray.step.x = 0;
-	ray.step.y = 0;
+	ray.len_to_wall = 0;
+	ray.wall_height = 0;
+	// ray.step.x = 0;
+	// ray.step.y = 0;
 	return (ray);
 }
 

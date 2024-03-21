@@ -80,13 +80,13 @@ typedef struct	s_vector
 
 typedef struct s_position
 {
-	double		x;
-	double		y;
+	double	x;
+	double	y;
 }		t_position;
 
 typedef struct s_ray
 {
-	t_vector			ray; // has to be from position to hitpoint so that i can calculate the rest
+	// t_vector			ray; // has to be from position to hitpoint so that i can calculate the rest
 	t_vector			dir;
 	t_vector			angle;
 	t_vector			step_for_plus_x;
@@ -96,14 +96,13 @@ typedef struct s_ray
 	t_vector			side_dist_y; //all blocks we passed so far
 	t_vector			delta_dist; //distance to next block
 	t_vector			map;
-	t_vector			step;
-	int					side;
-	double				length;
-	int					len_to_wall; //calculate by myself
-	int					wall_height; //calculate by myself
+	// t_vector			step;
+	// int					side;
+	// double				length;
+	double				len_to_wall; //calculate by myself
+	double				wall_height; //calculate by myself
 	enum e_direction	wall_texture;
 }		t_ray;
-
 
 typedef struct	s_player
 {
