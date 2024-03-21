@@ -72,7 +72,6 @@ void	visualize_2d_ray(t_game *game, int color)
 // 	}
 // }
 
-
 // void	do_raycast(t_game *game)
 // {
 // 	double	column_x;

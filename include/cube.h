@@ -145,13 +145,24 @@ void		draw_ray(t_game *game, int color);
 
 //set_var.c
 double		vector_length(t_vector *vec);
-t_vector	set_player_in_block(t_game *game);
-t_vector	set_first_block_border(t_game *game);
-int			check_hit(t_game *game, t_position hitpoint);
-int			check_first_wall(t_game *game, t_vector factor, t_position *hitpoint);
-void		calculate_hitpoint(t_game *game);
+void		add_one_step(t_vector *side_dist, t_vector *step);
+void		set_hitpoint(t_position *hitpoint, t_game *game, int i);
 void		set_steps(t_game *game);
 void		set_angle(t_game *game, int x);
+
+//calc_ray.c
+t_vector	set_player_in_block(t_game *game);
+t_vector	set_first_block_border(t_game *game);
+void		dda(t_position *hitpoint, t_game *game, t_vector *dx, t_vector *dy);
+void		calculate_hitpoint(t_game *game);
+
+// check_ray.c
+int			check_first_wall(t_game *game, t_vector factor, t_position *hitpoint);
+int			check_hit(t_game *game, t_position hitpoint);
+
+// cast.c
+t_ray		init_ray(void);
+void		visualize_2d_ray(t_game *game, int color);
 
 //init.c
 t_game		*allocate_game(t_map *m);
@@ -208,8 +219,6 @@ void		draw_block(t_game *game);
 
 // player
 t_player	init_player(t_map *map);
-t_ray		init_ray(void);
-void		visualize_2d_ray(t_game *game, int color);
 void		show_player(t_game *game);
 void		clear_area(t_game *game);
 

@@ -15,7 +15,8 @@ SRC_PARSER := parser/validator/validator.c parser/validator/boundary.c parser/va
 			parser/free.c parser/init_helpers.c parser/wall_init.c 
 
 SRC_ENGINE := engine/caster/cast.c engine/caster/draw_2d.c engine/movement.c \
-			engine/caster/set_var.c
+			engine/caster/set_var.c engine/caster/calc_ray.c engine/caster/check_ray.c \
+
 SRCS := $(SRC_PARSER) $(SRC_ENGINE)
 SRC_MAIN := main.c init.c draw.c
 
