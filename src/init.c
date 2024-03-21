@@ -36,9 +36,16 @@ t_game	*allocate_game(t_map *m)
 
 void	set_minimap_attributes(t_game *game)
 {
+	int block_size;
+
 	game->minimap->width = WIDTH / 2;
 	game->minimap->height = HEIGHT / 2;
 	game->minimap->arrows_count = 11;
+	block_size = game->minimap->height / game->map->rows;
+	if (game->minimap->width / (game->map->cols) < block_size)
+		block_size = game->minimap->width / (game->map->cols);
+	game->block_size = block_size;
+	game->minimap->p_radius = block_size / 4;
 }
 
 void	compute_block_size(t_game *game)

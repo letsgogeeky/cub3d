@@ -112,8 +112,8 @@ t_player	init_player(t_map *map)
 	player.plane.y = 0;
 	transform_orientation(&player);
 	player.rotation_angle = 0;
-	player.walk_speed = 0.1;
-	player.turn_speed = 0.07;
+	player.walk_speed = 0.08;
+	player.turn_speed = 0.05;
 	return (player);
 }
 

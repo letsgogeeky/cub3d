@@ -129,6 +129,7 @@ typedef struct s_minimap
 	int			height;
 	mlx_image_t	*image;
 	int			arrows_count;
+	double		p_radius;
 }		t_minimap;
 
 typedef struct s_game
