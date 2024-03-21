@@ -60,7 +60,8 @@ int	check_first_wall(t_game *game, t_vector factor, t_position *hitpoint)
 	game->ray.side_dist_x.y = factor.x * game->ray.step_for_plus_x.y;
 	game->ray.side_dist_y.x = factor.y * game->ray.step_for_plus_y.x;
 	game->ray.side_dist_y.y = factor.y * game->ray.step_for_plus_y.y;
-	if (vector_length(&game->ray.side_dist_x) < vector_length(&game->ray.side_dist_y))
+	if (vector_length(&game->ray.side_dist_x) < \
+		vector_length(&game->ray.side_dist_y))
 	{
 		hitpoint->x = game->player.pos.x + game->ray.side_dist_x.x;
 		hitpoint->y = game->player.pos.y + game->ray.side_dist_x.y;
@@ -163,12 +164,7 @@ void	calculate_hitpoint(t_game *game)
 			}
 		}
 		if(check_hit(game, hitpoint) == 1)
-		{
-			//set_direction_wall(game) also welche texture;
-			hit = true;
-			printf("TRUE\n");
 			break;
-		}
 	}
 	game->ray.hitpoint.x = hitpoint.x;
 	game->ray.hitpoint.y = hitpoint.y;
