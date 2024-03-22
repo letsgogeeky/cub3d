@@ -161,10 +161,8 @@ int	validate(t_map *map)
 
 	update_rows_cols_count(map);
 	grid = map->map;
-	rows = str_arr_len(grid);
-	cols = ft_strlen(grid[0]);
-	map->rows = rows;
-	map->cols = cols;
+	rows = map->rows;
+	cols = map->cols;
 	if (rows < 3 || cols < 3)
 		return (ft_printf("-> Failed on map minimum size requirements.\n"), 0);
 	if (!all_ones(grid[0], true) || !all_ones(grid[rows - 1], true))
