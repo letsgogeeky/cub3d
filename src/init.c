@@ -110,7 +110,8 @@ void	free_game(t_game *game)
 			mlx_delete_image(game->mlx, game->minimap->image);
 		free(game->minimap);
 	}
-	mlx_terminate(game->mlx);
+	if (game->mlx != NULL)
+		mlx_terminate(game->mlx);
 	if (game->data != NULL)
 	{
 		if (game->data->rays != NULL)
@@ -140,7 +141,7 @@ void	open_n_draw(t_map *m)
 	// do_raycast(game);
 	mlx_loop_hook(game->mlx, ft_hook, game);
 	mlx_loop(game->mlx);
-	mlx_terminate(game->mlx);
+	// mlx_terminate(game->mlx);
 	free_game(game);
 	return ;
 }

@@ -15,6 +15,8 @@
 # define WIDTH 1366
 # define HEIGHT 768
 
+# define AMOUNT_RAYS_2D_FOV 10
+
 # define STRUCT_FAILED "building of struct failed"
 # define INV_MAP "invalid map"
 # define PARSING_MAP_FAILED "parsing of the input map failed"
@@ -30,6 +32,35 @@
 # define MINIMAP_FLOOR 0xFBBC05FF
 # define MINIMAP_DIR 0xEA4335FF
 
+typedef struct s_texture
+{
+	char			*path;
+	mlx_texture_t	*tex;
+}		t_texture;
+
+typedef struct s_color
+{
+	char	*str_color;
+	int		red;
+	int		green;
+	int		blue;
+	int		hex_color_rgb;
+}		t_color;
+
+typedef struct s_map // every element is allocated and has to be freed if failure occures
+{
+	t_texture			*north_texture;
+	t_texture			*south_texture;
+	t_texture			*west_texture;
+	t_texture			*east_texture;
+	t_color				*floor_color;
+	t_color				*ceiling_color;
+	char				**map;
+	int					rows;
+	int					cols;
+}		t_map;
+
+
 enum e_symbol
 {
 	EMPTY = ' ',
@@ -43,7 +74,7 @@ enum e_direction
 	SOUTH,
 	WEST,
 	EAST,
-	UNKNOWN
+	UNKNOWN,
 };
 
 typedef struct	s_vector
@@ -52,36 +83,32 @@ typedef struct	s_vector
 	double	y;
 }		t_vector;
 
-
 typedef struct s_position
 {
-    double                 x;
-    double                 y;
-}       t_position;
+	double	x;
+	double	y;
+}		t_position;
+
 
 typedef struct s_ray
 {
-	int			        hit_x; //calculate by myself
-	int			        hit_y; //calculate by myself
-    t_vector            ray; // has to be from position to hitpoint so that i can calculate the rest
+	// t_vector			ray; // has to be from position to hitpoint so that i can calculate the rest
 	t_vector			dir;
 	t_vector			angle;
-	t_vector			side_dist;
-	t_vector			delta_dist;
+	t_vector			step_for_plus_x;
+	t_vector			step_for_plus_y;
+	t_vector			hitpoint;
+	t_vector			side_dist_x; //all blocks we passed so far
+	t_vector			side_dist_y; //all blocks we passed so far
+	t_vector			delta_dist; //distance to next block
 	t_vector			map;
-	t_vector			step;
-	int					side;
-	double				length;
-	int                 len_to_wall; //calculate by myself
-    int                 wall_height; //calculate by myself
-    enum e_direction    wall_texture;
+	// t_vector			step;
+	// int					side;
+	// double				length;
+	double				len_to_wall; //calculate by myself
+	double				wall_height; //calculate by myself
+	enum e_direction	wall_texture;
 }		t_ray;
-
-typedef struct s_texture
-{
-	char			*path;
-	mlx_texture_t	*tex;
-}		t_texture;
 
 typedef struct	s_player
 {
@@ -97,31 +124,9 @@ typedef struct	s_player
 
 typedef struct s_data
 {
-    t_player  	player;
-    t_ray       *rays;
-}       t_data;
-
-typedef struct s_color
-{
-	char	*str_color;
-	int		red;
-	int		green;
-	int		blue;
-	int		hex_color_rgb;
-}		t_color;
-
-typedef struct s_map // every element is allocated and has to be freed if failure occures
-{
-	t_texture	*north_texture;
-	t_texture	*south_texture;
-	t_texture	*west_texture;
-	t_texture	*east_texture;
-	t_color		*floor_color;
-	t_color		*ceiling_color;
-	char				**map;
-	int					rows;
-	int					cols;
-}		t_map;
+	t_player	player;
+	t_ray		*rays;
+}		t_data;
 
 typedef struct s_minimap
 {
@@ -138,7 +143,7 @@ typedef struct s_game
 	t_player	player;
 	t_ray		ray;
 	// Should we continue using the `data` struct if we don't have an array of rays?
-	t_data      *data;
+	t_data		*data;
 	int			block_size;
 	mlx_image_t	*image;
 	t_minimap	*minimap;
@@ -147,6 +152,31 @@ typedef struct s_game
 
 int			validate(t_map *map);
 
+
+//draw_2d.c
+void		draw_line(t_game *game, t_vector start, t_vector end, int color);
+void		draw_ray(t_game *game, int color);
+
+//set_var.c
+double		vector_length(t_vector *vec);
+void		add_one_step(t_vector *side_dist, t_vector *step);
+void		set_hitpoint(t_position *hitpoint, t_game *game, int i);
+void		set_steps(t_game *game);
+void		set_angle(t_game *game, int x);
+
+//calc_ray.c
+t_vector	set_player_in_block(t_game *game);
+t_vector	set_first_block_border(t_game *game);
+void		dda(t_position *hitpoint, t_game *game, t_vector *dx, t_vector *dy);
+void		calculate_hitpoint(t_game *game);
+
+// check_ray.c
+int			check_first_wall(t_game *game, t_vector factor, t_position *hitpoint);
+int			check_hit(t_game *game, t_position hitpoint);
+
+// cast.c
+t_ray		init_ray(void);
+void		visualize_2d_ray(t_game *game, int color);
 
 //init.c
 t_game		*allocate_game(t_map *m);
@@ -199,6 +229,7 @@ void		fill_block(t_game *game, int block_size, int x, int y, int color);
 void		draw_vert(t_game *game, int block_size);
 void		draw_hor(t_game *game, int block_size);
 void		draw_block(t_game *game);
+
 
 //graphics
 void	clear_image(mlx_image_t *image, int width, int height);
