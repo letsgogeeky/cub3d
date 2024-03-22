@@ -16,8 +16,8 @@ t_position	get_player_position(t_map *map)
 		{
 			if (is_orientation(map->map[i][j]))
 			{
-				position.x = j;
-				position.y = i;
+				position.x = j + 0.5;
+				position.y = i + 0.5;
 				return (position);
 			}
 			j++;
