@@ -106,18 +106,16 @@ void	draw_circle(mlx_image_t *image, t_position point, int radius, int color)
 }
 
 
-
 void	show_player(t_game *game)
 {
 	ft_printf("Direction: %f, %f\n", game->player.dir.x, game->player.dir.y);
 	ft_printf("Position: %f, %f\n", game->player.pos.x, game->player.pos.y);
-	game->player.coordinate.x = game->player.pos.x * game->block_size;
-	game->player.coordinate.y = game->player.pos.y * game->block_size;
+	game->player.coordinate.x = game->player.pos.x * game->block_size - game->minimap->p_radius;
+	game->player.coordinate.y = game->player.pos.y * game->block_size - game->minimap->p_radius;
 	ft_printf("Coordinate: %f, %f\n", game->player.coordinate.x, game->player.coordinate.y);
-	// draw_circle(game->minimap->image, \
-	// 	game->player.coordinate, game->minimap->p_radius, \
-	// 	MINIMAP_PLAYER);
-	mlx_put_pixel(game->minimap->image, game->player.coordinate.x, game->player.coordinate.y, MINIMAP_PLAYER);
+	draw_circle(game->minimap->image, \
+		game->player.coordinate, game->minimap->p_radius, \
+		MINIMAP_PLAYER);
 	visualize_2d_ray(game, MINIMAP_DIR);
 }
 
