@@ -40,7 +40,6 @@ void	move_forward(t_game *game)
 	player = &game->player;
 	next_x = player->pos.x + player->dir.x * player->walk_speed;
 	next_y = player->pos.y + player->dir.y * player->walk_speed;
-	ft_printf("next_x: %f, next_y: %f\n", next_x, next_y);
 	if (check_hitbox_collision(game, (t_position){next_y , next_x}, game->minimap->p_radius))
 		return ;
 	if (map->map[(int)player->pos.y][(int)next_x] != WALL)
