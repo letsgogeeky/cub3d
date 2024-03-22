@@ -24,11 +24,125 @@ t_ray	init_ray(void)
 	ray.map.y = 0;
 	ray.len_to_wall = 0;
 	ray.wall_height = 0;
-	// ray.step.x = 0;
-	// ray.step.y = 0;
 	return (ray);
 }
 
+// <<<<<<< HEAD
+
+// =======
+// void	draw_line(t_game *game, t_vector start, t_vector end, int color)
+// {
+// 	double	x;
+// 	double	y;
+// 	double	dx;
+// 	double	dy;
+// 	double	steps;
+// 	double	i;
+
+// 	dx = end.x - start.x;
+// 	dy = end.y - start.y;
+// 	steps = (fabs(dx) > fabs(dy)) ? fabs(dx) : fabs(dy);
+// 	dx /= steps;
+// 	dy /= steps;
+// 	x = start.x;
+// 	y = start.y;
+// 	i = 0;
+// 	while (i <= steps && x < WIDTH && y < HEIGHT && x >= 0 && y >= 0)
+// 	{
+// 		mlx_put_pixel(game->minimap->image, x, y, color);
+// 		x += dx;
+// 		y += dy;
+// 		i++;
+// 	}
+// }
+
+// t_vector	distance_to_wall(t_game *game)
+// {
+// 	t_vector	distance;
+// 	int x;
+// 	int y;
+
+// 	distance.x = 0;
+// 	distance.y = 0;
+// 	x = (int)(game->player.pos.y + distance.y);
+// 	y = (int)(game->player.pos.x + distance.x);
+// 	while (game->map->map[x][y] && game->map->map[x][y] != WALL)
+// 	{
+// 		distance.x++;
+// 		distance.y++;
+// 		x = (int)(game->player.pos.y + distance.y);
+// 		y = (int)(game->player.pos.x + distance.x);
+// 	}
+// 	return (distance);
+
+// }
+
+// void	visualize_2d_ray(t_game *game, int color)
+// {
+// 	t_vector	start;
+// 	t_vector	end;
+// 	int		block_size;
+// 	int 	i;
+// 	float dir_scalar;
+
+// 	block_size = game->block_size;
+// 	start.x = game->player.pos.x * block_size + block_size / 2;
+// 	start.y = game->player.pos.y * block_size + block_size / 2;
+// 	dir_scalar = 1;
+// 	i = 0;
+// 	while (i <= game->minimap->arrows_count)
+// 	{
+// 		game->ray.angle.x = game->player.dir.x + game->player.plane.x * dir_scalar;
+// 		game->ray.angle.y = game->player.dir.y + game->player.plane.y * dir_scalar;
+// 		end.x = (game->ray.angle.x * block_size) + start.x;
+// 		end.y = (game->ray.angle.y * block_size) + start.y;
+// 		draw_line(game, start, end, color);
+// 		dir_scalar -= (2.0 / game->minimap->arrows_count);
+// 		i++;
+// 	}
+// }
+
+// void	compute_pixel_column(t_game *game, int x)
+// {
+// 	double	wall_hit;
+// 	t_vector	wall;
+// 	int		wall_height;
+// 	int	y;
+
+// 	wall_height = (int)(HEIGHT / game->ray.length);
+// 	wall.x = (-wall_height / 2 + HEIGHT / 2);
+// 	if (wall.x < 0)
+// 		wall.x = 0;
+// 	wall.y = (wall_height / 2 + HEIGHT / 2);
+// 	if (wall.y >= HEIGHT)
+// 		wall.y = HEIGHT - 1;
+// 	if (game->ray.side == 0)
+// 		wall_hit = game->player.pos.y + game->ray.length * game->ray.angle.y;
+// 	else
+// 		wall_hit = game->player.pos.x + game->ray.length * game->ray.angle.x;
+// 	wall_hit -= floor(wall_hit);
+
+// 	y = 0;
+// 	while (y < HEIGHT)
+// 	{
+// 		if (y < wall.x)
+// 			mlx_put_pixel(game->image, x, y, 0x00FF0000);
+// 		else if (y > wall.x && y < wall.y)
+// 			mlx_put_pixel(game->image, x, y, 0x00FFFFFF);
+// 		else
+// 			mlx_put_pixel(game->image, x, y, 0x000000FF);
+// 		y++;
+	
+// 	}
+// }
+
+
+// void	do_raycast(t_game *game)
+// {
+// 	double	column_x;
+// 	int		x;
+
+// >>>>>>> 52d00aee5eb54b771c248c63de3b839067403922
 void	visualize_2d_ray(t_game *game, int color)
 {
 	int			block_size;

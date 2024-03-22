@@ -19,7 +19,7 @@ void	draw_line(t_game *game, t_vector start, t_vector end, int color)
 	i = 0;
 	while (i <= steps && x > 0 && y > 0 && x < WIDTH && y < HEIGHT)
 	{
-		mlx_put_pixel(game->image, x, y, color);
+		mlx_put_pixel(game->minimap->image, x, y, color);
 		x += dx;
 		y += dy;
 		i++;
