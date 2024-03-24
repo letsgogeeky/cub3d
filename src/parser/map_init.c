@@ -99,7 +99,7 @@ int	parse_map(int fd, t_map *m, char *tmp, char *argv)
 	if (fill_map(m, fd, rows, max_length) != 0)
 		return (close(fd), 1);
 	close(fd);
-	test_parsing(m, rows);
+	// test_parsing(m, rows);
 	return (0);
 }
 

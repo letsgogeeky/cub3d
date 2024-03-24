@@ -38,6 +38,6 @@ void	log_player_position(t_map *map)
 	t_position	position;
 
 	position = get_player_position(map);
-	ft_printf("Player position: X: %d, Y: %d, Direction: %s\n", \
+	printf("Player position: X: %f, Y: %f, Direction: %s\n", \
 		position.x, position.y, direction_to_str(1));
 }

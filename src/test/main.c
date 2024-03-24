@@ -23,9 +23,9 @@ void	test_valid()
 		result = validate(map);
 		log_player_position(map);
 		if (result == 1)
-			ft_printf("Test case %s for map %d\n", PASSED, i);
+			printf("Test case %s for map %d\n", PASSED, i);
 		else
-			ft_printf("Test case %s for map %d\n", FAILED, i);
+			printf("Test case %s for map %d\n", FAILED, i);
 	}
 }
 void	test_invalid()
@@ -49,9 +49,9 @@ void	test_invalid()
 		result = validate(map);
 		log_player_position(map);
 		if (result == 0)
-			ft_printf("Test case %s for map %d\n", PASSED, i);
+			printf("Test case %s for map %d\n", PASSED, i);
 		else
-			ft_printf("Test case %s for map %d\n", FAILED, i);
+			printf("Test case %s for map %d\n", FAILED, i);
 	}
 }
 
@@ -59,12 +59,12 @@ int	main(int ac, char **argv)
 {
 	(void)ac;
 	(void)argv;
-	ft_printf("\033[0;32m Testing valid maps::::\n\033[0m");
+	printf("\033[0;32m Testing valid maps::::\n\033[0m");
 	test_valid();
-	ft_printf("--------------------\n");
+	printf("--------------------\n");
 	test_invalid();
-	ft_printf("\033[0;32m Testing invalid maps::::\n\033[0m");
-	ft_printf("END OF MOCKS\n");
-	ft_printf("--------------------\n");
+	printf("\033[0;32m Testing invalid maps::::\n\033[0m");
+	printf("END OF MOCKS\n");
+	printf("--------------------\n");
 	return (0);
 }

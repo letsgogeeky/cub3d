@@ -145,10 +145,10 @@ t_ray	init_ray(void)
 // >>>>>>> 52d00aee5eb54b771c248c63de3b839067403922
 void	visualize_2d_ray(t_game *game, int color)
 {
-	int			block_size;
+	// int			block_size;
 	int			x;
 
-	block_size = game->block_size;
+	// block_size = game->block_size;
 	x = 0;
 	while (x < AMOUNT_RAYS_2D_FOV)
 	{

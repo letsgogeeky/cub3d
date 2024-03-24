@@ -61,9 +61,9 @@ bool	valid_from_front(char *line, char *prev, char *next, char ignore)
 bool	valid_with_surrounding(char *line, char *prev, char *next, char ignore)
 {
 	if (!valid_from_front(line, prev, next, ignore))
-		return (ft_printf("Failed on line: %s from front\n", line), false);
+		return (printf("Failed on line: %s from front\n", line), false);
 	if (!valid_from_back(line, prev, next, ignore))
-		return (ft_printf("Failed on line: %s from back\n", line), false);
+		return (printf("Failed on line: %s from back\n", line), false);
 	return (true);
 }
 
