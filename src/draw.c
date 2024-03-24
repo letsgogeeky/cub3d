@@ -132,6 +132,8 @@ void	draw_block(t_game *game)
 		{
 			if (game->map->map[i][j] == WALL)
 				fill_block(game, block_size, j * block_size, i * block_size, MINIMAP_WALL);
+			else if (game->map->map[i][j] == DOOR)
+				fill_block(game, block_size, j * block_size, i * block_size, MINIMAP_DOOR);
 			j++;
 		}
 		j = 0;
