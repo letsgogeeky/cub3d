@@ -6,25 +6,25 @@ bool	check_hitbox_collision(t_game *game, t_position point, int radius)
 	double dist;
 	t_position	pos_scaled;
 
-	i = 0;
+	i = -1;
 	point.x = point.x * game->block_size - radius;
 	point.y = point.y * game->block_size - radius;
-	while (i < radius * 2)
+	while (++i < radius * 2)
 	{
-		j = 0;
-		while (j < radius * 2)
+		j = -1;
+		while (++j < radius * 2)
 		{
 			dist = sqrt((i - radius) * (i - radius) + (j - radius) * (j - radius));
 			if (dist > radius - 1 && dist < radius + 1)
 			{
 				pos_scaled.x = (point.x + i) / game->block_size;
 				pos_scaled.y = (point.y + j) / game->block_size;
-				if (game->map->map[(int)pos_scaled.x][(int)pos_scaled.y] == WALL)
+				if (game->map->map[(int)pos_scaled.x][(int)pos_scaled.y] == WALL || \
+					(game->map->map[(int)pos_scaled.x][(int)pos_scaled.y] == DOOR && \
+					!door_is_open(game, (int)pos_scaled.y, (int)pos_scaled.x)))
 					return (true);
 			}
-			j++;
 		}
-		i++;
 	}
 	return (false);
 }

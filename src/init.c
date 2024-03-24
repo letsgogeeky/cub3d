@@ -96,6 +96,16 @@ void	ft_hook(void *param) // need to try if two loops are possible if different 
 		return (rotate(game, false), draw_block(game));
 }
 
+void	ft_controls_extra(mlx_key_data_t key, void *param)
+{
+	t_game	*game;
+
+	game = param;
+	if (key.key == MLX_KEY_F && key.action == MLX_RELEASE)
+		return (door_control(game), draw_block(game));
+}
+
+
 void	free_game(t_game *game)
 {
 	if (game->map != NULL)
@@ -124,6 +134,35 @@ void	free_game(t_game *game)
 	game = NULL;
 }
 
+void	load_doors(t_game *game)
+{
+	int	i;
+	int	j;
+	int	d;
+
+	game->map->doors_count = doors_count(game->map);
+	game->map->doors = malloc(sizeof(t_door) * game->map->doors_count);
+	if (!game->map->doors)
+		return (ft_prerr(FAIL_DOORS_INIT, NULL), free_game(game));
+	i = -1;
+	j = -1;
+	d = 0;
+	while (++j < game->map->rows)
+	{
+		while (++i < game->map->cols)
+		{
+			if (game->map->map[j][i] == DOOR)
+			{
+				game->map->doors[d].pos.x = i;
+				game->map->doors[d].pos.y = j;
+				game->map->doors[d].is_open = false;
+				d++;
+			}
+		}
+		i = -1;
+	}
+}
+
 void	open_n_draw(t_map *m)
 {
 	t_game	*game;
@@ -136,10 +175,12 @@ void	open_n_draw(t_map *m)
 	if (mlx_image_to_window(game->mlx, game->minimap->image, \
 		WIDTH - game->minimap->width - 10, 10) < 0)
 		return (free_game(game));
+	load_doors(game);
 	// raycast(game);
 	draw_block(game);
 	// do_raycast(game);
 	mlx_loop_hook(game->mlx, ft_hook, game);
+	mlx_key_hook(game->mlx, ft_controls_extra, game);
 	mlx_loop(game->mlx);
 	// mlx_terminate(game->mlx);
 	free_game(game);

@@ -26,6 +26,7 @@
 # define CUB_FORMAT "input file needs .cub format"
 # define INV_TEX_FILE "texture file included in map is invalid"
 # define FAIL_GAME_INIT "Error: failed to initialize game\n"
+# define FAIL_DOORS_INIT "Error: failed to initialize doors\n"
 
 # define MINIMAP_PLAYER 0x34A853FF
 # define MINIMAP_WALL 0x4285F4FF
@@ -38,6 +39,12 @@ typedef struct s_position
 	double	x;
 	double	y;
 }		t_position;
+
+typedef struct s_position_int
+{
+	int	x;
+	int	y;
+}		t_position_int;
 
 
 typedef struct s_texture
@@ -57,8 +64,8 @@ typedef struct s_color
 
 typedef struct s_door
 {
-	t_position		pos;
-	bool			is_open;
+	t_position_int		pos;
+	bool				is_open;
 }		t_door;
 
 typedef struct s_map // every element is allocated and has to be freed if failure occures
@@ -74,6 +81,7 @@ typedef struct s_map // every element is allocated and has to be freed if failur
 	int					rows;
 	int					cols;
 	t_door				*doors;
+	int					doors_count;
 }		t_map;
 
 
@@ -240,10 +248,8 @@ void		draw_vert(t_game *game, int block_size);
 void		draw_hor(t_game *game, int block_size);
 void		draw_block(t_game *game);
 
-
 //graphics
 void	clear_image(mlx_image_t *image, int width, int height);
-
 
 // player
 t_player	init_player(t_map *map);
@@ -263,4 +269,10 @@ void	move_left(t_game *game);
 void	move_right(t_game *game);
 void	rotate(t_game *game, bool clockwise);
 void	do_raycast(t_game *game);
+
+// doors
+int		doors_count(t_map *map);
+bool	door_is_open(t_game *game, int x, int y);
+void	door_open_close(t_game *game, int x, int y);
+void	door_control(t_game *game);
 #endif
