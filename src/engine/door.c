@@ -25,7 +25,7 @@ int	doors_count(t_map *map)
 
 bool	door_is_open(t_game *game, int x, int y)
 {
-	int	i;
+	int		i;
 	t_door	*doors;
 
 	i = 0;
@@ -41,7 +41,7 @@ bool	door_is_open(t_game *game, int x, int y)
 
 void	door_open_close(t_game *game, int x, int y)
 {
-	int	i;
+	int		i;
 	t_door	*doors;
 
 	i = 0;
@@ -56,8 +56,8 @@ void	door_open_close(t_game *game, int x, int y)
 
 void	door_control(t_game *game)
 {
-	int	next_x;
-	int	next_y;
+	int			next_x;
+	int			next_y;
 	t_player	*player;
 	t_map		*map;
 
@@ -66,7 +66,8 @@ void	door_control(t_game *game)
 	if (player_inside_door(game, (t_position){player->pos.y, player->pos.x}, \
 		game->minimap->p_radius))
 	{
-		printf("Cannot open/close door, player is too close. their toes will be hurt!\n");
+		printf("Cannot open/close door, player is too close. ");
+		printf("Their toes will be hurt!\n");
 		return ;
 	}
 	next_x = player->pos.x + player->dir.x * (player->walk_speed * 5);
@@ -76,5 +77,3 @@ void	door_control(t_game *game)
 	else if (map->map[(int)next_y][(int)player->pos.x] == DOOR)
 		door_open_close(game, (int)next_y, (int)player->pos.x);
 }
-
-

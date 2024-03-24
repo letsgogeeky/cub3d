@@ -82,18 +82,25 @@ void	ft_hook(void *param) // need to try if two loops are possible if different 
 	mlx = game->mlx;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
-	else if (mlx_is_key_down(mlx, MLX_KEY_W))
-		return (move_forward(game), draw_block(game));
-	else if (mlx_is_key_down(mlx, MLX_KEY_A))
-		return (move_left(game), draw_block(game));
-	else if (mlx_is_key_down(mlx, MLX_KEY_S))
-		return (move_backward(game), draw_block(game));
-	else if (mlx_is_key_down(mlx, MLX_KEY_D))
-		return (move_right(game), draw_block(game));
 	else if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 		return (rotate(game, true), draw_block(game));
 	else if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 		return (rotate(game, false), draw_block(game));
+}
+
+void	controls_directions(void *param)
+{
+	t_game	*game;
+
+	game = param;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+		return (move_forward(game), draw_block(game));
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+		return (move_left(game), draw_block(game));
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+		return (move_backward(game), draw_block(game));
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+		return (move_right(game), draw_block(game));
 }
 
 void	ft_controls_extra(mlx_key_data_t key, void *param)
@@ -101,7 +108,7 @@ void	ft_controls_extra(mlx_key_data_t key, void *param)
 	t_game	*game;
 
 	game = param;
-	if (key.key == MLX_KEY_F && key.action == MLX_RELEASE)
+	if (key.key == MLX_KEY_F && key.action == MLX_PRESS)
 		return (door_control(game), draw_block(game));
 }
 
@@ -180,6 +187,7 @@ void	open_n_draw(t_map *m)
 	draw_block(game);
 	// do_raycast(game);
 	mlx_loop_hook(game->mlx, ft_hook, game);
+	mlx_loop_hook(game->mlx, controls_directions, game);
 	mlx_key_hook(game->mlx, ft_controls_extra, game);
 	mlx_loop(game->mlx);
 	// mlx_terminate(game->mlx);

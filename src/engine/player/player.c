@@ -137,7 +137,7 @@ bool	player_inside_door(t_game *game, t_position point, int radius)
 			{
 				pos_scaled.x = (point.x + i) / game->block_size;
 				pos_scaled.y = (point.y + j) / game->block_size;
-				if (door_is_open(game, (int)pos_scaled.x, (int)pos_scaled.y))
+				if (game->map->map[(int)pos_scaled.x][(int)pos_scaled.y] == DOOR)
 					return (true);
 			}
 		}

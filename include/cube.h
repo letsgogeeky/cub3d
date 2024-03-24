@@ -280,4 +280,5 @@ void	door_control(t_game *game);
 
 // math_utils
 double	sqrt_xy_squared(double x, double y);
+t_vector	rotate_vector(t_vector vec, double angle);
 #endif
