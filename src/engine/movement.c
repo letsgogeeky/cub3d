@@ -21,7 +21,7 @@ bool	check_hitbox_collision(t_game *game, t_position point, int radius)
 				pos_scaled.y = (point.y + j) / game->block_size;
 				if (game->map->map[(int)pos_scaled.x][(int)pos_scaled.y] == WALL || \
 					(game->map->map[(int)pos_scaled.x][(int)pos_scaled.y] == DOOR && \
-					!door_is_open(game, (int)pos_scaled.y, (int)pos_scaled.x)))
+					!door_is_open(game, (int)pos_scaled.x, (int)pos_scaled.y)))
 					return (true);
 			}
 		}

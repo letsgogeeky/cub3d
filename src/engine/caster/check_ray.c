@@ -59,7 +59,7 @@ int	check_hit(t_game *game, t_position hitpoint)
 	// draw_line(game, a, b, 0x0000FFFF);
 	// test = ft_strncmp(&map[j][i], "1", 1);
 	if (map[j][i] && (map[j][i] == WALL || \
-		(map[j][i] == DOOR && !door_is_open(game, i, j))))
+		(map[j][i] == DOOR && !door_is_open(game, j, i))))
 		return (1);
 	return (0);
 }

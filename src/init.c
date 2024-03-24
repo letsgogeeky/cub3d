@@ -153,8 +153,8 @@ void	load_doors(t_game *game)
 		{
 			if (game->map->map[j][i] == DOOR)
 			{
-				game->map->doors[d].pos.x = i;
-				game->map->doors[d].pos.y = j;
+				game->map->doors[d].pos.x = j;
+				game->map->doors[d].pos.y = i;
 				game->map->doors[d].is_open = false;
 				d++;
 			}
