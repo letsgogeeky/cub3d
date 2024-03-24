@@ -63,13 +63,18 @@ void	door_control(t_game *game)
 
 	map = game->map;
 	player = &game->player;
+	if (player_inside_door(game, (t_position){player->pos.y, player->pos.x}, \
+		game->minimap->p_radius))
+	{
+		printf("Cannot open/close door, player is too close. their toes will be hurt!\n");
+		return ;
+	}
 	next_x = player->pos.x + player->dir.x * (player->walk_speed * 5);
 	next_y = player->pos.y + player->dir.y * (player->walk_speed * 5);
 	if (map->map[(int)player->pos.y][(int)next_x] == DOOR)
 		door_open_close(game, (int)player->pos.y, (int)next_x);
 	else if (map->map[(int)next_y][(int)player->pos.x] == DOOR)
 		door_open_close(game, (int)next_y, (int)player->pos.x);
-	
 }
 
 

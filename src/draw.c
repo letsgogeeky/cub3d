@@ -126,7 +126,7 @@ void	draw_circle(mlx_image_t *image, t_position point, int radius, int color)
 	{
 		while (j < radius * 2)
 		{
-			if (sqrt((i - radius) * (i - radius) + (j - radius) * (j - radius)) <= radius)
+			if (sqrt_xy_squared((i - radius), (j - radius)) <= radius)
 				mlx_put_pixel(image, point.x + i, point.y + j, color);
 			j++;
 		}

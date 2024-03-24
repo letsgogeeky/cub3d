@@ -261,6 +261,8 @@ t_position	get_player_position(t_map *map);
 void		log_player_position(t_map *map);
 char		*direction_to_str(enum e_direction direction);
 void		show_player(t_game *game);
+bool		player_collision(t_game *game, t_position point, int radius);
+bool		player_inside_door(t_game *game, t_position point, int radius);
 
 // movement
 void	move_forward(t_game *game);
@@ -275,4 +277,7 @@ int		doors_count(t_map *map);
 bool	door_is_open(t_game *game, int x, int y);
 void	door_open_close(t_game *game, int x, int y);
 void	door_control(t_game *game);
+
+// math_utils
+double	sqrt_xy_squared(double x, double y);
 #endif

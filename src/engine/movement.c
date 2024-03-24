@@ -1,34 +1,5 @@
 #include "cube.h"
 
-bool	check_hitbox_collision(t_game *game, t_position point, int radius)
-{
-	int i, j;
-	double dist;
-	t_position	pos_scaled;
-
-	i = -1;
-	point.x = point.x * game->block_size - radius;
-	point.y = point.y * game->block_size - radius;
-	while (++i < radius * 2)
-	{
-		j = -1;
-		while (++j < radius * 2)
-		{
-			dist = sqrt((i - radius) * (i - radius) + (j - radius) * (j - radius));
-			if (dist > radius - 1 && dist < radius + 1)
-			{
-				pos_scaled.x = (point.x + i) / game->block_size;
-				pos_scaled.y = (point.y + j) / game->block_size;
-				if (game->map->map[(int)pos_scaled.x][(int)pos_scaled.y] == WALL || \
-					(game->map->map[(int)pos_scaled.x][(int)pos_scaled.y] == DOOR && \
-					!door_is_open(game, (int)pos_scaled.x, (int)pos_scaled.y)))
-					return (true);
-			}
-		}
-	}
-	return (false);
-}
-
 void	move_forward(t_game *game)
 {
 	t_map		*map;
@@ -40,7 +11,7 @@ void	move_forward(t_game *game)
 	player = &game->player;
 	next_x = player->pos.x + player->dir.x * player->walk_speed;
 	next_y = player->pos.y + player->dir.y * player->walk_speed;
-	if (check_hitbox_collision(game, (t_position){next_y , next_x}, game->minimap->p_radius))
+	if (player_collision(game, (t_position){next_y , next_x}, game->minimap->p_radius))
 		return ;
 	if (map->map[(int)player->pos.y][(int)next_x] != WALL)
 		player->pos.x = next_x;
@@ -59,7 +30,7 @@ void	move_backward(t_game *game)
 	player = &game->player;
 	next_x = player->pos.x - player->dir.x * player->walk_speed;
 	next_y = player->pos.y - player->dir.y * player->walk_speed;
-	if (check_hitbox_collision(game, (t_position){next_y , next_x}, game->minimap->p_radius))
+	if (player_collision(game, (t_position){next_y , next_x}, game->minimap->p_radius))
 		return ;
 	if (map->map[(int)player->pos.y][(int)next_x] != WALL)
 		player->pos.x = next_x;
@@ -99,7 +70,7 @@ void	move_left(t_game *game)
 	player = &game->player;
 	next_x = player->pos.x + player->plane.x * player->walk_speed;
 	next_y = player->pos.y + player->plane.y * player->walk_speed;
-	if (check_hitbox_collision(game, (t_position){next_y , next_x}, game->minimap->p_radius))
+	if (player_collision(game, (t_position){next_y , next_x}, game->minimap->p_radius))
 		return ;
 	if (map->map[(int)player->pos.y][(int)next_x] != WALL)
 		player->pos.x = next_x;
@@ -118,7 +89,7 @@ void	move_right(t_game *game)
 	player = &game->player;
 	next_x = player->pos.x - player->plane.x * player->walk_speed;
 	next_y = player->pos.y - player->plane.y * player->walk_speed;
-	if (check_hitbox_collision(game, (t_position){next_y , next_x}, game->minimap->p_radius))
+	if (player_collision(game, (t_position){next_y , next_x}, game->minimap->p_radius))
 		return ;
 	if (map->map[(int)player->pos.y][(int)next_x] != WALL)
 		player->pos.x = next_x;
