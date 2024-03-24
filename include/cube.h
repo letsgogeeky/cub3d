@@ -173,9 +173,13 @@ void		set_hitpoint(t_position *hitpoint, t_game *game, int i);
 void		set_steps(t_game *game);
 void		set_angle(t_game *game, int x, int amnt_ray);
 
-//calc_ray.c
+//set_var_2.c
 t_vector	set_player_in_block(t_game *game);
 t_vector	set_first_block_border(t_game *game);
+void		set_wall_direction(t_vector *vector, int version, t_game *game);
+
+//calc_ray.c
+void		set_dda(t_position *hitpoint, t_game *game, t_vector *d, int version);
 void		dda(t_position *hitpoint, t_game *game, t_vector *dx, t_vector *dy);
 void		calculate_hitpoint(t_game *game);
 

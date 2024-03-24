@@ -28,27 +28,6 @@ t_ray	init_ray(void)
 	return (ray);
 }
 
-void	calculate_hitpoint(t_game *game)
-{
-	t_vector	factor;
-	t_position	hitpoint;
-	t_vector	dx;
-	t_vector	dy;
-
-	factor = set_first_block_border(game);
-	dx = game->ray.step_for_plus_x;
-	dy = game->ray.step_for_plus_y;
-	if (check_first_wall(game, factor, &hitpoint) == 1)
-	{
-		game->ray.hitpoint.x = hitpoint.x;
-		game->ray.hitpoint.y = hitpoint.y;
-		return ;
-	}
-	dda(&hitpoint, game, &dx, &dy);
-	game->ray.hitpoint.x = hitpoint.x;
-	game->ray.hitpoint.y = hitpoint.y;
-}
-
 void	visualize_2d_ray(t_game *game, int color)
 {
 	int			block_size;
