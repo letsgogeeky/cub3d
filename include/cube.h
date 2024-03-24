@@ -89,6 +89,12 @@ typedef struct s_position
 	double	y;
 }		t_position;
 
+typedef struct s_column
+{
+	int	end_ceiling;
+	int	start_floor;
+	int	wall_height;
+}		t_column;
 
 typedef struct s_ray
 {
@@ -105,7 +111,8 @@ typedef struct s_ray
 	// t_vector			step;
 	// int					side;
 	// double				length;
-	double				len_to_wall; //calculate by myself
+	double				len_to_wall; //ray length
+	double				len_to_plane; 
 	double				wall_height; //calculate by myself
 	enum e_direction	wall_texture;
 }		t_ray;
@@ -152,6 +159,8 @@ typedef struct s_game
 
 int			validate(t_map *map);
 
+//image.c
+void		load_textures(t_map *map);
 
 //draw_2d.c
 void		draw_line(t_game *game, t_vector start, t_vector end, int color);
@@ -162,7 +171,7 @@ double		vector_length(t_vector *vec);
 void		add_one_step(t_vector *side_dist, t_vector *step);
 void		set_hitpoint(t_position *hitpoint, t_game *game, int i);
 void		set_steps(t_game *game);
-void		set_angle(t_game *game, int x);
+void		set_angle(t_game *game, int x, int amnt_ray);
 
 //calc_ray.c
 t_vector	set_player_in_block(t_game *game);
@@ -230,10 +239,8 @@ void		draw_vert(t_game *game, int block_size);
 void		draw_hor(t_game *game, int block_size);
 void		draw_block(t_game *game);
 
-
 //graphics
 void	clear_image(mlx_image_t *image, int width, int height);
-
 
 // player
 t_player	init_player(t_map *map);

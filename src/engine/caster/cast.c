@@ -23,8 +23,28 @@ t_ray	init_ray(void)
 	ray.map.x = 0;
 	ray.map.y = 0;
 	ray.len_to_wall = 0;
+	ray.len_to_plane = 0;
 	ray.wall_height = 0;
 	return (ray);
+}
+
+void	visualize_2d_ray(t_game *game, int color)
+{
+	int			block_size;
+	int			x;
+
+	block_size = game->block_size;
+	x = 0;
+	while (x < AMOUNT_RAYS_2D_FOV)
+	{
+		set_angle(game, x, AMOUNT_RAYS_2D_FOV);
+		set_steps(game);
+		calculate_hitpoint(game);
+		draw_ray(game, color);
+		printf("Ray %i, dir: %u\n", x, game->ray.wall_texture);
+		x++;
+	}
+	return ;
 }
 
 // <<<<<<< HEAD
@@ -143,23 +163,6 @@ t_ray	init_ray(void)
 // 	int		x;
 
 // >>>>>>> 52d00aee5eb54b771c248c63de3b839067403922
-void	visualize_2d_ray(t_game *game, int color)
-{
-	int			block_size;
-	int			x;
-
-	block_size = game->block_size;
-	x = 0;
-	while (x < AMOUNT_RAYS_2D_FOV)
-	{
-		set_angle(game, x);
-		set_steps(game);
-		calculate_hitpoint(game);
-		draw_ray(game, color);
-		x++;
-	}
-	return ;
-}
 
 // void	compute_pixel_column(t_game *game, int x)
 // {

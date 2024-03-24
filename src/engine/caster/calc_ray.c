@@ -40,6 +40,24 @@ t_vector	set_first_block_border(t_game *game)
 	return (factor);
 }
 
+void	set_wall_direction(t_vector *vector, int version, t_game *game)
+{
+	if (version == 0)
+	{
+		if (vector->x > 0)
+			game->ray.wall_texture = EAST;
+		else
+			game->ray.wall_texture = WEST;
+	}
+	else
+	{
+		if (vector->y > 0)
+			game->ray.wall_texture = SOUTH;
+		else
+			game->ray.wall_texture = NORTH;
+	}
+}
+
 void	dda(t_position *hitpoint, t_game *game, t_vector *dx, t_vector *dy)
 {
 	int	flag;
@@ -56,12 +74,14 @@ void	dda(t_position *hitpoint, t_game *game, t_vector *dx, t_vector *dy)
 		if (flag == 1 || vector_length(&game->ray.side_dist_x) < \
 			vector_length(&game->ray.side_dist_y))
 		{
+			set_wall_direction(dx, 0, game);
 			set_hitpoint(hitpoint, game, 1);
 			if (hitpoint->x > 0 && hitpoint->y > 0)
 				add_one_step(&game->ray.side_dist_x, dx);
 		}
 		else
 		{
+			set_wall_direction(dy, 1, game);
 			set_hitpoint(hitpoint, game, 0);
 			if (hitpoint->x > 0 && hitpoint->y > 0)
 				add_one_step(&game->ray.side_dist_y, dy);
