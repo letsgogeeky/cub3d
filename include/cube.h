@@ -243,7 +243,7 @@ void		test_parsing(t_map *m, int rows);
 void		test_wall(t_map *m);
 
 //draw.c
-void		fill_block(t_game *game, int block_size, int x, int y, int color);
+void		fill_block(t_game *game, int x, int y, int color);
 void		draw_vert(t_game *game, int block_size);
 void		draw_hor(t_game *game, int block_size);
 void		draw_block(t_game *game);
