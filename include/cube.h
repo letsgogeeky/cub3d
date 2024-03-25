@@ -108,9 +108,6 @@ typedef struct s_ray
 	t_vector			side_dist_y; //all blocks we passed so far
 	t_vector			delta_dist; //distance to next block
 	t_vector			map;
-	// t_vector			step;
-	// int					side;
-	// double				length;
 	double				len_to_wall; //ray length
 	double				len_to_plane; 
 	double				wall_height; //calculate by myself
@@ -171,6 +168,10 @@ void		calculate_length_to_plane(t_game *game);
 
 //image.c
 void		load_textures(t_map *map);
+mlx_texture_t	*choose_texture(t_game *game);
+int			find_color(mlx_texture_t *txt, double x, double y);
+int			interpolate(mlx_texture_t *txt, double col, double y);
+void		resze_tex(mlx_texture_t *normal, t_game *game, t_column *column, int x);
 
 //draw_2d.c
 void		draw_line(t_game *game, t_vector start, t_vector end, int color);

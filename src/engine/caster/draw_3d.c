@@ -36,7 +36,10 @@ void	draw_image(t_game *game, t_column *column, int x)
 	// mlx_texture_t	*resized;
 
 	i = column->end_ceiling;
-	//normal = choose_texture(game);
+	// printf("Wall: %u\n", game->ray.wall_texture);
+	// printf("%s\n", game->map->north_texture->path);
+	// normal = choose_texture(game);
+	// printf("///////%i %i\n", normal->height, normal->width);
 	// resze_tex(normal, game, column, x);
 	while (i < column->start_floor)
 	{
@@ -60,7 +63,7 @@ void	draw_complete(t_game *game, int x)
 
 void	draw_column(t_game *game, t_column *column, int x)
 {
-	if (column->wall_height >= HEIGHT)
+	if (column->wall_height + 2 >= HEIGHT)
 	{
 		draw_complete(game, x);
 		return ;
