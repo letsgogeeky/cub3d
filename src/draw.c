@@ -105,7 +105,6 @@ void	draw_circle(mlx_image_t *image, t_position point, int radius, int color)
 	}
 }
 
-
 void	show_player(t_game *game)
 {
 	ft_printf("Direction: %f, %f\n", game->player.dir.x, game->player.dir.y);
@@ -117,6 +116,7 @@ void	show_player(t_game *game)
 		game->player.coordinate, game->minimap->p_radius, \
 		MINIMAP_PLAYER);
 	visualize_2d_ray(game, MINIMAP_DIR);
+	visualize_3d(game);
 }
 
 void	draw_block(t_game *game)

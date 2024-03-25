@@ -159,6 +159,16 @@ typedef struct s_game
 
 int			validate(t_map *map);
 
+//draw_3d.c
+void		draw_ceiling(t_game *game, t_column *column, int x);
+void		draw_floor(t_game *game, t_column *column, int x);
+void		draw_image(t_game *game, t_column *column, int x);
+void		draw_column(t_game *game, t_column *column, int x);
+
+//calc_3d.c
+t_column	calculate_height(t_game *game);
+void		calculate_length_to_plane(t_game *game);
+
 //image.c
 void		load_textures(t_map *map);
 
@@ -190,6 +200,7 @@ int			check_hit(t_game *game, t_position hitpoint);
 // cast.c
 t_ray		init_ray(void);
 void		visualize_2d_ray(t_game *game, int color);
+void		visualize_3d(t_game *game);
 
 //init.c
 t_game		*allocate_game(t_map *m);

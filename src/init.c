@@ -29,8 +29,8 @@ void	set_minimap_attributes(t_game *game)
 {
 	int block_size;
 
-	game->minimap->width = WIDTH / 1;
-	game->minimap->height = HEIGHT / 1;
+	game->minimap->width = WIDTH / 4;
+	game->minimap->height = HEIGHT / 4;
 	game->minimap->arrows_count = 11;
 	block_size = game->minimap->height / game->map->rows;
 	if (game->minimap->width / (game->map->cols) < block_size)
@@ -138,6 +138,7 @@ void	open_n_draw(t_map *m)
 		return (free_game(game));
 	// raycast(game);
 	draw_block(game);
+
 	// do_raycast(game);
 	mlx_loop_hook(game->mlx, ft_hook, game);
 	mlx_loop(game->mlx);

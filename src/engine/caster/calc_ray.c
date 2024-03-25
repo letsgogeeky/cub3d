@@ -20,7 +20,6 @@ void	dda(t_position *hitpoint, t_game *game, t_vector *dx, t_vector *dy)
 	flag = 0;
 	while (hitpoint->x > 0 && hitpoint->y > 0)
 	{
-	printf("dda\n");
 		if (vector_length(&game->ray.side_dist_x) == \
 			vector_length(&game->ray.side_dist_y))
 		{

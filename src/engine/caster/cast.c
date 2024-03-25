@@ -30,10 +30,8 @@ t_ray	init_ray(void)
 
 void	visualize_2d_ray(t_game *game, int color)
 {
-	int			block_size;
 	int			x;
 
-	block_size = game->block_size;
 	x = 0;
 	while (x < AMOUNT_RAYS_2D_FOV)
 	{
@@ -46,34 +44,27 @@ void	visualize_2d_ray(t_game *game, int color)
 	return ;
 }
 
+void	visualize_3d(t_game *game)
+{
+	int			x;
+	t_column	column;
+
+	x = 0;
+	while (x < WIDTH)
+	{
+		set_angle(game, x, WIDTH);
+		set_steps(game);
+		calculate_hitpoint(game);
+		calculate_length_to_plane(game);
+		column = calculate_height(game);
+		// printf("test %i height:%d \n", x, column.wall_height);
+		draw_column(game, &column, x);
+		x++;
+	}
+	return ;
+}
+
 // <<<<<<< HEAD
-
-// =======
-// void	draw_line(t_game *game, t_vector start, t_vector end, int color)
-// {
-// 	double	x;
-// 	double	y;
-// 	double	dx;
-// 	double	dy;
-// 	double	steps;
-// 	double	i;
-
-// 	dx = end.x - start.x;
-// 	dy = end.y - start.y;
-// 	steps = (fabs(dx) > fabs(dy)) ? fabs(dx) : fabs(dy);
-// 	dx /= steps;
-// 	dy /= steps;
-// 	x = start.x;
-// 	y = start.y;
-// 	i = 0;
-// 	while (i <= steps && x < WIDTH && y < HEIGHT && x >= 0 && y >= 0)
-// 	{
-// 		mlx_put_pixel(game->minimap->image, x, y, color);
-// 		x += dx;
-// 		y += dy;
-// 		i++;
-// 	}
-// }
 
 // t_vector	distance_to_wall(t_game *game)
 // {
