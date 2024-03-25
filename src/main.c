@@ -6,8 +6,10 @@ int	main(int ac, char **argv)
 	t_map	*m;
 	int		fd;
 
-	if (ac == 2 && check_end(argv[1]) == 0)
+	if (ac == 2)
 	{
+		if (check_end(argv[1]))
+			return (1);
 		m = ft_calloc(1, sizeof(t_map));
 		fd = open(argv[1], O_RDONLY);
 		if (fd < 0)

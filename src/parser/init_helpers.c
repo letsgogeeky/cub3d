@@ -45,6 +45,10 @@ int	zero_map_struct(t_map *m)
 	if (m->east_texture == NULL)
 		return (1);
 	m->east_texture->path = NULL;
+	m->door_texture = ft_calloc(1, sizeof(t_texture));
+	if (m->door_texture == NULL)
+		return (1);
+	m->door_texture->path = NULL;
 	m->floor_color = ft_calloc(1, sizeof(t_color));
 	if (m->floor_color == NULL)
 		return (1);

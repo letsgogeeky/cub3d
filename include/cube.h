@@ -26,11 +26,26 @@
 # define CUB_FORMAT "input file needs .cub format"
 # define INV_TEX_FILE "texture file included in map is invalid"
 # define FAIL_GAME_INIT "Error: failed to initialize game\n"
+# define FAIL_DOORS_INIT "Error: failed to initialize doors\n"
 
 # define MINIMAP_PLAYER 0x34A853FF
 # define MINIMAP_WALL 0x4285F4FF
 # define MINIMAP_FLOOR 0xFBBC05FF
 # define MINIMAP_DIR 0xEA4335FF
+# define MINIMAP_DOOR 0x7C3F00FF
+
+typedef struct s_position
+{
+	double	x;
+	double	y;
+}		t_position;
+
+typedef struct s_position_int
+{
+	int	x;
+	int	y;
+}		t_position_int;
+
 
 typedef struct s_texture
 {
@@ -47,17 +62,26 @@ typedef struct s_color
 	int		hex_color_rgb;
 }		t_color;
 
+typedef struct s_door
+{
+	t_position_int		pos;
+	bool				is_open;
+}		t_door;
+
 typedef struct s_map // every element is allocated and has to be freed if failure occures
 {
 	t_texture			*north_texture;
 	t_texture			*south_texture;
 	t_texture			*west_texture;
 	t_texture			*east_texture;
+	t_texture			*door_texture;
 	t_color				*floor_color;
 	t_color				*ceiling_color;
 	char				**map;
 	int					rows;
 	int					cols;
+	t_door				*doors;
+	int					doors_count;
 }		t_map;
 
 
@@ -66,6 +90,7 @@ enum e_symbol
 	EMPTY = ' ',
 	WALL = '1',
 	SPACE = '0',
+	DOOR = 'D',
 };
 
 enum e_direction
@@ -82,13 +107,6 @@ typedef struct	s_vector
 	double	x;
 	double	y;
 }		t_vector;
-
-typedef struct s_position
-{
-	double	x;
-	double	y;
-}		t_position;
-
 
 typedef struct s_ray
 {
@@ -225,15 +243,13 @@ void		test_parsing(t_map *m, int rows);
 void		test_wall(t_map *m);
 
 //draw.c
-void		fill_block(t_game *game, int block_size, int x, int y, int color);
+void		fill_block(t_game *game, int x, int y, int color);
 void		draw_vert(t_game *game, int block_size);
 void		draw_hor(t_game *game, int block_size);
 void		draw_block(t_game *game);
 
-
 //graphics
 void	clear_image(mlx_image_t *image, int width, int height);
-
 
 // player
 t_player	init_player(t_map *map);
@@ -245,6 +261,8 @@ t_position	get_player_position(t_map *map);
 void		log_player_position(t_map *map);
 char		*direction_to_str(enum e_direction direction);
 void		show_player(t_game *game);
+bool		player_collision(t_game *game, t_position point, int radius);
+bool		player_inside_door(t_game *game, t_position point, int radius);
 
 // movement
 void	move_forward(t_game *game);
@@ -253,4 +271,14 @@ void	move_left(t_game *game);
 void	move_right(t_game *game);
 void	rotate(t_game *game, bool clockwise);
 void	do_raycast(t_game *game);
+
+// doors
+int		doors_count(t_map *map);
+bool	door_is_open(t_game *game, int x, int y);
+void	door_open_close(t_game *game, int x, int y);
+void	door_control(t_game *game);
+
+// math_utils
+double	sqrt_xy_squared(double x, double y);
+t_vector	rotate_vector(t_vector vec, double angle);
 #endif
