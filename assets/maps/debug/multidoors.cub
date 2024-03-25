@@ -1,0 +1,19 @@
+NO assets/textures/wall_debug/north.png
+SO assets/textures/wall_debug/south.png
+WE assets/textures/wall_debug/west.png
+EA assets/textures/wall_debug/east.png
+
+F 150,150,150
+C 100,100,100
+
+11111
+10001
+11D11
+10001
+11D11
+10001
+10E01
+10001
+11D11
+10001
+11111

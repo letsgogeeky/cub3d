@@ -11,8 +11,10 @@ void	fill_var_map(int flag, char *ptr, t_map *m)
 	else if (flag == 4)
 		m->east_texture->path = ft_strdup(ptr);
 	else if (flag == 5)
-		m->floor_color->str_color = ft_strdup(ptr);
+		m->door_texture->path = ft_strdup(ptr);
 	else if (flag == 6)
+		m->floor_color->str_color = ft_strdup(ptr);
+	else if (flag == 7)
 		m->ceiling_color->str_color = ft_strdup(ptr);
 }
 
@@ -30,14 +32,16 @@ void	set_var_map(t_map *m, char *ptr)
 		flag = 3;
 	else if (ft_strncmp(ptr, "EA ", 3) == 0)
 		flag = 4;
-	else if (ft_strncmp(ptr, "F ", 2) == 0)
+	else if (ft_strncmp(ptr, "DD ", 3) == 0)
 		flag = 5;
-	else if (ft_strncmp(ptr, "C ", 2) == 0)
+	else if (ft_strncmp(ptr, "F ", 2) == 0)
 		flag = 6;
+	else if (ft_strncmp(ptr, "C ", 2) == 0)
+		flag = 7;
 	if (flag == 0)
 		return ;
 	i = 2;
-	if (flag == 5 || flag == 6)
+	if (flag == 6 || flag == 7)
 		i = 1;
 	while (ptr[i] == ' ')
 		i++;
@@ -66,6 +70,7 @@ void	adjust_wall_path(t_map *m)
 	check_n_change_c(m->south_texture->path);
 	check_n_change_c(m->west_texture->path);
 	check_n_change_c(m->east_texture->path);
+	check_n_change_c(m->door_texture->path);
 }
 
 char	*parse_walls(int fd, t_map *m)

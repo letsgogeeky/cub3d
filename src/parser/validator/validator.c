@@ -38,7 +38,7 @@ bool	validate_symbols(t_map *map)
 		while (++j < map->cols)
 		{
 			if (grid[i][j] != WALL && grid[i][j] != EMPTY && \
-				grid[i][j] != SPACE && !ft_strchr("NSEW", grid[i][j]))
+				grid[i][j] != SPACE && !ft_strchr("NSEWD", grid[i][j]))
 				return (false);
 			if (ft_strchr("NSEW", grid[i][j]))
 			{
