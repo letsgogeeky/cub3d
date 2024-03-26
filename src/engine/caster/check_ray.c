@@ -11,15 +11,15 @@ int	check_first_wall(t_game *game, t_vector factor, t_position *hitpoint)
 	{
 		hitpoint->x = game->player.pos.x + game->ray.side_dist_x.x;
 		hitpoint->y = game->player.pos.y + game->ray.side_dist_x.y;
-		if (hitpoint->x > 0 && hitpoint->y > 0)
-			add_one_step(&game->ray.side_dist_x, &game->ray.step_for_plus_x);
+		// if (hitpoint->x > 0 && hitpoint->y > 0)
+		// 	add_one_step(&game->ray.side_dist_x, &game->ray.step_for_plus_x);
 	}
 	else
 	{
 		hitpoint->x = game->player.pos.x + game->ray.side_dist_y.x;
 		hitpoint->y = game->player.pos.y + game->ray.side_dist_y.y;
-		if (hitpoint->x > 0 && hitpoint->y > 0)
-			add_one_step(&game->ray.side_dist_y, &game->ray.step_for_plus_y);
+		// if (hitpoint->x > 0 && hitpoint->y > 0)
+		// 	add_one_step(&game->ray.side_dist_y, &game->ray.step_for_plus_y);
 	}
 	if (check_hit(game, (*hitpoint)) == 1)
 		return (1);
@@ -31,7 +31,7 @@ int	check_hit(t_game *game, t_position hitpoint)
 	char	**map;
 	int		i;
 	int		j;
-	int		test;
+	// int		test;
 
 	map = game->map->map;
 	i = (int)(hitpoint.x + 0.00001 * game->ray.angle.x);
@@ -57,8 +57,7 @@ int	check_hit(t_game *game, t_position hitpoint)
 	// b.x = (hitpoint.x) * game->block_size - 10;
 	// b.y = (hitpoint.y) * game->block_size;
 	// draw_line(game, a, b, 0x0000FFFF);
-	test = ft_strncmp(&map[j][i], "1", 1);
-	if (map[j][i] && test == 0)
+	if (j >= 0 && i >= 0 && j < game->map->rows && i < game->map->cols && map[j][i] && map[j][i] == WALL)
 		return (1);
 	return (0);
 }
