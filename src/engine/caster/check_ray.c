@@ -57,7 +57,11 @@ int	check_hit(t_game *game, t_position hitpoint)
 	// b.x = (hitpoint.x) * game->block_size - 10;
 	// b.y = (hitpoint.y) * game->block_size;
 	// draw_line(game, a, b, 0x0000FFFF);
-	if (j >= 0 && i >= 0 && j < game->map->rows && i < game->map->cols && map[j][i] && map[j][i] == WALL)
+
+	// test = ft_strncmp(&map[j][i], "1", 1);
+	if (j >= 0 && i >= 0 && j < game->map->rows && i < game->map->cols && \
+    map[j][i] && (map[j][i] == WALL || \
+		(map[j][i] == DOOR && !door_is_open(game, j, i))))
 		return (1);
 	return (0);
 }

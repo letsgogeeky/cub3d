@@ -153,7 +153,6 @@ void	visualize_3d(t_game *game)
 // 	int		x;
 
 // >>>>>>> 52d00aee5eb54b771c248c63de3b839067403922
-
 // void	compute_pixel_column(t_game *game, int x)
 // {
 // 	double	wall_hit;

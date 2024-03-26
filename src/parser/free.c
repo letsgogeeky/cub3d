@@ -41,6 +41,7 @@ void	free_map_struct(t_map *m)
 	free_s_texture(m->south_texture);
 	free_s_texture(m->west_texture);
 	free_s_texture(m->east_texture);
+	free_s_texture(m->door_texture);
 	free_color(m->ceiling_color);
 	free_color(m->floor_color);
 	if (m->map != NULL)
