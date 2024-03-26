@@ -30,23 +30,20 @@ void	draw_floor(t_game *game, t_column *column, int x)
 
 void	draw_image(t_game *game, t_column *column, int x)
 {
-	int				i;
-	int				color;
-	// mlx_texture_t	*normal;
+	// int				i;
+	// int				color;
+	mlx_texture_t	*normal;
 	// mlx_texture_t	*resized;
 
-	i = column->end_ceiling;
-	// printf("Wall: %u\n", game->ray.wall_texture);
-	// printf("%s\n", game->map->north_texture->path);
-	// normal = choose_texture(game);
-	// printf("///////%i %i\n", normal->height, normal->width);
-	// resze_tex(normal, game, column, x);
-	while (i < column->start_floor)
-	{
-		color = 0xFFFFFFFF;
-		mlx_put_pixel(game->image, x, i, color);
-		i++;
-	}
+	// i = column->end_ceiling;
+	normal = choose_texture(game);
+	resze_tex(normal, game, column, x);
+	// while (i < column->start_floor)
+	// {
+	// 	color = 0xFFFFFFFF;
+	// 	mlx_put_pixel(game->image, x, i, color);
+	// 	i++;
+	// }
 }
 
 void	draw_complete(t_game *game, int x)
