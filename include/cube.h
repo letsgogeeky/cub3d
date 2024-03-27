@@ -117,19 +117,18 @@ typedef struct s_column
 
 typedef struct s_ray
 {
-	// t_vector			ray; // has to be from position to hitpoint so that i can calculate the rest
 	t_vector			dir;
 	t_vector			angle;
 	t_vector			step_for_plus_x;
 	t_vector			step_for_plus_y;
 	t_vector			hitpoint;
-	t_vector			side_dist_x; //all blocks we passed so far
-	t_vector			side_dist_y; //all blocks we passed so far
-	t_vector			delta_dist; //distance to next block
+	t_vector			side_dist_x;
+	t_vector			side_dist_y;
+	t_vector			delta_dist;
 	t_vector			map;
-	double				len_to_wall; //ray length
-	double				len_to_plane; 
-	double				wall_height; //calculate by myself
+	double				len_to_wall;
+	double				len_to_plane;
+	double				wall_height;
 	enum e_direction	wall_texture;
 }		t_ray;
 
@@ -165,8 +164,7 @@ typedef struct s_game
 	t_map		*map;
 	t_player	player;
 	t_ray		ray;
-	// Should we continue using the `data` struct if we don't have an array of rays?
-	t_data		*data;
+	// t_data		*data;
 	int			block_size;
 	mlx_image_t	*image;
 	t_minimap	*minimap;

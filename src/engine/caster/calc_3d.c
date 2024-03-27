@@ -4,7 +4,7 @@ t_column	calculate_height(t_game *game)
 {
 	t_column	column;
 
-	game->ray.wall_height = 1 / game->ray.len_to_plane * HEIGHT; //has to be len_to_plane but this is not calculated correctly yet (see below)
+	game->ray.wall_height = 1 / game->ray.len_to_plane * HEIGHT;
 	column.wall_height = game->ray.wall_height;
 	if (column.wall_height >= HEIGHT)
 		column.wall_height = HEIGHT - 1;
@@ -31,14 +31,5 @@ void	calculate_length_to_plane(t_game *game)
 	radian = acos((hit.x * dir.x + hit.y * dir.y) / \
 		(sqrt(hit.x * hit.x + hit.y * hit.y) * \
 		sqrt(dir.x * dir.x + dir.y * dir.y)));
-	// printf("radian: %f\n", (hit.x * dir.y + hit.y * dir.x) / \
-	//	(sqrt(hit.x * hit.x + hit.y * hit.y) * \
-	//	sqrt(dir.x * dir.x + dir.y * dir.y)));
-
 	game->ray.len_to_plane = cos(radian) * len;
-	// if (vector_length(&game->ray.side_dist_x) < \
-	// 		vector_length(&game->ray.side_dist_y))
-	// 	game->ray.len_to_plane = len - game->ray.step_for_plus_x.x;
-	// else
-	// 	game->ray.len_to_plane = len - game->ray.step_for_plus_y.y;
 }

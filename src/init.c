@@ -10,17 +10,17 @@ t_game	*allocate_game(t_map *m)
 	if (!game)
 		return (NULL);
 	game->map = m;
-	game->data = malloc(sizeof(t_data));
-	if (!game->data)
-		return (free(game), NULL);
-	game->data->rays = malloc(sizeof(t_ray) * WIDTH);
-	if (!game->data->rays)
-		return (free(game->data), free(game), NULL);
+	// game->data = malloc(sizeof(t_data));
+	// if (!game->data)
+	// 	return (free(game), NULL);
+	// game->data->rays = malloc(sizeof(t_ray) * WIDTH);
+	// if (!game->data->rays)
+	// 	return (free(game->data), free(game), NULL);
 	game->minimap = malloc(sizeof(t_minimap));
 	if (!game->minimap)
 	{
-		free(game->data->rays);
-		return (free(game->data), free(game), NULL);
+		// free(game->data->rays);
+		return (/*free(game->data), free(game),*/ NULL);
 	}
 	return (game);
 }
@@ -29,8 +29,8 @@ void	set_minimap_attributes(t_game *game)
 {
 	int block_size;
 
-	game->minimap->width = WIDTH / 4;
-	game->minimap->height = HEIGHT / 4;
+	game->minimap->width = WIDTH / 2;
+	game->minimap->height = HEIGHT / 2;
 	game->minimap->arrows_count = 11;
 	block_size = game->minimap->height / game->map->rows;
 	if (game->minimap->width / (game->map->cols) < block_size)
@@ -129,13 +129,13 @@ void	free_game(t_game *game)
 	}
 	if (game->mlx != NULL)
 		mlx_terminate(game->mlx);
-	if (game->data != NULL)
-	{
-		if (game->data->rays != NULL)
-			free(game->data->rays);
-		free(game->data);
-	}
-	game->data = NULL;
+	// if (game->data != NULL)
+	// {
+	// 	if (game->data->rays != NULL)
+	// 		free(game->data->rays);
+	// 	free(game->data);
+	// }
+	// game->data = NULL;
 	if (game != NULL)
 		free(game);
 	game = NULL;
