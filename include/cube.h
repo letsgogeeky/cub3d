@@ -251,7 +251,6 @@ void			free_game(t_game *game);
 //check.c
 void			check_n_change_c(char *str);
 int				check_end(char *str);
-int				check_path(t_map *m);
 int				check_all_arg(t_map *m);
 
 //test.c

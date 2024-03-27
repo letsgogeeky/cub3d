@@ -20,8 +20,8 @@ void	set_minimap_attributes(t_game *game)
 {
 	int block_size;
 
-	game->minimap->width = WIDTH / 2;
-	game->minimap->height = HEIGHT / 2;
+	game->minimap->width = WIDTH / 4;
+	game->minimap->height = HEIGHT / 4;
 	game->minimap->arrows_count = 11;
 	block_size = game->minimap->height / game->map->rows;
 	if (game->minimap->width / (game->map->cols) < block_size)

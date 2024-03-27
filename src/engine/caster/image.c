@@ -1,6 +1,6 @@
 #include "../../../include/cube.h"
 
-void	load_textures(t_map *map) //doesnt seem to work probably used wrongly
+void	load_textures(t_map *map)
 {
 	map->north_texture->tex = mlx_load_png(map->north_texture->path);
 	map->south_texture->tex = mlx_load_png(map->south_texture->path);
@@ -29,9 +29,9 @@ int	find_color(mlx_texture_t *txt, double x, double y)
 {
 	// int	a;
 	// int	b;
-	int	i;
+	int		i;
 	double	n;
-	int	color;
+	int		color;
 
 	// a = (int)x;
 	// b = (int)y;
