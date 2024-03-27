@@ -60,11 +60,11 @@ void	draw_complete(t_game *game, int x)
 
 void	draw_column(t_game *game, t_column *column, int x)
 {
-	if (column->wall_height + 2 >= HEIGHT)
-	{
-		draw_complete(game, x);
-		return ;
-	}
+	// if (column->wall_height + 2 >= HEIGHT)
+	// {
+	// 	draw_complete(game, x);
+	// 	return ;
+	// }
 	draw_image(game, column, x);
 	draw_ceiling(game, column, x);
 	draw_floor(game, column, x);
