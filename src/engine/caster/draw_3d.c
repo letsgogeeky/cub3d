@@ -32,7 +32,7 @@ void	draw_image(t_game *game, t_column *column, int x)
 {
 	// int				i;
 	// int				color;
-	mlx_texture_t	*normal;
+	t_texture	*normal;
 	// mlx_texture_t	*resized;
 
 	// i = column->end_ceiling;

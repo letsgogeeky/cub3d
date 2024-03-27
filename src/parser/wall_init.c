@@ -60,7 +60,7 @@ int	fill_color_struct(t_color *c)
 	if (c->red < 0 || c->red > 255 || c->green < 0 || \
 		c->green > 255 || c->blue < 0 || c->blue > 255)
 		return (ft_prerr(INV_MAP, NULL), 1);
-	c->hex_color_rgb = colorcode(c->red, c->green, c->blue);
+	c->hex_color_rgb = colorcode(c->red, c->green, c->blue, 0xFF);
 	return (0);
 }
 

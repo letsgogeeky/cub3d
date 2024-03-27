@@ -51,6 +51,7 @@ typedef struct s_texture
 {
 	char			*path;
 	mlx_texture_t	*tex;
+	unsigned int	*pixels;
 }		t_texture;
 
 typedef struct s_color
@@ -178,10 +179,10 @@ void			calculate_length_to_plane(t_game *game);
 
 //image.c
 void			load_textures(t_map *map);
-mlx_texture_t	*choose_texture(t_game *game);
-int				find_color(mlx_texture_t *txt, double x, double y);
-int				interpolate(mlx_texture_t *txt, double col, double y);
-void			resze_tex(mlx_texture_t *normal, t_game *game, t_column *column, int x);
+t_texture		*choose_texture(t_game *game);
+int				find_color(t_texture *txt, double x, double y);
+int				interpolate(t_texture *txt, double col, double y);
+void			resze_tex(t_texture *normal, t_game *game, t_column *column, int x);
 
 //draw_2d.c
 void			draw_line(t_game *game, t_vector start, t_vector end, int color);
@@ -238,7 +239,7 @@ void			ft_prerr(char *str, char *argv);
 int				zero_map_struct(t_map *m);
 int				set_max_len(char *str, int max);
 int				find_start_map(char *str);
-int				colorcode(int red, int green, int blue);
+int				colorcode(int red, int green, int blue, int alpha);
 
 //free.c
 void			free_s_texture(t_texture *t);

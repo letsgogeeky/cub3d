@@ -1,47 +1,87 @@
 #include "../../../include/cube.h"
 
+unsigned int	*load_texture_pixels(mlx_texture_t *texture)
+{
+	unsigned int	*data;
+	u_int32_t		i;
+	u_int32_t		j;
+
+	data = malloc(sizeof(unsigned int) * texture->width * texture->height);
+	if (!data)
+		return (NULL);
+	i = 0;
+	while (i < texture->height)
+	{
+		j = 0;
+		while (j < texture->width)
+		{
+			data[i * texture->width + j] = colorcode(
+				texture->pixels[i * texture->width * 4 + j * 4],
+				texture->pixels[i * texture->width * 4 + j * 4 + 1],
+				texture->pixels[i * texture->width * 4 + j * 4 + 2],
+				texture->pixels[i * texture->width * 4 + j * 4 + 3]
+			);
+			j++;
+		}
+		i++;
+	}
+	// mlx_delete_texture(texture);
+	return (data);
+}
+
 void	load_textures(t_map *map) //doesnt seem to work probably used wrongly
 {
 	map->north_texture->tex = mlx_load_png(map->north_texture->path);
+	map->north_texture->pixels = load_texture_pixels(map->north_texture->tex);
 	map->south_texture->tex = mlx_load_png(map->south_texture->path);
+	map->south_texture->pixels = load_texture_pixels(map->south_texture->tex);
 	map->east_texture->tex =  mlx_load_png(map->east_texture->path);
+	map->east_texture->pixels = load_texture_pixels(map->east_texture->tex);
 	map->west_texture->tex =  mlx_load_png(map->west_texture->path);
+	map->west_texture->pixels = load_texture_pixels(map->west_texture->tex);
 	if (map->door_texture->path)
 		map->door_texture->tex =  mlx_load_png(map->door_texture->path);
 	printf("load_textures\n");
 }
 
-mlx_texture_t	*choose_texture(t_game *game)
+t_texture	*choose_texture(t_game *game)
 {
 	if (game->ray.wall_texture == NORTH)
-		return (game->map->north_texture->tex);
+		return (game->map->north_texture);
 	else if (game->ray.wall_texture == SOUTH)
-		return (game->map->south_texture->tex);
+		return (game->map->south_texture);
 	else if (game->ray.wall_texture == EAST)
-		return (game->map->east_texture->tex);
+		return (game->map->east_texture);
 	else if (game->ray.wall_texture == WEST)
-		return (game->map->west_texture->tex);
+		return (game->map->west_texture);
 	else
 		return (NULL);
 }
 
-int	find_color(mlx_texture_t *txt, double x, double y)
+int	find_color(t_texture *txt, double x, double y)
 {
 	// int	a;
 	// int	b;
-	int	i;
-	double	n;
-	int	color;
+	// int	i;
+	// double	n;
+ 	int	color;
 
 	// a = (int)x;
 	// b = (int)y;
-	i = (int)y % txt->width;
-	n = x * txt->height + i;
-	color = txt->pixels[(int)n];
+	// i = (int)y % txt->width * 4;
+	// n = (x * txt->height) + i;
+	if ((txt->tex->height * x + (int)y + 1) > txt->tex->height * txt->tex->width)
+	{
+		//TODO: remove this after debugging (preventing segfaults to observe behavior)
+		printf("navigating to (int)(txt->tex->height * x + (int)y + 1): %i\n", (int)(txt->tex->height * x + (int)y + 1));
+		printf("texture array size: %i\n", txt->tex->height * txt->tex->width);
+		return (MINIMAP_DIR);
+	}
+	color = txt->pixels[(int)(txt->tex->height * x + (int)y)];
 	return (color);
 }
 
-int	interpolate(mlx_texture_t *txt, double col, double y)
+int	interpolate(t_texture *txt, double col, double y)
 {
 	double	x1;
 	double	x2;
@@ -61,7 +101,7 @@ int	interpolate(mlx_texture_t *txt, double col, double y)
 	return (color);
 }
 
-void	resze_tex(mlx_texture_t *normal, t_game *game, t_column *column, int x)
+void	resze_tex(t_texture *normal, t_game *game, t_column *column, int x)
 {
 	// double	factor;
 	double	pos_on_wall;
@@ -77,15 +117,22 @@ void	resze_tex(mlx_texture_t *normal, t_game *game, t_column *column, int x)
 		pos_on_wall = game->ray.hitpoint.y - (int)game->ray.hitpoint.y;
 	else
 		pos_on_wall = 0;
-	col = normal->width * pos_on_wall;
+	col = normal->tex->width * pos_on_wall;
+	if (game->ray.side_dist_x.x < 0 && game->ray.wall_texture == NORTH)
+		col = normal->tex->width - col - 1;
+	if (game->ray.side_dist_y.y < 0 && game->ray.wall_texture == WEST)
+		col = normal->tex->width - col - 1;
 	n = column->end_ceiling;
-	j = 0;
+	j =  (-(column->start_floor - column->end_ceiling) / 2) + (HEIGHT / 2);
+	if (j < 0)
+		j = 0;
+	j = (j - HEIGHT / 2) + (column->start_floor - column->end_ceiling) / 2;
 	while (n < column->start_floor)
 	{
 		// color = 0x0000CD;
-		color = interpolate(normal, col, j);
+		color = find_color(normal, col, j);
 		mlx_put_pixel(game->image, x, n, color);
-		j = j + normal->height / (column->start_floor - n);
+		j = j + normal->tex->height / (column->start_floor - column->end_ceiling);
 		n++;
 	}
 }
