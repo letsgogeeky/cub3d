@@ -53,14 +53,14 @@ int	fill_color_struct(t_color *c)
 {
 	char	**arr;
 	arr = ft_split(c->str_color, ',');
-	if (arr == NULL)
-		return (/*ft_prerr(INV_MAP, NULL),*/ 1);
+	if (arr == NULL || !arr[0] || !arr[1] || !arr[2] || !arr[3])
+		return (1);
 	c->red = ft_atoi(arr[0]);
 	c->green = ft_atoi(arr[1]);
 	c->blue = ft_atoi(arr[2]);
 	if (c->red < 0 || c->red > 255 || c->green < 0 || \
 		c->green > 255 || c->blue < 0 || c->blue > 255)
-		return (/*ft_prerr(INV_MAP, NULL),*/ 1);
+		return (1);
 	c->hex_color_rgb = colorcode(c->red, c->green, c->blue, 0xFF);
 	return (0);
 }
@@ -98,6 +98,6 @@ char	*parse_walls(int fd, t_map *m)
 	load_textures(m);
 	if (fill_color_struct(m->ceiling_color) != 0 || \
 		fill_color_struct(m->floor_color) != 0)
-		return (0);
+		return (NULL);
 	return (tmp);
 }

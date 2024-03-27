@@ -92,6 +92,8 @@ t_map	*parse(t_map *m, int fd, char *argv)
 	if (zero_map_struct(m) != 0)
 		return (free_map_struct(m), ft_prerr(STRUCT_FAILED, NULL), NULL);
 	tmp = parse_walls(fd, m);
+	if (tmp == NULL)
+		return (free_map_struct(m), ft_prerr(PARSING_MAP_FAILED, NULL), NULL);
 	i = check_all_arg(m);
 	if (i != 0)
 	{
