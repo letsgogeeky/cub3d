@@ -1,6 +1,6 @@
 #include "cube.h"
 
-char	*direction_to_str(enum e_direction direction)
+char	*direction_to_str(enum e_dir direction)
 {
 	if (direction == NORTH)
 		return ("NORTH");
@@ -20,7 +20,7 @@ bool	is_orientation(char c)
 	return (false);
 }
 
-enum e_direction	get_orientation(char c)
+enum e_dir	get_orientation(char c)
 {
 	if (c == 'N')
 		return (NORTH);

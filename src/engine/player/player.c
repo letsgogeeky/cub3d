@@ -27,7 +27,7 @@ t_position	get_player_position(t_map *map)
 	return (position);
 }
 
-enum e_direction initial_orientation(t_map *map)
+enum e_dir initial_orientation(t_map *map)
 {
 	int i;
 	int j;
