@@ -1,14 +1,5 @@
 #include "../../../include/cube.h"
 
-// void	load_textures(t_map *map)
-// {
-// 	map->north_texture->tex = mlx_load_png("assets/textures/flowers.png");
-// 	map->south_texture->tex = mlx_load_png("assets/textures/plants.png");
-// 	map->east_texture->tex =  mlx_load_png("assets/textures/wall.png");
-// 	map->west_texture->tex =  mlx_load_png("assets/textures/bricks.png");
-// 	printf("load_textures\n");
-// }
-
 void	load_textures(t_map *map) //doesnt seem to work probably used wrongly
 {
 	map->north_texture->tex = mlx_load_png(map->north_texture->path);
@@ -64,8 +55,8 @@ int	interpolate(mlx_texture_t *txt, double col, double y)
 	x2 = x1 + 1.0;
 	y1 = (int)y;
 	y2 = y1 + 1.0;
-	color1 = (col - x1) * find_color(txt, x1, y1) + (x2 - col) * find_color(txt, x2, y1);
-	color2 = (col - x1) * find_color(txt, x1, y2) + (x2 - col) * find_color(txt, x2, y2);
+	color1 = (col - (double)x1) * find_color(txt, x1, y1) + ((double)x2 - col) * find_color(txt, x2, y1);
+	color2 = (col - (double)x1) * find_color(txt, x1, y2) + ((double)x2 - col) * find_color(txt, x2, y2);
 	color = color1 * (y - y1) + color2 * (y2 - y);
 	return (color);
 }

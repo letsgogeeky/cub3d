@@ -11,6 +11,7 @@ int	check_first_wall(t_game *game, t_vector factor, t_position *hitpoint)
 	{
 		hitpoint->x = game->player.pos.x + game->ray.side_dist_x.x;
 		hitpoint->y = game->player.pos.y + game->ray.side_dist_x.y;
+		game->ray.len_to_wall = vector_length(&game->ray.side_dist_x);
 		// if (hitpoint->x > 0 && hitpoint->y > 0)
 		// 	add_one_step(&game->ray.side_dist_x, &game->ray.step_for_plus_x);
 	}
@@ -18,6 +19,7 @@ int	check_first_wall(t_game *game, t_vector factor, t_position *hitpoint)
 	{
 		hitpoint->x = game->player.pos.x + game->ray.side_dist_y.x;
 		hitpoint->y = game->player.pos.y + game->ray.side_dist_y.y;
+		game->ray.len_to_wall = vector_length(&game->ray.side_dist_y);
 		// if (hitpoint->x > 0 && hitpoint->y > 0)
 		// 	add_one_step(&game->ray.side_dist_y, &game->ray.step_for_plus_y);
 	}
@@ -60,8 +62,12 @@ int	check_hit(t_game *game, t_position hitpoint)
 
 	// test = ft_strncmp(&map[j][i], "1", 1);
 	if (j >= 0 && i >= 0 && j < game->map->rows && i < game->map->cols && \
-    map[j][i] && (map[j][i] == WALL || \
+		map[j][i] && (map[j][i] == WALL || \
 		(map[j][i] == DOOR && !door_is_open(game, j, i))))
+	{
+		game->ray.hitpoint.x = hitpoint.x;
+		game->ray.hitpoint.y = hitpoint.y;
 		return (1);
+	}
 	return (0);
 }

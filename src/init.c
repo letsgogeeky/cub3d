@@ -167,10 +167,7 @@ void	open_n_draw(t_map *m)
 		WIDTH - game->minimap->width - 10, 10) < 0)
 		return (free_game(game));
 	load_doors(game);
-	// raycast(game);
 	draw_block(game);
-
-	// do_raycast(game);
 	mlx_loop_hook(game->mlx, ft_hook, game);
 	mlx_loop_hook(game->mlx, controls_directions, game);
 	mlx_key_hook(game->mlx, ft_controls_extra, game);

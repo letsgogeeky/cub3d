@@ -36,6 +36,7 @@ void	draw_image(t_game *game, t_column *column, int x)
 	// mlx_texture_t	*resized;
 
 	// i = column->end_ceiling;
+	// printf("start floor: %i, start ceiling: %i\n", column->start_floor ,column->end_ceiling);
 	normal = choose_texture(game);
 	resze_tex(normal, game, column, x);
 	// while (i < column->start_floor)

@@ -48,13 +48,13 @@ void	calculate_hitpoint(t_game *game)
 	dy = game->ray.step_for_plus_y;
 	if (check_first_wall(game, factor, &hitpoint) == 1)
 	{
-		game->ray.hitpoint.x = hitpoint.x;
-		game->ray.hitpoint.y = hitpoint.y;
-		if (vector_length(&dx) < vector_length(&dy) || vector_length(&game->ray.side_dist_x) < \
-			vector_length(&game->ray.side_dist_y))
-			game->ray.len_to_wall = vector_length(&game->ray.side_dist_x);
-		else
-			game->ray.len_to_wall = vector_length(&game->ray.side_dist_y);
+		// game->ray.hitpoint.x = hitpoint.x;
+		// game->ray.hitpoint.y = hitpoint.y;
+		// if (vector_length(&dx) < vector_length(&dy) || vector_length(&game->ray.side_dist_x) < \
+		// 	vector_length(&game->ray.side_dist_y))
+		// 	game->ray.len_to_wall = vector_length(&game->ray.side_dist_x);
+		// else
+		// 	game->ray.len_to_wall = vector_length(&game->ray.side_dist_y);
 		return ;
 	}
 	dda(&hitpoint, game, &dx, &dy);
