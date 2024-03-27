@@ -164,7 +164,6 @@ typedef struct s_game
 	t_map		*map;
 	t_player	player;
 	t_ray		ray;
-	// t_data		*data;
 	int			block_size;
 	mlx_image_t	*image;
 	t_minimap	*minimap;

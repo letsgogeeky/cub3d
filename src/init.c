@@ -10,18 +10,9 @@ t_game	*allocate_game(t_map *m)
 	if (!game)
 		return (NULL);
 	game->map = m;
-	// game->data = malloc(sizeof(t_data));
-	// if (!game->data)
-	// 	return (free(game), NULL);
-	// game->data->rays = malloc(sizeof(t_ray) * WIDTH);
-	// if (!game->data->rays)
-	// 	return (free(game->data), free(game), NULL);
 	game->minimap = malloc(sizeof(t_minimap));
 	if (!game->minimap)
-	{
-		// free(game->data->rays);
-		return (/*free(game->data), free(game),*/ NULL);
-	}
+		return (NULL);
 	return (game);
 }
 
@@ -73,7 +64,7 @@ t_game	*init_game(t_map *m)
 	return (game);
 }
 
-void	ft_hook(void *param) // need to try if two loops are possible if different param are needed
+void	ft_hook(void *param)
 {
 	mlx_t	*mlx;
 	t_game	*game;
@@ -129,13 +120,6 @@ void	free_game(t_game *game)
 	}
 	if (game->mlx != NULL)
 		mlx_terminate(game->mlx);
-	// if (game->data != NULL)
-	// {
-	// 	if (game->data->rays != NULL)
-	// 		free(game->data->rays);
-	// 	free(game->data);
-	// }
-	// game->data = NULL;
 	if (game != NULL)
 		free(game);
 	game = NULL;
