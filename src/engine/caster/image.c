@@ -81,58 +81,54 @@ int	find_color(t_texture *txt, double x, double y)
 	return (color);
 }
 
-int	interpolate(t_texture *txt, double col, double y)
-{
-	double	x1;
-	double	x2;
-	double	y1;
-	double	y2;
-	int		color1;
-	int		color2;
-	int		color;
+// int	interpolate(t_texture *txt, double col, double y)
+// {
+// 	double	x1;
+// 	double	x2;
+// 	double	y1;
+// 	double	y2;
+// 	int		color1;
+// 	int		color2;
+// 	int		color;
 
-	x1 = (int)col;
-	x2 = x1 + 1.0;
-	y1 = (int)y;
-	y2 = y1 + 1.0;
-	color1 = (col - (double)x1) * find_color(txt, x1, y1) + ((double)x2 - col) * find_color(txt, x2, y1);
-	color2 = (col - (double)x1) * find_color(txt, x1, y2) + ((double)x2 - col) * find_color(txt, x2, y2);
-	color = color1 * (y - y1) + color2 * (y2 - y);
-	return (color);
-}
+// 	x1 = (int)col;
+// 	x2 = x1 + 1.0;
+// 	y1 = (int)y;
+// 	y2 = y1 + 1.0;
+// 	color1 = (col - (double)x1) * find_color(txt, x1, y1) + ((double)x2 - col) * find_color(txt, x2, y1);
+// 	color2 = (col - (double)x1) * find_color(txt, x1, y2) + ((double)x2 - col) * find_color(txt, x2, y2);
+// 	color = color1 * (y - y1) + color2 * (y2 - y);
+// 	return (color);
+// }
 
 void	resze_tex(t_texture *normal, t_game *game, t_column *column, int x)
 {
-	// double	factor;
-	double	pos_on_wall;
 	double	col;
 	int		n;
 	double	j;
-	int		color;
+	double	step;
+	double	y;
+	double	y1;
 
-	// factor = game->ray.wall_height / normal->height;
 	if (game->ray.wall_texture == NORTH || game->ray.wall_texture == SOUTH)
-		pos_on_wall = game->ray.hitpoint.x - (int)game->ray.hitpoint.x;
-	else if (game->ray.wall_texture == WEST || game->ray.wall_texture == EAST)
-		pos_on_wall = game->ray.hitpoint.y - (int)game->ray.hitpoint.y;
+		col = normal->tex->width * fmod(game->ray.hitpoint.x, 1);
 	else
-		pos_on_wall = 0;
-	col = normal->tex->width * pos_on_wall;
-	if (game->ray.side_dist_x.x < 0 && game->ray.wall_texture == NORTH)
-		col = normal->tex->width - col - 1;
-	if (game->ray.side_dist_y.y < 0 && game->ray.wall_texture == WEST)
-		col = normal->tex->width - col - 1;
+		col = normal->tex->width * fmod(game->ray.hitpoint.y, 1);
+	y1 = (HEIGHT - column->wall_height) / 2;
+	if (y1 >= 0 || column->wall_height >= HEIGHT)
+		y = 0;
+	else
+		y = normal->tex->height / column->wall_height * fabs(y1);
+	step = 1.0 * normal->tex->height / column->wall_height;
 	n = column->end_ceiling;
-	j =  (-(column->start_floor - column->end_ceiling) / 2) + (HEIGHT / 2);
-	if (j < 0)
-		j = 0;
-	j = (j - HEIGHT / 2) + (column->start_floor - column->end_ceiling) / 2;
-	while (n < column->start_floor)
+	j = ((int)y * normal->tex->width) + col;
+	while (n < column->start_floor && n < HEIGHT)
 	{
-		// color = 0x0000CD;
-		color = find_color(normal, col, j);
-		mlx_put_pixel(game->image, x, n, color);
-		j = j + normal->tex->height / (column->start_floor - column->end_ceiling);
+		if (j > normal->tex->width * normal->tex->height)
+			j = normal->tex->width * normal->tex->height - 1;
+		mlx_put_pixel(game->image, x, n, normal->pixels[(int)j]);
+		y+= step;
+		j = ((int)y * normal->tex->width) + col;
 		n++;
 	}
 }

@@ -27,7 +27,7 @@ void	set_minimap_attributes(t_game *game)
 	if (game->minimap->width / (game->map->cols) < block_size)
 		block_size = game->minimap->width / (game->map->cols);
 	game->block_size = block_size;
-	game->minimap->p_radius = block_size / 4;
+	game->minimap->p_radius = block_size / 2;
 }
 
 void	compute_block_size(t_game *game)
