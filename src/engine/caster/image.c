@@ -71,16 +71,8 @@ t_texture	*choose_texture(t_game *game)
 
 int	find_color(t_texture *txt, double x, double y)
 {
-	// int	a;
-	// int	b;
-	// int	i;
-	// double	n;
  	int	color;
 
-	// a = (int)x;
-	// b = (int)y;
-	// i = (int)y % txt->width * 4;
-	// n = (x * txt->height) + i;
 	if ((txt->tex->height * x + (int)y + 1) > txt->tex->height * txt->tex->width)
 	{
 		//TODO: remove this after debugging (preventing segfaults to observe behavior)
@@ -92,6 +84,38 @@ int	find_color(t_texture *txt, double x, double y)
 	return (color);
 }
 
+// void	resze_tex(t_texture *normal, t_game *game, t_column *column, int x)
+// {
+// 	double	col;
+// 	int		n;
+// 	double	j;
+// 	double	step;
+// 	double	y;
+// 	double	y1;
+
+// 	if (game->ray.wall_texture == NORTH || game->ray.wall_texture == SOUTH)
+// 		col = normal->tex->width * fmod(game->ray.hitpoint.x, 1);
+// 	else
+// 		col = normal->tex->width * fmod(game->ray.hitpoint.y, 1);
+// 	y1 = (HEIGHT - column->wall_height) / 2;
+// 	// if (y1 >= 0 || column->wall_height >= HEIGHT)
+// 	y = 0;
+// 	// else
+// 	// 	y = normal->tex->height / column->wall_height * fabs(y1);
+// 	step = 1.0 * normal->tex->height / column->wall_height;
+// 	n = column->end_ceiling;
+// 	j = ((int)y * normal->tex->width) + col;
+// 	while (n < column->start_floor && n < HEIGHT)
+// 	{
+// 		if (j > normal->tex->width * normal->tex->height)
+// 			j = normal->tex->width * normal->tex->height - 1;
+// 		mlx_put_pixel(game->image, x, n, normal->pixels[(int)j]);
+// 		y+= step;
+// 		j = ((int)y * normal->tex->width) + col;
+// 		n++;
+// 	}
+// }
+
 void	resze_tex(t_texture *normal, t_game *game, t_column *column, int x)
 {
 	double	col;
@@ -99,17 +123,17 @@ void	resze_tex(t_texture *normal, t_game *game, t_column *column, int x)
 	double	j;
 	double	step;
 	double	y;
-	double	y1;
+	// double	y1;
 
 	if (game->ray.wall_texture == NORTH || game->ray.wall_texture == SOUTH)
 		col = normal->tex->width * fmod(game->ray.hitpoint.x, 1);
 	else
 		col = normal->tex->width * fmod(game->ray.hitpoint.y, 1);
-	y1 = (HEIGHT - column->wall_height) / 2;
-	if (y1 >= 0 || column->wall_height >= HEIGHT)
-		y = 0;
-	else
-		y = normal->tex->height / column->wall_height * fabs(y1);
+	// y1 = (HEIGHT - column->wall_height) / 2;
+	y = 0;
+	// if (y1 >= 0 || column->wall_height >= HEIGHT)
+	// else
+		// y = normal->tex->height / column->wall_height * fabs(y1);
 	step = 1.0 * normal->tex->height / column->wall_height;
 	n = column->end_ceiling;
 	j = ((int)y * normal->tex->width) + col;
