@@ -119,6 +119,7 @@ void	open_n_draw(t_map *m)
 	t_game	*game;
 
 	game = init_game(m);
+	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 	if (game == NULL)
 		return (ft_prerr(FAIL_GAME_INIT, NULL));
 	if (mlx_image_to_window(game->mlx, game->image, 0, 0) < 0)
@@ -131,6 +132,7 @@ void	open_n_draw(t_map *m)
 	mlx_loop_hook(game->mlx, ft_hook, game);
 	mlx_loop_hook(game->mlx, controls_directions, game);
 	mlx_key_hook(game->mlx, ft_controls_extra, game);
+	mlx_cursor_hook(game->mlx, (mlx_cursorfunc)mouse_hook, game);
 	mlx_loop(game->mlx);
 	free_game(game);
 	return ;

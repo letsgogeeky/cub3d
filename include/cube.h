@@ -274,6 +274,7 @@ void			clear_image(mlx_image_t *image, int width, int height);
 void			ft_hook(void *param);
 void			controls_directions(void *param);
 void			ft_controls_extra(mlx_key_data_t key, void *param);
+void    		mouse_hook(void *param);
 
 // player
 t_player		init_player(t_map *map);
@@ -293,7 +294,7 @@ void			move_forward(t_game *game);
 void			move_backward(t_game *game);
 void			move_left(t_game *game);
 void			move_right(t_game *game);
-void			rotate(t_game *game, bool clockwise);
+void			rotate(t_game *game, bool clockwise, double speed_factor);
 
 // doors
 int				doors_count(t_map *map);

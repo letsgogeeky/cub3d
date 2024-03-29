@@ -10,9 +10,9 @@ void	ft_hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	else if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		return (rotate(game, true), draw_block(game));
+		return (rotate(game, true, 1), draw_block(game));
 	else if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		return (rotate(game, false), draw_block(game));
+		return (rotate(game, false, 1), draw_block(game));
 }
 
 void	controls_directions(void *param)
@@ -37,4 +37,22 @@ void	ft_controls_extra(mlx_key_data_t key, void *param)
 	game = param;
 	if (key.key == MLX_KEY_F && key.action == MLX_PRESS)
 		return (door_control(game), draw_block(game));
+}
+
+void    mouse_hook(void *param)
+{
+    t_game *game;
+    int x;
+    int y;
+    double angle;
+
+    game = param;
+    mlx_get_mouse_pos(game->mlx, &x, &y);
+    angle = (double)(x - (WIDTH / 2));
+    if (angle < 0)
+        rotate(game, true, 0.3);
+    else
+        rotate(game, false, 0.3);
+    mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
+    draw_block(game);
 }
