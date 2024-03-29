@@ -1,6 +1,6 @@
 #include "cube.h"
 
-void	show_help()
+void	show_help(void)
 {
 	printf("\033[36m");
 	printf("Hey, it's Cub3D! here are the list of controls:\n");

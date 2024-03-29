@@ -52,6 +52,8 @@ typedef struct s_texture
 	char			*path;
 	mlx_texture_t	*tex;
 	unsigned int	*pixels;
+	int				width;
+	int				height;
 }		t_texture;
 
 typedef struct s_color
@@ -180,8 +182,6 @@ void			calculate_length_to_plane(t_game *game);
 //image.c
 void			load_textures(t_map *map);
 t_texture		*choose_texture(t_game *game);
-int				find_color(t_texture *txt, double x, double y);
-int				interpolate(t_texture *txt, double col, double y);
 void			resze_tex(t_texture *normal, t_game *game, t_column *column, int x);
 
 //draw_2d.c
@@ -206,8 +206,8 @@ void			dda(t_position *hitpoint, t_game *game, t_vector *dx, t_vector *dy);
 void			calculate_hitpoint(t_game *game);
 
 // minimap
-void	fill_door(t_game *game, int x, int y, int color);
-void	fill_block(t_game *game, int x, int y, int color);
+void			fill_door(t_game *game, int x, int y, int color);
+void			fill_block(t_game *game, int x, int y, int color);
 
 // check_ray.c
 int				check_first_wall(t_game *game, t_vector factor, t_position *hitpoint);
@@ -301,6 +301,7 @@ int				doors_count(t_map *map);
 bool			door_is_open(t_game *game, int x, int y);
 void			door_open_close(t_game *game, int x, int y);
 void			door_control(t_game *game);
+void			load_doors(t_game *game);
 
 // math_utils
 double			sqrt_xy_squared(double x, double y);

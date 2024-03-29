@@ -4,7 +4,7 @@ NAME_TEST:= test
 
 BASELIB := ./lib/ft-baselib
 LIBMLX := ./lib/MLX42
-CFLAGS	:= -Wextra -Wall -Werror -g -fsanitize=address #-funroll-loops -march=native -flto -ffast-math
+CFLAGS	:= -Wextra -Wall -Werror -g -fsanitize=address -funroll-loops -march=native -flto -ffast-math
 LDFLAGS := -ldl -lglfw -pthread -lm -fsanitize=address -flto -framework Cocoa -framework OpenGL -framework IOKit
 HEADERS := -I ./include -I ${BASELIB}/include -I $(LIBMLX)/include
 
@@ -12,19 +12,20 @@ SRC_TEST := test/invalid_mocks.c test/valid_mocks.c test/main.c
 
 SRC_PARSER := parser/validator/validator.c parser/validator/boundary.c parser/validator/utils.c \
 			parser/map_init.c parser/check.c parser/test.c \
-			parser/free.c parser/init_helpers.c parser/wall_init.c 
+			parser/free.c parser/init_helpers.c parser/wall_init.c \
+			parser/validator/passages.c
 
 SRC_ENGINE := engine/caster/cast.c engine/caster/draw_2d.c engine/movement.c \
 			engine/caster/set_var.c engine/caster/calc_ray.c engine/caster/check_ray.c \
 			engine/player/player.c engine/player/utils.c engine/caster/image.c \
 			engine/caster/draw_3d.c engine/caster/calc_3d.c engine/caster/set_var_2.c \
-      		engine/door.c engine/math_utils.c \
+      		engine/door.c engine/math_utils.c engine/texture.c \
 			engine/minimap/draw.c engine/minimap/paint.c
 
 SRC_GRAPHICS := graphics/hooks.c graphics/utils.c
 
 SRCS := $(SRC_PARSER) $(SRC_ENGINE) $(SRC_GRAPHICS)
-SRC_MAIN := main.c init.c
+SRC_MAIN := main.c init.c cleanup.c
 
 OBJS := ${addprefix src/, ${SRCS:.c=.o} ${SRC_MAIN:.c=.o}}
 OBJS_TEST := ${addprefix src/, ${SRCS:.c=.o} ${SRC_TEST:.c=.o}}

@@ -1,4 +1,4 @@
-# include "cube.h"
+#include "cube.h"
 
 t_game	*allocate_game(t_map *m)
 {
@@ -18,7 +18,7 @@ t_game	*allocate_game(t_map *m)
 
 void	set_minimap_attributes(t_game *game)
 {
-	int block_size;
+	int	block_size;
 
 	game->minimap->width = WIDTH / 4;
 	game->minimap->height = HEIGHT / 4;
@@ -28,16 +28,6 @@ void	set_minimap_attributes(t_game *game)
 		block_size = game->minimap->width / (game->map->cols);
 	game->block_size = block_size;
 	game->minimap->p_radius = block_size / 4;
-}
-
-void	compute_block_size(t_game *game)
-{
-	int	block_size;
-
-	block_size = game->minimap->height / game->map->rows;
-	if (game->minimap->width / (game->map->cols) < block_size)
-		block_size = game->minimap->width / (game->map->cols);
-	game->block_size = block_size;
 }
 
 t_game	*init_game(t_map *m)
@@ -60,58 +50,7 @@ t_game	*init_game(t_map *m)
 		return (mlx_terminate(game->mlx), free_game(game), NULL);
 	game->player = init_player(game->map);
 	game->ray = init_ray();
-	compute_block_size(game);
 	return (game);
-}
-
-void	free_game(t_game *game)
-{
-	if (game->map != NULL)
-		free_map_struct(game->map);
-	game->map = NULL;
-	if (game->image != NULL)
-		mlx_delete_image(game->mlx, game->image);
-	game->image = NULL;
-	if (game->minimap != NULL)
-	{
-		if (game->minimap->image != NULL)
-			mlx_delete_image(game->mlx, game->minimap->image);
-		free(game->minimap);
-	}
-	if (game->mlx != NULL)
-		mlx_terminate(game->mlx);
-	if (game != NULL)
-		free(game);
-	game = NULL;
-}
-
-void	load_doors(t_game *game)
-{
-	int	i;
-	int	j;
-	int	d;
-
-	game->map->doors_count = doors_count(game->map);
-	game->map->doors = malloc(sizeof(t_door) * game->map->doors_count);
-	if (!game->map->doors)
-		return (ft_prerr(FAIL_DOORS_INIT, NULL), free_game(game));
-	i = -1;
-	j = -1;
-	d = 0;
-	while (++j < game->map->rows)
-	{
-		while (++i < game->map->cols)
-		{
-			if (game->map->map[j][i] == DOOR)
-			{
-				game->map->doors[d].pos.x = j;
-				game->map->doors[d].pos.y = i;
-				game->map->doors[d].is_open = false;
-				d++;
-			}
-		}
-		i = -1;
-	}
 }
 
 void	open_n_draw(t_map *m)

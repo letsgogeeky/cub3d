@@ -77,7 +77,7 @@ void	move_left(t_game *game)
 
 void	move_right(t_game *game)
 {
-		t_map		*map;
+	t_map		*map;
 	t_player	*player;
 	double		next_x;
 	double		next_y;

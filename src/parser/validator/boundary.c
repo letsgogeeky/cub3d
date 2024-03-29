@@ -38,6 +38,7 @@ bool	valid_from_back(char *line, char *prev, char *next, char ignore)
 	}
 	return (true);
 }
+
 bool	valid_from_front(char *line, char *prev, char *next, char ignore)
 {
 	int	i;
