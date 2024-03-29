@@ -52,7 +52,8 @@ t_texture	*choose_texture(t_game *game)
 
 	i = (int)(game->ray.hitpoint.x + 0.00001 * game->ray.angle.x);
 	j = (int)(game->ray.hitpoint.y + 0.00001 * game->ray.angle.y);
-	if (game->map->map[j][i] == DOOR && !door_is_open(game, j, i))
+	if (j >= 0 && i >= 0 && j < game->map->rows && i < game->map->cols && \
+		game->map->map[j][i] == DOOR && !door_is_open(game, j, i))
 		return (game->map->door_texture);
 	if (game->ray.wall_texture == NORTH)
 		return (game->map->north_texture);
