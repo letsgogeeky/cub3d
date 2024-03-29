@@ -16,11 +16,11 @@ unsigned int	*load_texture_pixels(mlx_texture_t *texture)
 		while (++j < texture->width)
 		{
 			data[i * texture->width + j] = colorcode(
-				texture->pixels[i * texture->width * 4 + j * 4],
-				texture->pixels[i * texture->width * 4 + j * 4 + 1],
-				texture->pixels[i * texture->width * 4 + j * 4 + 2],
-				texture->pixels[i * texture->width * 4 + j * 4 + 3]
-			);
+					texture->pixels[i * texture->width * 4 + j * 4],
+					texture->pixels[i * texture->width * 4 + j * 4 + 1],
+					texture->pixels[i * texture->width * 4 + j * 4 + 2],
+					texture->pixels[i * texture->width * 4 + j * 4 + 3]
+					);
 		}
 	}
 	return (data);
@@ -35,7 +35,7 @@ void	update_texture(t_texture *texture)
 	mlx_delete_texture(texture->tex);
 }
 
-void	load_textures(t_map *map) //doesnt seem to work probably used wrongly
+void	load_textures(t_map *map)
 {
 	update_texture(map->north_texture);
 	update_texture(map->south_texture);
@@ -47,8 +47,8 @@ void	load_textures(t_map *map) //doesnt seem to work probably used wrongly
 
 t_texture	*choose_texture(t_game *game)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = (int)(game->ray.hitpoint.x + 0.00001 * game->ray.angle.x);
 	j = (int)(game->ray.hitpoint.y + 0.00001 * game->ray.angle.y);
