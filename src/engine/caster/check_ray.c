@@ -34,29 +34,6 @@ int	check_hit(t_game *game, t_position hitpoint)
 	map = game->map->map;
 	i = (int)(hitpoint.x + 0.00001 * game->ray.angle.x);
 	j = (int)(hitpoint.y + 0.00001 * game->ray.angle.y);
-	// printf("check x %f -> %i\n", hitpoint.x, i);
-	// printf("check y %f -> %i\n", hitpoint.y, j);
-	// t_vector a, b;
-	// a.x = (i + 0) * game->block_size;
-	// a.y = (j + 0) * game->block_size;
-	// b.x = (i + 1) * game->block_size;
-	// b.y = (j + 1) * game->block_size;
-	// draw_line(game, a, b, 0x00FF00FF);
-	// a.y = (j + 1) * game->block_size;
-	// b.y = (j + 0) * game->block_size;
-	// draw_line(game, a, b, 0x00FF00FF);
-	// a.x = (hitpoint.x) * game->block_size;
-	// a.y = (hitpoint.y) * game->block_size + 10;
-	// b.x = (hitpoint.x) * game->block_size;
-	// b.y = (hitpoint.y) * game->block_size - 10;
-	// draw_line(game, a, b, 0xFF0000FF);
-	// a.x = (hitpoint.x) * game->block_size + 10;
-	// a.y = (hitpoint.y) * game->block_size;
-	// b.x = (hitpoint.x) * game->block_size - 10;
-	// b.y = (hitpoint.y) * game->block_size;
-	// draw_line(game, a, b, 0x0000FFFF);
-
-	// test = ft_strncmp(&map[j][i], "1", 1);
 	if (j >= 0 && i >= 0 && j < game->map->rows && i < game->map->cols && \
 		map[j][i] && (map[j][i] == WALL || \
 		(map[j][i] == DOOR && !door_is_open(game, j, i))))

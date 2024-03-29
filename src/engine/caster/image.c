@@ -40,12 +40,23 @@ void	load_textures(t_map *map) //doesnt seem to work probably used wrongly
 	map->west_texture->tex =  mlx_load_png(map->west_texture->path);
 	map->west_texture->pixels = load_texture_pixels(map->west_texture->tex);
 	if (map->door_texture->path)
+	{
+		printf("door_texture->path: %s\n", map->door_texture->path);
 		map->door_texture->tex =  mlx_load_png(map->door_texture->path);
+		map->door_texture->pixels = load_texture_pixels(map->door_texture->tex);
+	}
 	printf("load_textures\n");
 }
 
 t_texture	*choose_texture(t_game *game)
 {
+	int i;
+	int j;
+
+	i = (int)(game->ray.hitpoint.x + 0.00001 * game->ray.angle.x);
+	j = (int)(game->ray.hitpoint.y + 0.00001 * game->ray.angle.y);
+	if (game->map->map[j][i] == DOOR && !door_is_open(game, j, i))
+		return (game->map->door_texture);
 	if (game->ray.wall_texture == NORTH)
 		return (game->map->north_texture);
 	else if (game->ray.wall_texture == SOUTH)
