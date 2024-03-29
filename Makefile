@@ -18,12 +18,13 @@ SRC_ENGINE := engine/caster/cast.c engine/caster/draw_2d.c engine/movement.c \
 			engine/caster/set_var.c engine/caster/calc_ray.c engine/caster/check_ray.c \
 			engine/player/player.c engine/player/utils.c engine/caster/image.c \
 			engine/caster/draw_3d.c engine/caster/calc_3d.c engine/caster/set_var_2.c \
-      engine/door.c engine/math_utils.c
+      		engine/door.c engine/math_utils.c \
+			engine/minimap/draw.c engine/minimap/paint.c
 
-SRC_GRAPHICS := graphics/utils.c
+SRC_GRAPHICS := graphics/hooks.c graphics/utils.c
 
 SRCS := $(SRC_PARSER) $(SRC_ENGINE) $(SRC_GRAPHICS)
-SRC_MAIN := main.c init.c draw.c
+SRC_MAIN := main.c init.c
 
 OBJS := ${addprefix src/, ${SRCS:.c=.o} ${SRC_MAIN:.c=.o}}
 OBJS_TEST := ${addprefix src/, ${SRCS:.c=.o} ${SRC_TEST:.c=.o}}

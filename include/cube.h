@@ -205,6 +205,10 @@ void			set_dda(t_position *hitpoint, t_game *game, t_vector *d, int version);
 void			dda(t_position *hitpoint, t_game *game, t_vector *dx, t_vector *dy);
 void			calculate_hitpoint(t_game *game);
 
+// minimap
+void	fill_door(t_game *game, int x, int y, int color);
+void	fill_block(t_game *game, int x, int y, int color);
+
 // check_ray.c
 int				check_first_wall(t_game *game, t_vector factor, t_position *hitpoint);
 int				check_hit(t_game *game, t_position hitpoint);
@@ -220,6 +224,7 @@ t_game			*init_game(t_map *m);
 void			ft_hook(void *param);
 void			free_game(t_game *game);
 void			open_n_draw(t_map *m);
+
 
 //map_init.c
 void			set_char(int i, char *tmp, int max_length, t_map *m);
@@ -266,6 +271,9 @@ void			draw_block(t_game *game);
 
 //graphics
 void			clear_image(mlx_image_t *image, int width, int height);
+void			ft_hook(void *param);
+void			controls_directions(void *param);
+void			ft_controls_extra(mlx_key_data_t key, void *param);
 
 // player
 t_player		init_player(t_map *map);
