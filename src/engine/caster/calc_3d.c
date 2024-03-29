@@ -6,8 +6,8 @@ t_column	calculate_height(t_game *game)
 
 	game->ray.wall_height = 1 / game->ray.len_to_plane * HEIGHT;
 	column.wall_height = game->ray.wall_height;
-	// if (column.wall_height >= HEIGHT)
-	// 	column.wall_height = HEIGHT - 1;
+	if (column.wall_height >= HEIGHT)
+		column.wall_height = HEIGHT - 1;
 	column.end_ceiling = (HEIGHT - column.wall_height) / 2;
 	if (column.end_ceiling < 0)
 		column.end_ceiling = 0;
