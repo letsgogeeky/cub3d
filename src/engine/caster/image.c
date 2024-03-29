@@ -135,14 +135,16 @@ void	resze_tex(t_texture *normal, t_game *game, t_column *column, int x)
 	{
 		// printf("true\n");
 		// y = (HEIGHT / game->ray.wall_height) * HEIGHT / 2;
-		y = (double)HEIGHT * ((game->ray.wall_height / (double)HEIGHT) - 1) / 2;
+		y = (double)normal->tex->height / 2.0 - 0.5 * (double)normal->tex->height * ((double)HEIGHT / game->ray.wall_height);
 	}
-	printf("wall_height: %d rayHEIGHT: %f; y: %f\n",column->wall_height, game->ray.wall_height, y);
+	printf("column: %dwall_height: %fy: %f\n",column->wall_height, game->ray.wall_height, y);
 	// else
 		// y = normal->tex->height / column->wall_height * fabs(y1);
 	step = 1.0 * normal->tex->height / column->wall_height;
-	// if (game->ray.wall_height >= (double)HEIGHT)
-	// 	step = 1.0 * ;
+	if (game->ray.wall_height >= (double)HEIGHT)
+		step = (double)normal->tex->height / (game->ray.wall_height / (double)HEIGHT) / (double)HEIGHT;
+	printf("step: %f normaltexh: %d, raywallh: %f, HEIGHT %d, Y: %f\n",step, normal->tex->height, game->ray.wall_height, HEIGHT, y);
+
 	n = column->end_ceiling;
 	j = ((int)y * normal->tex->width) + col;
 	while (n < column->start_floor && n < HEIGHT)
