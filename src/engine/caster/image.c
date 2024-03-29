@@ -92,26 +92,6 @@ int	find_color(t_texture *txt, double x, double y)
 	return (color);
 }
 
-// int	interpolate(t_texture *txt, double col, double y)
-// {
-// 	double	x1;
-// 	double	x2;
-// 	double	y1;
-// 	double	y2;
-// 	int		color1;
-// 	int		color2;
-// 	int		color;
-
-// 	x1 = (int)col;
-// 	x2 = x1 + 1.0;
-// 	y1 = (int)y;
-// 	y2 = y1 + 1.0;
-// 	color1 = (col - (double)x1) * find_color(txt, x1, y1) + ((double)x2 - col) * find_color(txt, x2, y1);
-// 	color2 = (col - (double)x1) * find_color(txt, x1, y2) + ((double)x2 - col) * find_color(txt, x2, y2);
-// 	color = color1 * (y - y1) + color2 * (y2 - y);
-// 	return (color);
-// }
-
 void	resze_tex(t_texture *normal, t_game *game, t_column *column, int x)
 {
 	double	col;
@@ -143,3 +123,23 @@ void	resze_tex(t_texture *normal, t_game *game, t_column *column, int x)
 		n++;
 	}
 }
+
+// int	interpolate(t_texture *txt, double col, double y)
+// {
+// 	double	x1;
+// 	double	x2;
+// 	double	y1;
+// 	double	y2;
+// 	int		color1;
+// 	int		color2;
+// 	int		color;
+
+// 	x1 = (int)col;
+// 	x2 = x1 + 1.0;
+// 	y1 = (int)y;
+// 	y2 = y1 + 1.0;
+// 	color1 = (col - (double)x1) * find_color(txt, x1, y1) + ((double)x2 - col) * find_color(txt, x2, y1);
+// 	color2 = (col - (double)x1) * find_color(txt, x1, y2) + ((double)x2 - col) * find_color(txt, x2, y2);
+// 	color = color1 * (y - y1) + color2 * (y2 - y);
+// 	return (color);
+// }

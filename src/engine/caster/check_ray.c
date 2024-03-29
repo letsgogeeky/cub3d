@@ -12,12 +12,15 @@ int	check_first_wall(t_game *game, t_vector factor, t_position *hitpoint)
 		hitpoint->x = game->player.pos.x + game->ray.side_dist_x.x;
 		hitpoint->y = game->player.pos.y + game->ray.side_dist_x.y;
 		game->ray.len_to_wall = vector_length(&game->ray.side_dist_x);
+		set_wall_direction(&game->ray.side_dist_x, 1, game);
+
 	}
 	else
 	{
 		hitpoint->x = game->player.pos.x + game->ray.side_dist_y.x;
 		hitpoint->y = game->player.pos.y + game->ray.side_dist_y.y;
 		game->ray.len_to_wall = vector_length(&game->ray.side_dist_y);
+		set_wall_direction(&game->ray.side_dist_y, 0, game);
 	}
 	if (check_hit(game, (*hitpoint)) == 1)
 		return (1);
