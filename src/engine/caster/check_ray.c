@@ -13,7 +13,6 @@ int	check_first_wall(t_game *game, t_vector factor, t_position *hitpoint)
 		hitpoint->y = game->player.pos.y + game->ray.side_dist_x.y;
 		game->ray.len_to_wall = vector_length(&game->ray.side_dist_x);
 		set_wall_direction(&game->ray.side_dist_x, 1, game);
-
 	}
 	else
 	{
@@ -32,7 +31,6 @@ int	check_hit(t_game *game, t_position hitpoint)
 	char	**map;
 	int		i;
 	int		j;
-	// int		test;
 
 	map = game->map->map;
 	i = (int)(hitpoint.x + 0.00001 * game->ray.angle.x);
