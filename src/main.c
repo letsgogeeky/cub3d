@@ -1,5 +1,17 @@
 #include "cube.h"
 
+void	show_help(void)
+{
+	printf("\033[36m");
+	printf("Hey, it's Cub3D! here are the list of controls:\n");
+	printf("W A S D :: Controls the player movement\n");
+	printf("F :: Open/Close the door\n");
+	printf("LEFT / RIGHT arrows :: Rotate the player\n");
+	printf("Mouse :: Rotate the player\n");
+	printf("---------------------------------------\n");
+	printf("ESC :: Exit the game\n");
+	printf("---------------------------------------\n");
+}
 
 int	main(int ac, char **argv)
 {
@@ -20,6 +32,7 @@ int	main(int ac, char **argv)
 		if (validate(m) == 0)
 			return (ft_prerr(INV_MAP, NULL), 1);
 		printf("validation done. map is valid!\n");
+		show_help();
 		open_n_draw(m);
 	}
 	else

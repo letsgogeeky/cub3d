@@ -1,36 +1,9 @@
 #include "cube.h"
 
-t_position	get_player_position(t_map *map)
+enum e_dir	initial_orientation(t_map *map)
 {
-	t_position	position;
-	int			i;
-	int			j;
-
-	i = 0;
-	position.x = -1;
-	position.y = -1;
-	while (i < map->rows)
-	{
-		j = 0;
-		while (j < map->cols)
-		{
-			if (is_orientation(map->map[i][j]))
-			{
-				position.x = j + 0.5;
-				position.y = i + 0.5;
-				return (position);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (position);
-}
-
-enum e_direction initial_orientation(t_map *map)
-{
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -47,6 +20,7 @@ enum e_direction initial_orientation(t_map *map)
 	}
 	return (UNKNOWN);
 }
+
 void	transform_orientation(t_player *player)
 {
 	if (player->init_orientation == NORTH)
@@ -70,6 +44,7 @@ void	transform_orientation(t_player *player)
 		player->plane.y = -0.66;
 	}
 }
+
 t_player	init_player(t_map *map)
 {
 	t_player	player;
@@ -89,14 +64,13 @@ t_player	init_player(t_map *map)
 
 bool	player_collision(t_game *game, t_position point, int radius)
 {
-	int i;
-	int	j;
-	double dist;
-	t_position	pos_scaled;
+	int			i;
+	int			j;
+	double		dist;
+	t_position	p1;
 
 	i = -1;
-	point.x = point.x * game->block_size - radius;
-	point.y = point.y * game->block_size - radius;
+	set_point(game, &point, radius);
 	while (++i < radius * 2)
 	{
 		j = -1;
@@ -105,11 +79,11 @@ bool	player_collision(t_game *game, t_position point, int radius)
 			dist = sqrt_xy_squared((i - radius), (j - radius));
 			if (dist > radius - 1 && dist < radius + 1)
 			{
-				pos_scaled.x = (point.x + i) / game->block_size;
-				pos_scaled.y = (point.y + j) / game->block_size;
-				if (game->map->map[(int)pos_scaled.x][(int)pos_scaled.y] == WALL || \
-					(game->map->map[(int)pos_scaled.x][(int)pos_scaled.y] == DOOR && \
-					!door_is_open(game, (int)pos_scaled.x, (int)pos_scaled.y)))
+				p1.x = (point.x + i) / game->block_size;
+				p1.y = (point.y + j) / game->block_size;
+				if (game->map->map[(int)p1.x][(int)p1.y] == WALL || \
+					(game->map->map[(int)p1.x][(int)p1.y] == DOOR && \
+					!door_is_open(game, (int)p1.x, (int)p1.y)))
 					return (true);
 			}
 		}
@@ -119,10 +93,10 @@ bool	player_collision(t_game *game, t_position point, int radius)
 
 bool	player_inside_door(t_game *game, t_position point, int radius)
 {
-	int i;
-	int	j;
-	double dist;
-	t_position	pos_scaled;
+	int			i;
+	int			j;
+	double		dist;
+	t_position	p1;
 
 	i = -1;
 	point.x = point.x * game->block_size - radius;
@@ -135,9 +109,9 @@ bool	player_inside_door(t_game *game, t_position point, int radius)
 			dist = sqrt_xy_squared((i - radius), (j - radius));
 			if (dist > radius - 1 && dist < radius + 1)
 			{
-				pos_scaled.x = (point.x + i) / game->block_size;
-				pos_scaled.y = (point.y + j) / game->block_size;
-				if (game->map->map[(int)pos_scaled.x][(int)pos_scaled.y] == DOOR)
+				p1.x = (point.x + i) / game->block_size;
+				p1.y = (point.y + j) / game->block_size;
+				if (game->map->map[(int)p1.x][(int)p1.y] == DOOR)
 					return (true);
 			}
 		}

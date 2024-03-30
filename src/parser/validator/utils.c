@@ -1,4 +1,4 @@
-#include "validator.h"
+#include "cube.h"
 
 int	largest_of_three(int a, int b, int c)
 {

@@ -1,55 +1,4 @@
-# include "cube.h"
-
-void	fill_block(t_game *game, int x, int y, int color)
-{
-	int	tmp_x;
-	int	x_max;
-	int	y_max;
-
-	tmp_x = x;
-	x_max = x + game->block_size;
-	y_max = y + game->block_size;
-	while (y < y_max)
-	{
-		while (x < x_max)
-		{
-			mlx_put_pixel(game->minimap->image, x, y, color);
-			x++;
-		}
-		x = tmp_x;
-		y++;
-	}
-}
-
-void	fill_door(t_game *game, int x, int y, int color)
-{
-	int	tmp_x;
-	int	x_max;
-	int	y_max;
-	int	margin;
-	bool	is_open;
-
-	is_open = door_is_open(game, y, x);
-	margin = 0;
-	if (is_open)
-		margin = game->block_size - (game->block_size / 10);
-	x = x * game->block_size;
-	y = y * game->block_size;
-	x_max = x + game->block_size;
-	y_max = y + game->block_size;
-	x = x + margin;
-	tmp_x = x;
-	while (y < y_max)
-	{
-		while (x < x_max)
-		{
-			mlx_put_pixel(game->minimap->image, x, y, color);
-			x++;
-		}
-		x = tmp_x;
-		y++;
-	}
-}
+#include "cube.h"
 
 void	draw_vert(t_game *game, int block_size)
 {
@@ -84,7 +33,7 @@ void	draw_hor(t_game *game, int block_size)
 	cnt = 0;
 	while (cnt <= game->map->rows)
 	{
-		while (x < block_size * (game->map->cols)) // why one more column then chars
+		while (x < block_size * (game->map->cols))
 		{
 			mlx_put_pixel(game->minimap->image, x, y, MINIMAP_FLOOR);
 			x++;
@@ -95,26 +44,6 @@ void	draw_hor(t_game *game, int block_size)
 	}
 }
 
-void	cast_wall(t_game *game, int size, int x, int y, int color)
-{
-	int	tmp_x;
-	int	x_max;
-	int	y_max;
-
-	tmp_x = x;
-	x_max = x + size;
-	y_max = y + size;
-	while (y < y_max)
-	{
-		while (x < x_max)
-		{
-			mlx_put_pixel(game->image, x, y, color);
-			x++;
-		}
-		x = tmp_x;
-		y++;
-	}
-}
 void	draw_circle(mlx_image_t *image, t_position point, int radius, int color)
 {
 	int	i;
@@ -135,15 +64,17 @@ void	draw_circle(mlx_image_t *image, t_position point, int radius, int color)
 	}
 }
 
-
 void	show_player(t_game *game)
 {
-	game->player.coordinate.x = game->player.pos.x * game->block_size - game->minimap->p_radius;
-	game->player.coordinate.y = game->player.pos.y * game->block_size - game->minimap->p_radius;
+	game->player.coordinate.x = game->player.pos.x * \
+	game->block_size - game->minimap->p_radius;
+	game->player.coordinate.y = game->player.pos.y * \
+	game->block_size - game->minimap->p_radius;
 	draw_circle(game->minimap->image, \
 		game->player.coordinate, game->minimap->p_radius, \
 		MINIMAP_PLAYER);
 	visualize_2d_ray(game, MINIMAP_DIR);
+	visualize_3d(game);
 }
 
 void	draw_block(t_game *game)
@@ -155,7 +86,8 @@ void	draw_block(t_game *game)
 	i = 0;
 	j = 0;
 	block_size = game->block_size;
-	clear_image(game->minimap->image, game->minimap->width, game->minimap->height);
+	clear_image(game->minimap->image, game->minimap->width, \
+	game->minimap->height);
 	while (i < game->map->rows)
 	{
 		while (game->map->map[i][j] != '\0')

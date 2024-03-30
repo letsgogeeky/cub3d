@@ -2,6 +2,7 @@ NO assets/textures/wall_debug/north.png
 SO assets/textures/wall_debug/south.png
 WE assets/textures/wall_debug/west.png
 EA assets/textures/wall_debug/east.png
+DD assets/textures/door/door1.png
 
 F 150,150,150
 C 100,100,100

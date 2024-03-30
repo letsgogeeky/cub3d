@@ -20,11 +20,13 @@ void	set_hitpoint(t_position *hitpoint, t_game *game, int i)
 	{
 		hitpoint->x = game->player.pos.x + game->ray.side_dist_x.x;
 		hitpoint->y = game->player.pos.y + game->ray.side_dist_x.y;
+		game->ray.len_to_wall = vector_length(&game->ray.side_dist_x);
 	}
 	else
 	{
 		hitpoint->x = game->player.pos.x + game->ray.side_dist_y.x;
 		hitpoint->y = game->player.pos.y + game->ray.side_dist_y.y;
+		game->ray.len_to_wall = vector_length(&game->ray.side_dist_y);
 	}
 }
 
@@ -41,12 +43,12 @@ void	set_steps(t_game *game)
 	game->ray.step_for_plus_y.x = game->ray.angle.x * factor_y;
 }
 
-void	set_angle(t_game *game, int x)
+void	set_angle(t_game *game, int x, int amnt_ray)
 {
 	float		scalar;
 
-	if (AMOUNT_RAYS_2D_FOV > 1)
-		scalar = (2 / ((float)AMOUNT_RAYS_2D_FOV - 1));
+	if (amnt_ray > 1)
+		scalar = (2 / ((float)amnt_ray - 1));
 	else
 		scalar = 0;
 	game->ray.angle.x = game->player.dir.x + \

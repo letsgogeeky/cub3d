@@ -23,6 +23,34 @@ int	doors_count(t_map *map)
 	return (count);
 }
 
+void	load_doors(t_game *game)
+{
+	int	i;
+	int	j;
+	int	d;
+
+	game->map->doors_count = doors_count(game->map);
+	game->map->doors = malloc(sizeof(t_door) * game->map->doors_count);
+	if (!game->map->doors)
+		return (ft_prerr(FAIL_DOORS_INIT, NULL), free_game(game));
+	j = -1;
+	d = 0;
+	while (++j < game->map->rows)
+	{
+		i = -1;
+		while (++i < game->map->cols)
+		{
+			if (game->map->map[j][i] == DOOR)
+			{
+				game->map->doors[d].pos.x = j;
+				game->map->doors[d].pos.y = i;
+				game->map->doors[d].is_open = false;
+				d++;
+			}
+		}
+	}
+}
+
 bool	door_is_open(t_game *game, int x, int y)
 {
 	int		i;

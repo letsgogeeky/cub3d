@@ -1,22 +1,22 @@
 
-NO assets/textures/a.txt
+NO assets/textures/flowers.png
 
-EA assets/textures/b.txt
+EA assets/textures/wall.png
 
-SO assets/textures/c.txt
+SO assets/textures/plants.png
 
-C 53,  41,34
+C  50,  255,34
 
-F   45, 33, 27
+F  255, 33, 27
 
-WE assets/textures/d.txt
+WE assets/textures/bricks.png
 
 111111111111111111
 1100001000000000011
 110000110000100011
 110000000000000011
-110000S00000100011
+110000000000100011
 11000000000000000011
-110000000100000011
+110000000100N00011
 110001000000000011
 111111111111111111

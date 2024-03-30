@@ -40,7 +40,7 @@ void	move_backward(t_game *game)
 		player->pos.y = next_y;
 }
 
-void	rotate(t_game *game, bool clockwise)
+void	rotate(t_game *game, bool clockwise, double speed_factor)
 {
 	t_player	*player;
 	int			rot_dir;
@@ -50,7 +50,7 @@ void	rotate(t_game *game, bool clockwise)
 	if (clockwise)
 		rot_dir = -1;
 	player = &game->player;
-	speed_dir = player->turn_speed * rot_dir;
+	speed_dir = player->turn_speed * rot_dir * speed_factor;
 	player->dir = rotate_vector(player->dir, speed_dir);
 	player->plane = rotate_vector(player->plane, speed_dir);
 }
@@ -77,7 +77,7 @@ void	move_left(t_game *game)
 
 void	move_right(t_game *game)
 {
-		t_map		*map;
+	t_map		*map;
 	t_player	*player;
 	double		next_x;
 	double		next_y;
