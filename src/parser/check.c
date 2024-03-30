@@ -55,3 +55,18 @@ int	check_all_arg(t_map *m)
 		return (1);
 	return (0);
 }
+
+int	check_chars(char *ptr)
+{
+	int	i;
+
+	i = 0;
+	while (ptr && ptr[i] && ptr[i] != '\0')
+	{
+		if (ptr[i] == '\n' || ptr[i] == '\t' || ptr[i] == ' ')
+			i++;
+		else
+			return (1);
+	}
+	return (0);
+}

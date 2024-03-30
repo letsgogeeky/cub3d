@@ -1,20 +1,5 @@
 #include "cube.h"
 
-int	check_chars(char *ptr)
-{
-	int	i;
-
-	i = 0;
-	while (ptr && ptr[i] && ptr[i] != '\0')
-	{
-		if (ptr[i] == '\n'|| ptr[i] == '\t' || ptr[i] == ' ')
-			i++;
-		else
-			return (1);
-	}
-	return (0);
-}
-
 int	txt_color_flag_factory(char *ptr)
 {
 	if (ft_strncmp(ptr, "NO ", 3) == 0)
@@ -103,20 +88,15 @@ char	*parse_walls(int fd, t_map *m)
 		ptr = &tmp[i];
 		if (find_start_map(ptr) == 0)
 			break ;
-		printf("tmp -%s-\n", tmp);
 		if (set_var_map(m, ptr) != 0)
-		{
-			printf("hier\n");
 			return (NULL);
-		}
 		free(tmp);
 		tmp = get_next_line(fd);
 	}
 	adjust_wall_path(m);
 	load_textures(m);
 	if (fill_color_struct(m->ceiling_color) != 0 || \
-		fill_color_struct(m->floor_color) != 0 || \
-		check_textures(m) != 0)
+		fill_color_struct(m->floor_color) != 0 || check_textures(m) != 0)
 		return (NULL);
 	return (tmp);
 }

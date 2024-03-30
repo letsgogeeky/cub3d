@@ -63,7 +63,7 @@ int	fill_var_map(int flag, char *ptr, t_map *m)
 		m->floor_color->str_color = ft_strdup(ptr);
 	else if (flag == 7 && m->ceiling_color->str_color == NULL)
 		m->ceiling_color->str_color = ft_strdup(ptr);
-	else if(flag != 8)
+	else if (flag != 8)
 		return (1);
 	return (0);
 }

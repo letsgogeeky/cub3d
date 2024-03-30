@@ -322,6 +322,7 @@ void			check_n_change_c(char *str);
 int				check_atoi_zero(int	color, char *arr);
 int				check_end(char *str);
 int				check_all_arg(t_map *m);
+int				check_chars(char *ptr);
 
 //free.c
 void			free_s_texture(t_texture *t);
