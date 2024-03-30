@@ -1,11 +1,12 @@
-
 NO assets/textures/flowers.png
 
 EA assets/textures/wall.png
 
 SO assets/textures/plants.png
 
-C  0,  50,80
+
+
+C  100,  50,80
 
 F  5,   0,5
 

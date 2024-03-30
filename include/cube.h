@@ -315,7 +315,7 @@ int				validate(t_map *m);
 //PARSER
 //allocate.c
 int				zero_map_struct(t_map *m);
-void			fill_var_map(int flag, char *ptr, t_map *m);
+int				fill_var_map(int flag, char *ptr, t_map *m);
 
 //check.c
 void			check_n_change_c(char *str);
@@ -344,7 +344,7 @@ t_map			*parse(t_map *m, int fd, char *argv);
 
 //wall_init.c
 int				txt_color_flag_factory(char *ptr);
-void			set_var_map(t_map *m, char *ptr);
+int				set_var_map(t_map *m, char *ptr);
 int				fill_color_struct(t_color *c);
 void			adjust_wall_path(t_map *m);
 char			*parse_walls(int fd, t_map *m);

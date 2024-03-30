@@ -1,5 +1,20 @@
 #include "cube.h"
 
+int	check_chars(char *ptr)
+{
+	int	i;
+
+	i = 0;
+	while (ptr && ptr[i] && ptr[i] != '\0')
+	{
+		if (ptr[i] == '\n'|| ptr[i] == '\t' || ptr[i] == ' ')
+			i++;
+		else
+			return (1);
+	}
+	return (0);
+}
+
 int	txt_color_flag_factory(char *ptr)
 {
 	if (ft_strncmp(ptr, "NO ", 3) == 0)
@@ -16,24 +31,30 @@ int	txt_color_flag_factory(char *ptr)
 		return (6);
 	else if (ft_strncmp(ptr, "C ", 2) == 0)
 		return (7);
+	else if (check_chars(ptr) == 0)
+		return (8);
 	return (0);
 }
 
-void	set_var_map(t_map *m, char *ptr)
+int	set_var_map(t_map *m, char *ptr)
 {
 	int	i;
 	int	flag;
 
 	flag = txt_color_flag_factory(ptr);
 	if (flag == 0)
-		return ;
+		return (1);
 	i = 2;
 	if (flag == 6 || flag == 7)
 		i = 1;
+	if (flag == 8)
+		return (0);
 	while (ptr[i] == ' ')
 		i++;
 	ptr = &ptr[i];
-	fill_var_map(flag, ptr, m);
+	if (fill_var_map(flag, ptr, m) != 0)
+		return (2);
+	return (0);
 }
 
 int	fill_color_struct(t_color *c)
@@ -82,7 +103,12 @@ char	*parse_walls(int fd, t_map *m)
 		ptr = &tmp[i];
 		if (find_start_map(ptr) == 0)
 			break ;
-		set_var_map(m, ptr);
+		printf("tmp -%s-\n", tmp);
+		if (set_var_map(m, ptr) != 0)
+		{
+			printf("hier\n");
+			return (NULL);
+		}
 		free(tmp);
 		tmp = get_next_line(fd);
 	}

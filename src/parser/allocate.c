@@ -47,20 +47,23 @@ int	zero_map_struct(t_map *m)
 	return (m->map = NULL, 0);
 }
 
-void	fill_var_map(int flag, char *ptr, t_map *m)
+int	fill_var_map(int flag, char *ptr, t_map *m)
 {
-	if (flag == 1)
+	if (flag == 1 && m->north_texture->path == NULL)
 		m->north_texture->path = ft_strdup(ptr);
-	else if (flag == 2)
+	else if (flag == 2 && m->south_texture->path == NULL)
 		m->south_texture->path = ft_strdup(ptr);
-	else if (flag == 3)
+	else if (flag == 3 && m->west_texture->path == NULL)
 		m->west_texture->path = ft_strdup(ptr);
-	else if (flag == 4)
+	else if (flag == 4 && m->east_texture->path == NULL)
 		m->east_texture->path = ft_strdup(ptr);
-	else if (flag == 5)
+	else if (flag == 5 && m->door_texture->path == NULL)
 		m->door_texture->path = ft_strdup(ptr);
-	else if (flag == 6)
+	else if (flag == 6 && m->floor_color->str_color == NULL)
 		m->floor_color->str_color = ft_strdup(ptr);
-	else if (flag == 7)
+	else if (flag == 7 && m->ceiling_color->str_color == NULL)
 		m->ceiling_color->str_color = ft_strdup(ptr);
+	else if(flag != 8)
+		return (1);
+	return (0);
 }
