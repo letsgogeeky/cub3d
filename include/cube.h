@@ -27,6 +27,7 @@
 # define INV_TEX_FILE "texture file included in map is invalid"
 # define FAIL_GAME_INIT "Error: failed to initialize game\n"
 # define FAIL_DOORS_INIT "Error: failed to initialize doors\n"
+# define FAIL_DOOR_TEXTURE "Error: door texture is missing\n"
 
 # define MINIMAP_PLAYER 0x34A853FF
 # define MINIMAP_WALL 0x4285F4FF
@@ -319,7 +320,7 @@ void			fill_var_map(int flag, char *ptr, t_map *m);
 
 //check.c
 void			check_n_change_c(char *str);
-int				check_atoi_zero(int	color, char *arr);
+int				check_atoi_zero(int color, char *arr);
 int				check_end(char *str);
 int				check_all_arg(t_map *m);
 

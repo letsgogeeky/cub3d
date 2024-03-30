@@ -65,6 +65,8 @@ void	open_n_draw(t_map *m)
 		WIDTH - game->minimap->width - 10, 10) < 0)
 		return (free_game(game));
 	load_doors(game);
+	if (game->map->door_texture->path == NULL && game->map->doors_count > 0)
+		return (ft_prerr(FAIL_DOOR_TEXTURE, NULL), free_game(game));
 	draw_block(game);
 	mlx_loop_hook(game->mlx, ft_hook, game);
 	mlx_loop_hook(game->mlx, controls_directions, game);
