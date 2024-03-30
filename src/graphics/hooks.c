@@ -39,20 +39,20 @@ void	ft_controls_extra(mlx_key_data_t key, void *param)
 		return (door_control(game), draw_block(game));
 }
 
-void    mouse_hook(void *param)
+void	mouse_hook(void *param)
 {
-    t_game *game;
-    int x;
-    int y;
-    double angle;
+	t_game	*game;
+	int		x;
+	int		y;
+	double	angle;
 
-    game = param;
-    mlx_get_mouse_pos(game->mlx, &x, &y);
-    angle = (double)(x - (WIDTH / 2));
-    if (angle < 0)
-        rotate(game, true, 0.3);
-    else
-        rotate(game, false, 0.3);
-    mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
-    draw_block(game);
+	game = param;
+	mlx_get_mouse_pos(game->mlx, &x, &y);
+	angle = (double)(x - (WIDTH / 2));
+	if (angle < 0)
+		rotate(game, true, 0.3);
+	else
+		rotate(game, false, 0.3);
+	mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
+	draw_block(game);
 }

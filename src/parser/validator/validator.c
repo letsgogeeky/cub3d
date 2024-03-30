@@ -72,32 +72,31 @@ void	update_rows_cols_count(t_map *map)
 	map->rows = rows;
 }
 
-int	validate(t_map *map)
+int	validate(t_map *m)
 {
-	int		rows;
-	int		cols;
-	char	**grid;
+	int		r;
+	int		c;
+	char	**g;
 
-	update_rows_cols_count(map);
-	grid = map->map;
-	rows = map->rows;
-	cols = map->cols;
-	if (rows < 3 || cols < 3)
+	update_rows_cols_count(m);
+	g = m->map;
+	r = m->rows;
+	c = m->cols;
+	if (r < 3 || c < 3)
 		return (printf("-> Failed on map minimum size requirements.\n"), 0);
-	if (!all_ones(grid[0], true) || !all_ones(grid[rows - 1], true))
+	if (!all_ones(g[0], true) || !all_ones(g[r - 1], true))
 		return (printf("-> Failed on First / Last row checks\n"), 0);
-	if (!validate_symbols(map))
+	if (!validate_symbols(m))
 		return (printf("-> Failed on Symbols checks\n"), 0);
-	if (!validate_top_bottom_passages(map) || !validate_bottom_top_passages(map))
+	if (!validate_top_bottom_passages(m) || !validate_bottom_top_passages(m))
 		return (printf("-> Failed on passages checks\n"), 0);
-	rows -= 2;
-	while (rows > 0)
+	r -= 1;
+	while (--r > 0)
 	{
-		if (!surrounded_by_wall(grid[rows] , EMPTY))
-			return (printf("-> Failed on Walls Checks at row: %d\n", rows), 0);
-		if (!valid_with_surrounding(grid[rows], grid[rows - 1], grid[rows + 1], EMPTY))
-			return (printf("-> Failed on internal map content and boundaries at row: %d\n", rows), 0);
-		rows--;
+		if (!surrounded_by_wall(g[r], EMPTY))
+			return (printf("-> Failed on Walls Checks at row: %d\n", r), 0);
+		if (!valid_with_surrounding(g[r], g[r - 1], g[r + 1], EMPTY))
+			return (printf("-> Failed on map boundaries at row: %d\n", r), 0);
 	}
 	return (1);
 }
