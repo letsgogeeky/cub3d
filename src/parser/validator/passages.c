@@ -54,12 +54,12 @@ bool	validate_top_bottom_passages(t_map *map)
 	return (true);
 }
 
-bool validate_bottom_top_passages(t_map *map)
+bool	validate_bottom_top_passages(t_map *map)
 {
 	char	**grid;
 	int		to;
-	int	j;
-	int	i;
+	int		j;
+	int		i;
 
 	grid = map->map;
 	if (all_ones(grid[map->rows - 1], false))

@@ -6,15 +6,12 @@ void	ft_prerr(char *str, char *argv)
 	static int	err;
 
 	i = 0;
-	//err = 0;
-	// printf("TEST %i\n", err);
 	if (str == NULL)
 		return ;
 	if (err == 0)
 	{
 		write(2, "Error\n", 6);
 		err++;
-		// printf("%i\n", err);
 	}
 	while (str[i] != '\0')
 		write(2, &str[i++], 1);
@@ -25,39 +22,6 @@ void	ft_prerr(char *str, char *argv)
 			write(2, &str[i++], 1);
 	}
 	write(2, "\n", 1);
-}
-
-int	zero_map_struct(t_map *m)
-{
-	m->north_texture = ft_calloc(1, sizeof(t_texture));
-	if (m->north_texture == NULL)
-		return (1);
-	m->north_texture->path = NULL;
-	m->south_texture = ft_calloc(1, sizeof(t_texture));
-	if (m->south_texture == NULL)
-		return (1);
-	m->south_texture->path = NULL;
-	m->west_texture = ft_calloc(1, sizeof(t_texture));
-	if (m->west_texture == NULL)
-		return (1);
-	m->west_texture->path = NULL;
-	m->east_texture = ft_calloc(1, sizeof(t_texture));
-	if (m->east_texture == NULL)
-		return (1);
-	m->east_texture->path = NULL;
-	m->door_texture = ft_calloc(1, sizeof(t_texture));
-	if (m->door_texture == NULL)
-		return (1);
-	m->door_texture->path = NULL;
-	m->floor_color = ft_calloc(1, sizeof(t_color));
-	if (m->floor_color == NULL)
-		return (1);
-	m->floor_color->str_color = NULL;
-	m->ceiling_color = ft_calloc(1, sizeof(t_color));
-	if (m->ceiling_color == NULL)
-		return (1);
-	m->ceiling_color->str_color = NULL;
-	return (m->map = NULL, 0);
 }
 
 int	set_max_len(char *str, int max)
@@ -95,9 +59,4 @@ int	find_start_map(char *str)
 	if (flag == 0)
 		return (1);
 	return (0);
-}
-
-int	colorcode(int red, int green, int blue, int alpha)
-{
-	return ((red << 24) | (green << 16) | (blue << 8) | alpha);
 }

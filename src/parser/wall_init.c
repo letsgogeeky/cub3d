@@ -1,21 +1,22 @@
-#include "../../include/cube.h"
+#include "cube.h"
 
-void	fill_var_map(int flag, char *ptr, t_map *m)
+int	txt_color_flag_factory(char *ptr)
 {
-	if (flag == 1)
-		m->north_texture->path = ft_strdup(ptr);
-	else if (flag == 2)
-		m->south_texture->path = ft_strdup(ptr);
-	else if (flag == 3)
-		m->west_texture->path = ft_strdup(ptr);
-	else if (flag == 4)
-		m->east_texture->path = ft_strdup(ptr);
-	else if (flag == 5)
-		m->door_texture->path = ft_strdup(ptr);
-	else if (flag == 6)
-		m->floor_color->str_color = ft_strdup(ptr);
-	else if (flag == 7)
-		m->ceiling_color->str_color = ft_strdup(ptr);
+	if (ft_strncmp(ptr, "NO ", 3) == 0)
+		return (1);
+	else if (ft_strncmp(ptr, "SO ", 3) == 0)
+		return (2);
+	else if (ft_strncmp(ptr, "WE ", 3) == 0)
+		return (3);
+	else if (ft_strncmp(ptr, "EA ", 3) == 0)
+		return (4);
+	else if (ft_strncmp(ptr, "DD ", 3) == 0)
+		return (5);
+	else if (ft_strncmp(ptr, "F ", 2) == 0)
+		return (6);
+	else if (ft_strncmp(ptr, "C ", 2) == 0)
+		return (7);
+	return (0);
 }
 
 void	set_var_map(t_map *m, char *ptr)
@@ -23,21 +24,7 @@ void	set_var_map(t_map *m, char *ptr)
 	int	i;
 	int	flag;
 
-	flag = 0;
-	if (ft_strncmp(ptr, "NO ", 3) == 0)
-		flag = 1;
-	else if (ft_strncmp(ptr, "SO ", 3) == 0)
-		flag = 2;
-	else if (ft_strncmp(ptr, "WE ", 3) == 0)
-		flag = 3;
-	else if (ft_strncmp(ptr, "EA ", 3) == 0)
-		flag = 4;
-	else if (ft_strncmp(ptr, "DD ", 3) == 0)
-		flag = 5;
-	else if (ft_strncmp(ptr, "F ", 2) == 0)
-		flag = 6;
-	else if (ft_strncmp(ptr, "C ", 2) == 0)
-		flag = 7;
+	flag = txt_color_flag_factory(ptr);
 	if (flag == 0)
 		return ;
 	i = 2;
@@ -52,6 +39,7 @@ void	set_var_map(t_map *m, char *ptr)
 int	fill_color_struct(t_color *c)
 {
 	char	**arr;
+	
 	arr = ft_split(c->str_color, ',');
 	if (arr == NULL || str_arr_len(arr) != 3)
 		return (1);

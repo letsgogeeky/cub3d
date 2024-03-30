@@ -259,6 +259,10 @@ void			check_n_change_c(char *str);
 int				check_end(char *str);
 int				check_all_arg(t_map *m);
 
+// allocate.c
+int				zero_map_struct(t_map *m);
+void			fill_var_map(int flag, char *ptr, t_map *m);
+
 //test.c
 void			test_parsing(t_map *m, int rows);
 void			test_wall(t_map *m);

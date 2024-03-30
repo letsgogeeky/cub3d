@@ -13,7 +13,7 @@ SRC_TEST := test/invalid_mocks.c test/valid_mocks.c test/main.c
 SRC_PARSER := parser/validator/validator.c parser/validator/boundary.c parser/validator/utils.c \
 			parser/map_init.c parser/check.c parser/test.c \
 			parser/free.c parser/init_helpers.c parser/wall_init.c \
-			parser/validator/passages.c
+			parser/validator/passages.c parser/allocate.c
 
 SRC_ENGINE := engine/caster/cast.c engine/caster/draw_2d.c engine/movement.c \
 			engine/caster/set_var.c engine/caster/calc_ray.c engine/caster/check_ray.c \
