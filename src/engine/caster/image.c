@@ -34,7 +34,7 @@ void	resze_tex(t_texture *normal, t_game *game, t_column *column, int x)
 		set_short(normal, game, &y, &step);
 	j = ((int)y * normal->width) + col;
 	n = column->end_ceiling;
-	while (n < column->start_floor && n < HEIGHT && normal->pixels[(int)j])
+	while (n < column->start_floor && n < HEIGHT)
 	{
 		if (j > normal->width * normal->height)
 			j = normal->width * normal->height - 1;

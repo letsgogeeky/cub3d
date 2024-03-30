@@ -6,7 +6,7 @@ unsigned int	*load_texture_pixels(mlx_texture_t *texture)
 	u_int32_t		i;
 	u_int32_t		j;
 
-	data = malloc(sizeof(unsigned int) * texture->width * texture->height);
+	data = malloc(sizeof(unsigned int) * texture->width * texture->height + 4);
 	if (!data)
 		return (NULL);
 	i = -1;
@@ -23,6 +23,7 @@ unsigned int	*load_texture_pixels(mlx_texture_t *texture)
 					);
 		}
 	}
+	data[texture->width * texture->height] = 0;
 	return (data);
 }
 
