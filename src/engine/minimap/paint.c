@@ -23,10 +23,10 @@ void	fill_block(t_game *game, int x, int y, int color)
 
 void	fill_door(t_game *game, int x, int y, int color)
 {
-	int	tmp_x;
-	int	x_max;
-	int	y_max;
-	int	margin;
+	int		tmp_x;
+	int		x_max;
+	int		y_max;
+	int		margin;
 	bool	is_open;
 
 	is_open = door_is_open(game, y, x);
@@ -42,10 +42,7 @@ void	fill_door(t_game *game, int x, int y, int color)
 	while (y < y_max)
 	{
 		while (x < x_max)
-		{
-			mlx_put_pixel(game->minimap->image, x, y, color);
-			x++;
-		}
+			mlx_put_pixel(game->minimap->image, x++, y, color);
 		x = tmp_x;
 		y++;
 	}
@@ -53,19 +50,19 @@ void	fill_door(t_game *game, int x, int y, int color)
 
 void	clear_image(mlx_image_t *image, int width, int height)
 {
-    int	x;
-    int	y;
+	int	x;
+	int	y;
 
-    x = 0;
-    y = 0;
-    while (y < height)
-    {
-        while (x < width)
-        {
-            mlx_put_pixel(image, x, y, 0x00000000);
-            x++;
-        }
-        x = 0;
-        y++;
-    }
+	x = 0;
+	y = 0;
+	while (y < height)
+	{
+		while (x < width)
+		{
+			mlx_put_pixel(image, x, y, 0x00000000);
+			x++;
+		}
+		x = 0;
+		y++;
+	}
 }

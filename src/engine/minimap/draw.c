@@ -33,7 +33,7 @@ void	draw_hor(t_game *game, int block_size)
 	cnt = 0;
 	while (cnt <= game->map->rows)
 	{
-		while (x < block_size * (game->map->cols)) // why one more column then chars
+		while (x < block_size * (game->map->cols))
 		{
 			mlx_put_pixel(game->minimap->image, x, y, MINIMAP_FLOOR);
 			x++;
@@ -66,8 +66,10 @@ void	draw_circle(mlx_image_t *image, t_position point, int radius, int color)
 
 void	show_player(t_game *game)
 {
-	game->player.coordinate.x = game->player.pos.x * game->block_size - game->minimap->p_radius;
-	game->player.coordinate.y = game->player.pos.y * game->block_size - game->minimap->p_radius;
+	game->player.coordinate.x = game->player.pos.x * \
+	game->block_size - game->minimap->p_radius;
+	game->player.coordinate.y = game->player.pos.y * \
+	game->block_size - game->minimap->p_radius;
 	draw_circle(game->minimap->image, \
 		game->player.coordinate, game->minimap->p_radius, \
 		MINIMAP_PLAYER);
@@ -84,7 +86,8 @@ void	draw_block(t_game *game)
 	i = 0;
 	j = 0;
 	block_size = game->block_size;
-	clear_image(game->minimap->image, game->minimap->width, game->minimap->height);
+	clear_image(game->minimap->image, game->minimap->width, \
+	game->minimap->height);
 	while (i < game->map->rows)
 	{
 		while (game->map->map[i][j] != '\0')
