@@ -46,7 +46,6 @@ typedef struct s_position_int
 	int	y;
 }		t_position_int;
 
-
 typedef struct s_texture
 {
 	char			*path;
@@ -71,7 +70,7 @@ typedef struct s_door
 	bool			is_open;
 }		t_door;
 
-typedef struct s_map // every element is allocated and has to be freed if failure occures
+typedef struct s_map
 {
 	t_texture	*north_texture;
 	t_texture	*south_texture;
@@ -86,7 +85,6 @@ typedef struct s_map // every element is allocated and has to be freed if failur
 	t_door		*doors;
 	int			doors_count;
 }		t_map;
-
 
 enum e_symbol
 {
@@ -105,7 +103,7 @@ enum e_dir
 	UNKNOWN,
 };
 
-typedef struct	s_vector
+typedef struct s_vector
 {
 	double	x;
 	double	y;
@@ -135,7 +133,7 @@ typedef struct s_ray
 	enum e_dir	wall_texture;
 }		t_ray;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	t_position	pos;
 	t_position	coordinate;
@@ -172,8 +170,10 @@ t_column		calculate_height(t_game *game);
 void			calculate_length_to_plane(t_game *game);
 
 //calc_ray.c
-void			set_dda(t_position *hitpoint, t_game *game, t_vector *d, int version);
-void			dda(t_position *hitpoint, t_game *game, t_vector *dx, t_vector *dy);
+void			set_dda(t_position *hitpoint, t_game *game, \
+				t_vector *d, int version);
+void			dda(t_position *hitpoint, t_game *game, \
+				t_vector *dx, t_vector *dy);
 void			calculate_hitpoint(t_game *game);
 
 // cast.c
@@ -182,11 +182,13 @@ void			visualize_2d_ray(t_game *game, int color);
 void			visualize_3d(t_game *game);
 
 // check_ray.c
-int				check_first_wall(t_game *game, t_vector factor, t_position *hitpoint);
+int				check_first_wall(t_game *game, t_vector factor, \
+				t_position *hitpoint);
 int				check_hit(t_game *game, t_position hitpoint);
 
 //draw_2d.c
-void			draw_line(t_game *game, t_vector start, t_vector end, int color);
+void			draw_line(t_game *game, t_vector start, \
+				t_vector end, int color);
 void			draw_ray(t_game *game, int color);
 
 //draw_3d.c
@@ -197,8 +199,10 @@ void			draw_column(t_game *game, t_column *column, int x);
 
 //image.c
 double			set_col(t_game *game, t_texture *normal);
-void			set_short(t_texture *normal, t_game *game, double *y, double *step);
-void			resze_tex(t_texture *normal, t_game *game, t_column *column, int x);
+void			set_short(t_texture *normal, t_game *game, \
+				double *y, double *step);
+void			resze_tex(t_texture *normal, t_game *game, \
+				t_column *column, int x);
 
 //set_var_2.c
 t_vector		set_player_in_block(t_game *game);
@@ -216,7 +220,8 @@ void			set_angle(t_game *game, int x, int amnt_ray);
 // draw.c
 void			draw_vert(t_game *game, int block_size);
 void			draw_hor(t_game *game, int block_size);
-void			draw_circle(mlx_image_t *image, t_position point, int radius, int color);
+void			draw_circle(mlx_image_t *image, t_position point, \
+				int radius, int color);
 void			show_player(t_game *game);
 void			draw_block(t_game *game);
 
@@ -281,9 +286,12 @@ int				colorcode(int red, int green, int blue, int alpha);
 //VALIDATOR
 //boundary.c
 int				index_of_nonignore(char *line, char ignore, bool from_front);
-bool			valid_from_back(char *line, char *prev, char *next, char ignore);
-bool			valid_from_front(char *line, char *prev, char *next, char ignore);
-bool			valid_with_surrounding(char *line, char *prev, char *next, char ignore);
+bool			valid_from_back(char *line, char *prev, \
+				char *next, char ignore);
+bool			valid_from_front(char *line, char *prev, \
+				char *next, char ignore);
+bool			valid_with_surrounding(char *line, char *prev, \
+				char *next, char ignore);
 bool			surrounded_by_wall(char *line, char ignore);
 
 //passages.c
