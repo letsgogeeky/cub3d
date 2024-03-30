@@ -85,7 +85,8 @@ char	*parse_walls(int fd, t_map *m)
 	adjust_wall_path(m);
 	load_textures(m);
 	if (fill_color_struct(m->ceiling_color) != 0 || \
-		fill_color_struct(m->floor_color) != 0)
+		fill_color_struct(m->floor_color) != 0 || \
+		check_textures(m) != 0)
 		return (NULL);
 	return (tmp);
 }

@@ -26,9 +26,21 @@ unsigned int	*load_texture_pixels(mlx_texture_t *texture)
 	return (data);
 }
 
+int	check_textures(t_map *m)
+{
+	if (m->north_texture->tex == NULL || \
+		m->south_texture->tex == NULL || \
+		m->west_texture->tex == NULL || \
+		m->east_texture->tex == NULL)
+		return (1);
+	return (0);
+}
+
 void	update_texture(t_texture *texture)
 {
 	texture->tex = mlx_load_png(texture->path);
+	if (texture->tex == NULL)
+		return ;
 	texture->pixels = load_texture_pixels(texture->tex);
 	texture->width = texture->tex->width;
 	texture->height = texture->tex->height;

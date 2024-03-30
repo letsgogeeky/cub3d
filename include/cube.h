@@ -269,6 +269,7 @@ void			move_right(t_game *game);
 
 //texture.c
 unsigned int	*load_texture_pixels(mlx_texture_t *texture);
+int				check_textures(t_map *m);
 void			update_texture(t_texture *texture);
 void			load_textures(t_map *map);
 t_texture		*choose_texture(t_game *game);
