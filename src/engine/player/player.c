@@ -70,8 +70,7 @@ bool	player_collision(t_game *game, t_position point, int radius)
 	t_position	p1;
 
 	i = -1;
-	point.x = point.x * game->block_size - radius;
-	point.y = point.y * game->block_size - radius;
+	set_point(game, &point, radius);
 	while (++i < radius * 2)
 	{
 		j = -1;
