@@ -17,7 +17,7 @@ void	check_n_change_c(char *str)
 	}
 }
 
-int	check_atoi_zero(int	color, char *arr)
+int	check_atoi_zero(int color, char *arr)
 {
 	if (color == 0)
 	{
