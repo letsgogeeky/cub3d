@@ -1,4 +1,4 @@
-#include "validator.h"
+#include "cube.h"
 
 int	index_of_nonignore(char *line, char ignore, bool from_front)
 {

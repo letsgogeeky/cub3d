@@ -166,7 +166,28 @@ typedef struct s_game
 	mlx_t		*mlx;
 }		t_game;
 
-int				validate(t_map *map);
+//CASTER
+//calc_3d.c
+t_column		calculate_height(t_game *game);
+void			calculate_length_to_plane(t_game *game);
+
+//calc_ray.c
+void			set_dda(t_position *hitpoint, t_game *game, t_vector *d, int version);
+void			dda(t_position *hitpoint, t_game *game, t_vector *dx, t_vector *dy);
+void			calculate_hitpoint(t_game *game);
+
+// cast.c
+t_ray			init_ray(void);
+void			visualize_2d_ray(t_game *game, int color);
+void			visualize_3d(t_game *game);
+
+// check_ray.c
+int				check_first_wall(t_game *game, t_vector factor, t_position *hitpoint);
+int				check_hit(t_game *game, t_position hitpoint);
+
+//draw_2d.c
+void			draw_line(t_game *game, t_vector start, t_vector end, int color);
+void			draw_ray(t_game *game, int color);
 
 //draw_3d.c
 void			draw_ceiling(t_game *game, t_column *column, int x);
@@ -174,18 +195,15 @@ void			draw_floor(t_game *game, t_column *column, int x);
 void			draw_image(t_game *game, t_column *column, int x);
 void			draw_column(t_game *game, t_column *column, int x);
 
-//calc_3d.c
-t_column		calculate_height(t_game *game);
-void			calculate_length_to_plane(t_game *game);
-
 //image.c
-void			load_textures(t_map *map);
-t_texture		*choose_texture(t_game *game);
+double			set_col(t_game *game, t_texture *normal);
+void			set_short(t_texture *normal, t_game *game, double *y, double *step);
 void			resze_tex(t_texture *normal, t_game *game, t_column *column, int x);
 
-//draw_2d.c
-void			draw_line(t_game *game, t_vector start, t_vector end, int color);
-void			draw_ray(t_game *game, int color);
+//set_var_2.c
+t_vector		set_player_in_block(t_game *game);
+t_vector		set_first_block_border(t_game *game);
+void			set_wall_direction(t_vector *vector, int version, t_game *game);
 
 //set_var.c
 double			vector_length(t_vector *vec);
@@ -194,55 +212,106 @@ void			set_hitpoint(t_position *hitpoint, t_game *game, int i);
 void			set_steps(t_game *game);
 void			set_angle(t_game *game, int x, int amnt_ray);
 
-//set_var_2.c
-t_vector		set_player_in_block(t_game *game);
-t_vector		set_first_block_border(t_game *game);
-void			set_wall_direction(t_vector *vector, int version, t_game *game);
+//MINIMAP
+// draw.c
+void			draw_vert(t_game *game, int block_size);
+void			draw_hor(t_game *game, int block_size);
+void			draw_circle(mlx_image_t *image, t_position point, int radius, int color);
+void			show_player(t_game *game);
+void			draw_block(t_game *game);
 
-//calc_ray.c
-void			set_dda(t_position *hitpoint, t_game *game, t_vector *d, int version);
-void			dda(t_position *hitpoint, t_game *game, t_vector *dx, t_vector *dy);
-void			calculate_hitpoint(t_game *game);
-
-// minimap
-void			fill_door(t_game *game, int x, int y, int color);
+//paint.c
 void			fill_block(t_game *game, int x, int y, int color);
+void			fill_door(t_game *game, int x, int y, int color);
+void			clear_image(mlx_image_t *image, int width, int height);
 
-// check_ray.c
-int				check_first_wall(t_game *game, t_vector factor, t_position *hitpoint);
-int				check_hit(t_game *game, t_position hitpoint);
+//PLAYER
+//player.c
+enum e_dir		initial_orientation(t_map *map);
+void			transform_orientation(t_player *player);
+t_player		init_player(t_map *map);
+bool			player_collision(t_game *game, t_position point, int radius);
+bool			player_inside_door(t_game *game, t_position point, int radius);
 
-// cast.c
-t_ray			init_ray(void);
-void			visualize_2d_ray(t_game *game, int color);
-void			visualize_3d(t_game *game);
+//utils_2.c
+void			set_point(t_game *game, t_position *point, int radius);
 
-//init.c
-t_game			*allocate_game(t_map *m);
-t_game			*init_game(t_map *m);
+//utils.c
+char			*direction_to_str(enum e_dir direction);
+bool			is_orientation(char c);
+enum e_dir		get_orientation(char c);
+t_position		get_player_position(t_map *map);
+void			log_player_position(t_map *map);
+
+//ENGINE
+//door.c
+int				doors_count(t_map *map);
+void			load_doors(t_game *game);
+bool			door_is_open(t_game *game, int x, int y);
+void			door_open_close(t_game *game, int x, int y);
+void			door_control(t_game *game);
+
+//math_utils.c
+double			sqrt_xy_squared(double x, double y);
+t_vector		rotate_vector(t_vector vec, double angle);
+
+//movement.c
+void			move_forward(t_game *game);
+void			move_backward(t_game *game);
+void			rotate(t_game *game, bool clockwise, double speed_factor);
+void			move_left(t_game *game);
+void			move_right(t_game *game);
+
+//texture.c
+unsigned int	*load_texture_pixels(mlx_texture_t *texture);
+void			update_texture(t_texture *texture);
+void			load_textures(t_map *map);
+t_texture		*choose_texture(t_game *game);
+
+//GRAPHICS
+//hooks.c
 void			ft_hook(void *param);
-void			free_game(t_game *game);
-void			open_n_draw(t_map *m);
+void			controls_directions(void *param);
+void			ft_controls_extra(mlx_key_data_t key, void *param);
+void			mouse_hook(void *param);
 
-//map_init.c
-void			set_char(int i, char *tmp, int max_length, t_map *m);
-int				fill_map(t_map *m, int fd, int rows, int max_length);
-int				parse_map(int fd, t_map *m, char *tmp, char *argv);
-t_map			*parse(t_map *m, int fd, char *argv);
-
-//wall_init.c
-void			fill_var_map(int flag, char *ptr, t_map *m);
-void			set_var_map(t_map *m, char *ptr);
-int				fill_color_struct(t_color *c);
-void			adjust_wall_path(t_map *m);
-char			*parse_walls(int fd, t_map *m);
-
-//init_helpers.c
-void			ft_prerr(char *str, char *argv);
-int				zero_map_struct(t_map *m);
-int				set_max_len(char *str, int max);
-int				find_start_map(char *str);
+//utils.c
 int				colorcode(int red, int green, int blue, int alpha);
+
+//VALIDATOR
+//boundary.c
+int				index_of_nonignore(char *line, char ignore, bool from_front);
+bool			valid_from_back(char *line, char *prev, char *next, char ignore);
+bool			valid_from_front(char *line, char *prev, char *next, char ignore);
+bool			valid_with_surrounding(char *line, char *prev, char *next, char ignore);
+bool			surrounded_by_wall(char *line, char ignore);
+
+//passages.c
+bool			hit_wall_left(char **grid, int i, int j);
+bool			hit_wall_right(char **grid, int i, int j, int cols);
+bool			validate_top_bottom_passages(t_map *map);
+bool			validate_bottom_top_passages(t_map *map);
+
+//utils.c
+int				largest_of_three(int a, int b, int c);
+int				smallest_of_three(int a, int b, int c);
+bool			is_empty(char *row);
+
+//validator.c
+bool			all_ones(char *line, bool allow_empty);
+bool			validate_symbols(t_map *map);
+void			update_rows_cols_count(t_map *map);
+int				validate(t_map *m);
+
+//PARSER
+//allocate.c
+int				zero_map_struct(t_map *m);
+void			fill_var_map(int flag, char *ptr, t_map *m);
+
+//check.c
+void			check_n_change_c(char *str);
+int				check_end(char *str);
+int				check_all_arg(t_map *m);
 
 //free.c
 void			free_s_texture(t_texture *t);
@@ -250,64 +319,33 @@ void			free_string(char *str);
 void			free_color(t_color *c);
 void			free_walls(t_map *m);
 void			free_map_struct(t_map *m);
+
+//init_helpers.c
+void			ft_prerr(char *str, char *argv);
+int				set_max_len(char *str, int max);
+int				find_start_map(char *str);
+
+//map_init.c
+void			set_char(int i, char *tmp, int max_length, t_map *m);
+char			*get_line_free_tmp(char *tmp, int fd);
+int				fill_map(t_map *m, int fd, int rows, int max_length);
+int				parse_map(int fd, t_map *m, char *tmp, char *argv);
+t_map			*parse(t_map *m, int fd, char *argv);
+
+//wall_init.c
+int				txt_color_flag_factory(char *ptr);
+void			set_var_map(t_map *m, char *ptr);
+int				fill_color_struct(t_color *c);
+void			adjust_wall_path(t_map *m);
+char			*parse_walls(int fd, t_map *m);
+
+//cleanup.c
 void			free_game(t_game *game);
 
-//check.c
-void			check_n_change_c(char *str);
-int				check_end(char *str);
-int				check_all_arg(t_map *m);
+//init.c
+t_game			*allocate_game(t_map *m);
+void			set_minimap_attributes(t_game *game);
+t_game			*init_game(t_map *m);
+void			open_n_draw(t_map *m);
 
-// allocate.c
-int				zero_map_struct(t_map *m);
-void			fill_var_map(int flag, char *ptr, t_map *m);
-
-//test.c
-void			test_parsing(t_map *m, int rows);
-void			test_wall(t_map *m);
-
-//draw.c
-void			fill_block(t_game *game, int x, int y, int color);
-void			draw_vert(t_game *game, int block_size);
-void			draw_hor(t_game *game, int block_size);
-void			draw_block(t_game *game);
-
-//graphics
-void			clear_image(mlx_image_t *image, int width, int height);
-void			ft_hook(void *param);
-void			controls_directions(void *param);
-void			ft_controls_extra(mlx_key_data_t key, void *param);
-void    		mouse_hook(void *param);
-
-// player
-t_player		init_player(t_map *map);
-t_ray			init_ray(void);
-void			visualize_2d_ray(t_game *game, int color);
-enum e_dir		get_orientation(char c);
-bool			is_orientation(char c);
-t_position		get_player_position(t_map *map);
-void			log_player_position(t_map *map);
-char			*direction_to_str(enum e_dir direction);
-void			show_player(t_game *game);
-bool			player_collision(t_game *game, t_position point, int radius);
-bool			player_inside_door(t_game *game, t_position point, int radius);
-void		set_point(t_game *game, t_position *point, int radius);
-
-
-// movement
-void			move_forward(t_game *game);
-void			move_backward(t_game *game);
-void			move_left(t_game *game);
-void			move_right(t_game *game);
-void			rotate(t_game *game, bool clockwise, double speed_factor);
-
-// doors
-int				doors_count(t_map *map);
-bool			door_is_open(t_game *game, int x, int y);
-void			door_open_close(t_game *game, int x, int y);
-void			door_control(t_game *game);
-void			load_doors(t_game *game);
-
-// math_utils
-double			sqrt_xy_squared(double x, double y);
-t_vector		rotate_vector(t_vector vec, double angle);
 #endif

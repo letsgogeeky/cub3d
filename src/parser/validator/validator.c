@@ -1,4 +1,4 @@
-#include "validator.h"
+#include "cube.h"
 
 bool	all_ones(char *line, bool allow_empty)
 {

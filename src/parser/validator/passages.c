@@ -1,4 +1,4 @@
-#include "validator.h"
+#include "cube.h"
 
 bool	hit_wall_left(char **grid, int i, int j)
 {
