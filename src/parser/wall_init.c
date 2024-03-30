@@ -46,6 +46,10 @@ int	fill_color_struct(t_color *c)
 	c->red = ft_atoi(arr[0]);
 	c->green = ft_atoi(arr[1]);
 	c->blue = ft_atoi(arr[2]);
+	if (check_atoi_zero(c->red, arr[0]) != 0 || \
+		check_atoi_zero(c->green, arr[1]) != 0 || \
+		check_atoi_zero(c->blue, arr[2]) != 0)
+		return (1);
 	if (c->red < 0 || c->red > 255 || c->green < 0 || \
 		c->green > 255 || c->blue < 0 || c->blue > 255)
 		return (1);

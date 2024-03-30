@@ -319,6 +319,7 @@ void			fill_var_map(int flag, char *ptr, t_map *m);
 
 //check.c
 void			check_n_change_c(char *str);
+int				check_atoi_zero(int	color, char *arr);
 int				check_end(char *str);
 int				check_all_arg(t_map *m);
 
