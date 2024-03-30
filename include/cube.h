@@ -319,7 +319,7 @@ int				fill_var_map(int flag, char *ptr, t_map *m);
 
 //check.c
 void			check_n_change_c(char *str);
-int				check_atoi_zero(int	color, char *arr);
+int				check_atoi_zero(int color, char *arr);
 int				check_end(char *str);
 int				check_all_arg(t_map *m);
 int				check_chars(char *ptr);
@@ -335,6 +335,8 @@ void			free_map_struct(t_map *m);
 void			ft_prerr(char *str, char *argv);
 int				set_max_len(char *str, int max);
 int				find_start_map(char *str);
+int				ft_isempty(char c);
+int				space_in_string(const char *str);
 
 //map_init.c
 void			set_char(int i, char *tmp, int max_length, t_map *m);

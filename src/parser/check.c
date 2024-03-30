@@ -63,7 +63,7 @@ int	check_chars(char *ptr)
 	i = 0;
 	while (ptr && ptr[i] && ptr[i] != '\0')
 	{
-		if (ptr[i] == '\n' || ptr[i] == '\t' || ptr[i] == ' ')
+		if (ft_isempty(ptr[i]) == 1)
 			i++;
 		else
 			return (1);

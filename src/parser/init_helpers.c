@@ -60,3 +60,27 @@ int	find_start_map(char *str)
 		return (1);
 	return (0);
 }
+
+int	ft_isempty(char c)
+{
+	if (c == ' ' || c == '\t'
+		|| c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r')
+		return (1);
+	return (0);
+}
+
+int	space_in_string(const char *str)
+{
+	while (ft_iswhitespace(*str))
+		str++;
+	if (*str != '\0' && (*str == '-' || *str == '+'))
+		str++;
+	while (*str != '\0' && *str >= '0' && *str <= '9')
+		str++;
+	while (ft_iswhitespace(*str))
+		str++;
+	if (*str != '\0')
+		return (1);
+	return (0);
+}
