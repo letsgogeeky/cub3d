@@ -8,8 +8,6 @@ CFLAGS	:= -Wextra -Wall -Werror -g -fsanitize=address -funroll-loops -march=nati
 LDFLAGS := -ldl -lglfw -pthread -lm -fsanitize=address -flto -framework Cocoa -framework OpenGL -framework IOKit
 HEADERS := -I ./include -I ${BASELIB}/include -I $(LIBMLX)/include
 
-SRC_TEST := test/invalid_mocks.c test/valid_mocks.c test/main.c
-
 SRC_PARSER := parser/validator/validator.c parser/validator/boundary.c parser/validator/utils.c \
 			parser/map_init.c parser/check.c \
 			parser/free.c parser/init_helpers.c parser/wall_init.c \
