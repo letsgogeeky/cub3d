@@ -39,7 +39,7 @@ void	set_var_map(t_map *m, char *ptr)
 int	fill_color_struct(t_color *c)
 {
 	char	**arr;
-	
+
 	arr = ft_split(c->str_color, ',');
 	if (arr == NULL || str_arr_len(arr) != 3)
 		return (1);
