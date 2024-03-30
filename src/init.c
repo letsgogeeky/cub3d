@@ -57,7 +57,6 @@ void	open_n_draw(t_map *m)
 	t_game	*game;
 
 	game = init_game(m);
-	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 	if (game == NULL)
 		return (ft_prerr(FAIL_GAME_INIT, NULL));
 	if (mlx_image_to_window(game->mlx, game->image, 0, 0) < 0)

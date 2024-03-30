@@ -47,6 +47,9 @@ void	mouse_hook(void *param)
 	double	angle;
 
 	game = param;
+	if (!mlx_is_mouse_down(game->mlx, MLX_MOUSE_BUTTON_LEFT))
+		return (mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL));
+	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 	mlx_get_mouse_pos(game->mlx, &x, &y);
 	angle = (double)(x - (WIDTH / 2));
 	if (angle < 0)
