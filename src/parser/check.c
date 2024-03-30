@@ -17,6 +17,16 @@ void	check_n_change_c(char *str)
 	}
 }
 
+int	check_atoi_zero(int color, char *arr)
+{
+	if (color == 0)
+	{
+		if (ft_strchr(arr, '0') == NULL)
+			return (1);
+	}
+	return (0);
+}
+
 int	check_end(char *str)
 {
 	int	len;
