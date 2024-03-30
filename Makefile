@@ -11,13 +11,13 @@ HEADERS := -I ./include -I ${BASELIB}/include -I $(LIBMLX)/include
 SRC_TEST := test/invalid_mocks.c test/valid_mocks.c test/main.c
 
 SRC_PARSER := parser/validator/validator.c parser/validator/boundary.c parser/validator/utils.c \
-			parser/map_init.c parser/check.c parser/test.c \
+			parser/map_init.c parser/check.c \
 			parser/free.c parser/init_helpers.c parser/wall_init.c \
 			parser/validator/passages.c parser/allocate.c
 
 SRC_ENGINE := engine/caster/cast.c engine/caster/draw_2d.c engine/movement.c \
 			engine/caster/set_var.c engine/caster/calc_ray.c engine/caster/check_ray.c \
-			engine/player/player.c engine/player/utils.c engine/caster/image.c \
+			engine/player/player.c engine/player/utils.c engine/player/utils_2.c engine/caster/image.c \
 			engine/caster/draw_3d.c engine/caster/calc_3d.c engine/caster/set_var_2.c \
       		engine/door.c engine/math_utils.c engine/texture.c \
 			engine/minimap/draw.c engine/minimap/paint.c

@@ -152,7 +152,6 @@ typedef struct s_minimap
 	int			width;
 	int			height;
 	mlx_image_t	*image;
-	int			arrows_count;
 	double		p_radius;
 }		t_minimap;
 
@@ -225,7 +224,6 @@ void			ft_hook(void *param);
 void			free_game(t_game *game);
 void			open_n_draw(t_map *m);
 
-
 //map_init.c
 void			set_char(int i, char *tmp, int max_length, t_map *m);
 int				fill_map(t_map *m, int fd, int rows, int max_length);
@@ -292,6 +290,8 @@ char			*direction_to_str(enum e_dir direction);
 void			show_player(t_game *game);
 bool			player_collision(t_game *game, t_position point, int radius);
 bool			player_inside_door(t_game *game, t_position point, int radius);
+void		set_point(t_game *game, t_position *point, int radius);
+
 
 // movement
 void			move_forward(t_game *game);
