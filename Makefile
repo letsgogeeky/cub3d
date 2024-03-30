@@ -1,6 +1,5 @@
 
 NAME:= cub3D
-NAME_TEST:= test
 
 BASELIB := ./lib/ft-baselib
 LIBMLX := ./lib/MLX42
@@ -26,7 +25,6 @@ SRCS := $(SRC_PARSER) $(SRC_ENGINE) $(SRC_GRAPHICS)
 SRC_MAIN := main.c init.c cleanup.c
 
 OBJS := ${addprefix src/, ${SRCS:.c=.o} ${SRC_MAIN:.c=.o}}
-OBJS_TEST := ${addprefix src/, ${SRCS:.c=.o} ${SRC_TEST:.c=.o}}
 LIBS := $(LIBMLX)/build/libmlx42.a ${BASELIB}/baselib.a
 
 all: MLX BASELIB ${NAME}
@@ -36,10 +34,6 @@ all: MLX BASELIB ${NAME}
 
 ${NAME}: $(LIBS) $(OBJS)
 	@$(CC) $(OBJS) $(LIBS) $(HEADERS) $(LDFLAGS) -o $(NAME) && echo "Successful $(NAME) build...!"
-
-${NAME_TEST}: MLX BASELIB $(LIBS) $(OBJS_TEST)
-	@$(CC) $(OBJS_TEST) $(LIBS) $(HEADERS) $(LDFLAGS) -o $(NAME_TEST) && echo "Successful $(NAME_TEST) build...!"
-	./test
 
 BASELIB:
 	@if [ -d ${BASELIB} ]; then\
@@ -64,11 +58,9 @@ rmlibs:
 
 clean:
 	@rm -rf $(OBJS)
-	@rm -rf $(OBJS_TEST)
 
 fclean: clean
 	rm -f ${NAME}
-	rm -f ${NAME_TEST}
 
 relib: rmlibs MLX BASELIB
 
