@@ -7,7 +7,7 @@ void	show_help(void)
 	printf("W A S D :: Controls the player movement\n");
 	printf("F :: Open/Close the door\n");
 	printf("LEFT / RIGHT arrows :: Rotate the player\n");
-	printf("Mouse :: Rotate the player\n");
+	printf("Left click on Mouse and move it :: Rotate the player\n");
 	printf("---------------------------------------\n");
 	printf("ESC :: Exit the game\n");
 	printf("---------------------------------------\n");
