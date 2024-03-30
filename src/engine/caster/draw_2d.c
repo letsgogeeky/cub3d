@@ -2,8 +2,6 @@
 
 void	draw_line(t_game *game, t_vector start, t_vector end, int color)
 {
-	double	x;
-	double	y;
 	double	dx;
 	double	dy;
 	double	steps;
@@ -11,17 +9,18 @@ void	draw_line(t_game *game, t_vector start, t_vector end, int color)
 
 	dx = end.x - start.x;
 	dy = end.y - start.y;
-	steps = (fabs(dx) > fabs(dy)) ? fabs(dx) : fabs(dy);
+	steps = fabs(dy);
+	if (fabs(dx) > fabs(dy))
+		steps = fabs(dx);
 	dx /= steps;
 	dy /= steps;
-	x = start.x;
-	y = start.y;
 	i = 0;
-	while (i <= steps && x > 0 && y > 0 && x < WIDTH && y < HEIGHT)
+	while (i <= steps && start.x > 0 && start.y > 0 \
+		&& start.x < WIDTH && start.y < HEIGHT)
 	{
-		mlx_put_pixel(game->minimap->image, x, y, color);
-		x += dx;
-		y += dy;
+		mlx_put_pixel(game->minimap->image, start.x, start.y, color);
+		start.x += dx;
+		start.y += dy;
 		i++;
 	}
 }
