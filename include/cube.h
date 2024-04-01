@@ -163,6 +163,8 @@ typedef struct s_game
 	mlx_image_t	*image;
 	t_minimap	*minimap;
 	mlx_t		*mlx;
+	bool		enable_minimap;
+	bool		enable_mouse;
 }		t_game;
 
 //CASTER

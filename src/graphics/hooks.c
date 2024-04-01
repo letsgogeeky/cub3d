@@ -37,6 +37,22 @@ void	ft_controls_extra(mlx_key_data_t key, void *param)
 	game = param;
 	if (key.key == MLX_KEY_F && key.action == MLX_PRESS)
 		return (door_control(game), draw_block(game));
+	if (key.key == MLX_KEY_SPACE && key.action == MLX_RELEASE)
+	{
+		game->enable_mouse = !game->enable_mouse;
+		if(!game->enable_mouse)
+		{
+			mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
+			printf("Mouse disabled\n");
+		}
+		else
+			printf("Mouse enabled\n");
+	}
+	if (key.key == MLX_KEY_M && key.action == MLX_RELEASE)
+	{
+		game->enable_minimap = !game->enable_minimap;
+		draw_block(game);
+	}
 }
 
 void	mouse_hook(void *param)
@@ -47,8 +63,8 @@ void	mouse_hook(void *param)
 	double	angle;
 
 	game = param;
-	if (!mlx_is_mouse_down(game->mlx, MLX_MOUSE_BUTTON_LEFT))
-		return (mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL));
+	if (!game->enable_mouse)
+		return ;
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 	mlx_get_mouse_pos(game->mlx, &x, &y);
 	angle = (double)(x - (WIDTH / 2));

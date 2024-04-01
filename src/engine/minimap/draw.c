@@ -6,6 +6,8 @@ void	draw_vert(t_game *game, int block_size)
 	int	x;
 	int	cnt;
 
+	if (!game->enable_minimap)
+		return ;
 	y = 0;
 	x = 0;
 	cnt = 0;
@@ -28,6 +30,8 @@ void	draw_hor(t_game *game, int block_size)
 	int	x;
 	int	cnt;
 
+	if (!game->enable_minimap)
+		return ;
 	y = 0;
 	x = 0;
 	cnt = 0;
@@ -70,6 +74,11 @@ void	show_player(t_game *game)
 	game->block_size - game->minimap->p_radius;
 	game->player.coordinate.y = game->player.pos.y * \
 	game->block_size - game->minimap->p_radius;
+	if (!game->enable_minimap)
+	{
+		visualize_3d(game);
+		return ;
+	}
 	draw_circle(game->minimap->image, \
 		game->player.coordinate, game->minimap->p_radius, \
 		MINIMAP_PLAYER);

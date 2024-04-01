@@ -49,6 +49,8 @@ t_game	*init_game(t_map *m)
 		return (mlx_terminate(game->mlx), free_game(game), NULL);
 	game->player = init_player(game->map);
 	game->ray = init_ray();
+	game->enable_minimap = true;
+	game->enable_mouse = false;
 	return (game);
 }
 

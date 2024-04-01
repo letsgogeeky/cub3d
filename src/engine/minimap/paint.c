@@ -6,6 +6,8 @@ void	fill_block(t_game *game, int x, int y, int color)
 	int	x_max;
 	int	y_max;
 
+	if (!game->enable_minimap)
+		return ;
 	tmp_x = x;
 	x_max = x + game->block_size;
 	y_max = y + game->block_size;
@@ -29,6 +31,8 @@ void	fill_door(t_game *game, int x, int y, int color)
 	int		margin;
 	bool	is_open;
 
+	if (!game->enable_minimap)
+		return ;
 	is_open = door_is_open(game, y, x);
 	margin = 0;
 	if (is_open)
