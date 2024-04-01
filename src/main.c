@@ -5,11 +5,13 @@ void	show_help(void)
 	printf("\033[36m");
 	printf("Hey, it's Cub3D! here are the list of controls:\n");
 	printf("W A S D :: Controls the player movement\n");
-	printf("F :: Open/Close the door\n");
+	printf("F       :: Open/Close the door\n");
+	printf("SPACE   :: Enable/Disable Mouse\n");
+	printf("M       :: Enable/Disable Minimap\n");
 	printf("LEFT / RIGHT arrows :: Rotate the player\n");
-	printf("Left click on Mouse and move it :: Rotate the player\n");
+	printf("Mouse               :: Rotate the player\n");
 	printf("---------------------------------------\n");
-	printf("ESC :: Exit the game\n");
+	printf("ESC		:: Exit the game\n");
 	printf("---------------------------------------\n");
 }
 
