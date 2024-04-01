@@ -13,7 +13,7 @@ int	index_of_nonignore(char *line, char ignore, bool from_front)
 	else
 	{
 		i = ft_strlen(line) - 1;
-		while (line[i] == ignore)
+		while (i > 0 && line[i] == ignore)
 			i--;
 	}
 	return (i);
