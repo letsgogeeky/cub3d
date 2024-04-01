@@ -316,13 +316,14 @@ int				validate(t_map *m);
 //PARSER
 //allocate.c
 int				zero_map_struct(t_map *m);
-void			fill_var_map(int flag, char *ptr, t_map *m);
+int				fill_var_map(int flag, char *ptr, t_map *m);
 
 //check.c
 void			check_n_change_c(char *str);
 int				check_atoi_zero(int color, char *arr);
 int				check_end(char *str);
 int				check_all_arg(t_map *m);
+int				check_chars(char *ptr);
 
 //free.c
 void			free_s_texture(t_texture *t);
@@ -335,6 +336,8 @@ void			free_map_struct(t_map *m);
 void			ft_prerr(char *str, char *argv);
 int				set_max_len(char *str, int max);
 int				find_start_map(char *str);
+int				ft_isempty(char c);
+int				space_in_string(const char *str);
 
 //map_init.c
 void			set_char(int i, char *tmp, int max_length, t_map *m);
@@ -345,7 +348,7 @@ t_map			*parse(t_map *m, int fd, char *argv);
 
 //wall_init.c
 int				txt_color_flag_factory(char *ptr);
-void			set_var_map(t_map *m, char *ptr);
+int				set_var_map(t_map *m, char *ptr);
 int				fill_color_struct(t_color *c);
 void			adjust_wall_path(t_map *m);
 char			*parse_walls(int fd, t_map *m);

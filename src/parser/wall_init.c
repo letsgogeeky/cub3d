@@ -16,24 +16,30 @@ int	txt_color_flag_factory(char *ptr)
 		return (6);
 	else if (ft_strncmp(ptr, "C ", 2) == 0)
 		return (7);
+	else if (check_chars(ptr) == 0)
+		return (8);
 	return (0);
 }
 
-void	set_var_map(t_map *m, char *ptr)
+int	set_var_map(t_map *m, char *ptr)
 {
 	int	i;
 	int	flag;
 
 	flag = txt_color_flag_factory(ptr);
 	if (flag == 0)
-		return ;
+		return (1);
 	i = 2;
 	if (flag == 6 || flag == 7)
 		i = 1;
+	if (flag == 8)
+		return (0);
 	while (ptr[i] == ' ')
 		i++;
 	ptr = &ptr[i];
-	fill_var_map(flag, ptr, m);
+	if (fill_var_map(flag, ptr, m) != 0)
+		return (2);
+	return (0);
 }
 
 int	fill_color_struct(t_color *c)
@@ -49,6 +55,10 @@ int	fill_color_struct(t_color *c)
 	if (check_atoi_zero(c->red, arr[0]) != 0 || \
 		check_atoi_zero(c->green, arr[1]) != 0 || \
 		check_atoi_zero(c->blue, arr[2]) != 0)
+		return (1);
+	if (space_in_string(arr[0]) != 0 || \
+		space_in_string(arr[1]) != 0 || \
+		space_in_string(arr[2]) != 0)
 		return (1);
 	if (c->red < 0 || c->red > 255 || c->green < 0 || \
 		c->green > 255 || c->blue < 0 || c->blue > 255)
@@ -82,15 +92,15 @@ char	*parse_walls(int fd, t_map *m)
 		ptr = &tmp[i];
 		if (find_start_map(ptr) == 0)
 			break ;
-		set_var_map(m, ptr);
+		if (set_var_map(m, ptr) != 0)
+			return (NULL);
 		free(tmp);
 		tmp = get_next_line(fd);
 	}
 	adjust_wall_path(m);
 	load_textures(m);
 	if (fill_color_struct(m->ceiling_color) != 0 || \
-		fill_color_struct(m->floor_color) != 0 || \
-		check_textures(m) != 0)
+		fill_color_struct(m->floor_color) != 0 || check_textures(m) != 0)
 		return (NULL);
 	return (tmp);
 }

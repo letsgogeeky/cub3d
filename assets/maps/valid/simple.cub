@@ -1,13 +1,15 @@
-
 NO assets/textures/flowers.png
 
 EA assets/textures/wall.png
 
 SO assets/textures/plants.png
 
-C  0,  50,80
 
-F  5,   0,5
+
+C  100,  50,80
+
+F  10  ,0,5
+
 
 WE assets/textures/bricks.png
 
@@ -17,6 +19,6 @@ WE assets/textures/bricks.png
 110000000000000011
 110000000000100011
 11000000000000000011
-110000000100W00011
+110000000100N00011
 110001000000000011
 111111111111111111
