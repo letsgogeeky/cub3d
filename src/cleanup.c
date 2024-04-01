@@ -29,7 +29,22 @@ void	free_game(t_game *game)
 	}
 	if (game->mlx != NULL)
 		mlx_terminate(game->mlx);
+	game->mlx = NULL;
 	if (game != NULL)
 		free(game);
 	game = NULL;
+}
+
+void	free_arr(char **arr, int i)
+{
+	while (i >= 0)
+	{
+		if (arr != NULL)
+			free(arr[i]);
+		arr[i] = NULL;
+		i--;
+	}
+	if (arr != NULL)
+		free(arr);
+	arr = NULL;
 }

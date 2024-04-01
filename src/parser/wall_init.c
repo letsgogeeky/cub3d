@@ -60,6 +60,7 @@ int	fill_color_struct(t_color *c)
 		space_in_string(arr[1]) != 0 || \
 		space_in_string(arr[2]) != 0)
 		return (1);
+	free_arr(arr, 2);
 	if (c->red < 0 || c->red > 255 || c->green < 0 || \
 		c->green > 255 || c->blue < 0 || c->blue > 255)
 		return (1);

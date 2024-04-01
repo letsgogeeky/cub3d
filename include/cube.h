@@ -357,6 +357,7 @@ char			*parse_walls(int fd, t_map *m);
 
 //cleanup.c
 void			free_game(t_game *game);
+void			free_arr(char **arr, int i);
 
 //init.c
 t_game			*allocate_game(t_map *m);

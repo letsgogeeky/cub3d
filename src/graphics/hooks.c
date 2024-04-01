@@ -40,7 +40,7 @@ void	ft_controls_extra(mlx_key_data_t key, void *param)
 	if (key.key == MLX_KEY_SPACE && key.action == MLX_RELEASE)
 	{
 		game->enable_mouse = !game->enable_mouse;
-		if(!game->enable_mouse)
+		if (!game->enable_mouse)
 		{
 			mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
 			printf("Mouse disabled\n");

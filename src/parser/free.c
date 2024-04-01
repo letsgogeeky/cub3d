@@ -54,6 +54,7 @@ void	free_map_struct(t_map *m)
 		free(m->map);
 		m->map = NULL;
 	}
+	free(m->doors);
 	free(m);
 	m = NULL;
 }

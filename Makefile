@@ -4,7 +4,7 @@ NAME:= cub3D
 BASELIB := ./lib/ft-baselib
 LIBMLX := ./lib/MLX42
 CFLAGS	:= -Wextra -Wall -Werror -g -fsanitize=address -funroll-loops -march=native -flto -ffast-math
-LDFLAGS := -ldl -lglfw -pthread -lm -fsanitize=address -flto -framework Cocoa -framework OpenGL -framework IOKit
+LDFLAGS := -ldl -lglfw -pthread -fsanitize=address -lm  -flto -framework Cocoa -framework OpenGL -framework IOKit
 HEADERS := -I ./include -I ${BASELIB}/include -I $(LIBMLX)/include
 
 SRC_PARSER := parser/validator/validator.c parser/validator/boundary.c parser/validator/utils.c \
