@@ -30,10 +30,8 @@ int	main(int ac, char **argv)
 			return (ft_prerr(INV_FD, NULL), 1);
 		if (parse(m, fd, argv[1]) == NULL)
 			return (ft_prerr(PARSING_FAILED, NULL), 1);
-		printf("parsing done\n");
 		if (validate(m) == 0)
 			return (ft_prerr(INV_MAP, NULL), 1);
-		printf("validation done. map is valid!\n");
 		show_help();
 		open_n_draw(m);
 	}
