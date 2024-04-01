@@ -13,6 +13,7 @@ void	show_help(void)
 	printf("---------------------------------------\n");
 	printf("ESC		:: Exit the game\n");
 	printf("---------------------------------------\n");
+	printf("\033[0m");
 }
 
 int	main(int ac, char **argv)
