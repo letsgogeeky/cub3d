@@ -50,6 +50,11 @@ void	update_texture(t_texture *texture)
 
 void	load_textures(t_map *map)
 {
+	if (map->north_texture->path == NULL || \
+		map->south_texture->path == NULL || \
+		map->west_texture->path == NULL || \
+		map->east_texture->path == NULL)
+		return ;
 	update_texture(map->north_texture);
 	update_texture(map->south_texture);
 	update_texture(map->west_texture);
