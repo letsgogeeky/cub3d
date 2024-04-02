@@ -32,7 +32,8 @@ int	check_textures(t_map *m)
 	if (m->north_texture->tex == NULL || \
 		m->south_texture->tex == NULL || \
 		m->west_texture->tex == NULL || \
-		m->east_texture->tex == NULL)
+		m->east_texture->tex == NULL || \
+		m->door_texture->tex == NULL)
 		return (1);
 	return (0);
 }
